@@ -33,7 +33,7 @@ public final class QuestGiverMod extends ModXRegistration
     public QuestGiverMod() {
 
         instance = this;
-
+        //test
        //STILL REQUIRED?
         MinecraftForge.EVENT_BUS.register(this);
     }

@@ -1,0 +1,773 @@
+[03jan.2022 14:30:59.443] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\Eigenaar\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 39.0.9, --fml.mcVersion, 1.18.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20211210.034407]
+[03jan.2022 14:30:59.447] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.0.18+9.0.18+main.77ffe0d4 starting: java version 17.0.1 by Oracle Corporation
+[03jan.2022 14:30:59.457] [main/DEBUG] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Found launch services [fmlclientdev,forgeclient,minecraft,fmlserveruserdev,fmlclient,fmldatauserdev,forgeserverdev,forgeserveruserdev,forgeclientdev,forgeclientuserdev,forgeserver,forgedatadev,fmlserver,fmlclientuserdev,fmlserverdev,forgedatauserdev,testharness]
+[03jan.2022 14:30:59.470] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Found naming services : [srgtomcp]
+[03jan.2022 14:30:59.481] [main/DEBUG] [cpw.mods.modlauncher.LaunchPluginHandler/MODLAUNCHER]: Found launch plugins: [mixin,eventbus,object_holder_definalize,runtime_enum_extender,capability_token_subclass,accesstransformer,runtimedistcleaner]
+[03jan.2022 14:30:59.491] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Discovering transformation services
+[03jan.2022 14:30:59.496] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found additional transformation services from discovery services: java.util.stream.ReferencePipeline$3@3401a114
+[03jan.2022 14:30:59.506] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Found transformer services : [mixin,fml]
+[03jan.2022 14:30:59.506] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading
+[03jan.2022 14:30:59.507] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service mixin
+[03jan.2022 14:30:59.507] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service mixin
+[03jan.2022 14:30:59.507] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loading service fml
+[03jan.2022 14:30:59.509] [main/DEBUG] [net.minecraftforge.fml.loading.LauncherVersion/CORE]: Found FMLLauncher version 1.0
+[03jan.2022 14:30:59.510] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML 1.0 loading
+[03jan.2022 14:30:59.510] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found ModLauncher version : 9.0.18+9.0.18+main.77ffe0d4
+[03jan.2022 14:30:59.510] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found AccessTransformer version : 8.0.4+66+master.c09db6d7
+[03jan.2022 14:30:59.511] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found EventBus version : 5.0.7+5.0.7+master.6d3407cc
+[03jan.2022 14:30:59.511] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found Runtime Dist Cleaner
+[03jan.2022 14:30:59.513] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: FML found CoreMod version : 5.0.2+5.0.2+master.303343f8
+[03jan.2022 14:30:59.514] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package implementation version 4.0.11+4.0.11+master.ce88bbba
+[03jan.2022 14:30:59.514] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Found ForgeSPI package specification 4
+[03jan.2022 14:30:59.515] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Loaded service fml
+[03jan.2022 14:30:59.516] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Configuring option handling for services
+[03jan.2022 14:30:59.523] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services initializing
+[03jan.2022 14:30:59.523] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service mixin
+[03jan.2022 14:30:59.539] [main/DEBUG] [mixin/]: MixinService [ModLauncher] was successfully booted in cpw.mods.cl.ModuleClassLoader@134593bf
+[03jan.2022 14:30:59.556] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Eigenaar/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%2334! Service=ModLauncher Env=CLIENT
+[03jan.2022 14:30:59.561] [main/DEBUG] [mixin/]: Initialising Mixin Platform Manager
+[03jan.2022 14:30:59.561] [main/DEBUG] [mixin/]: Adding mixin platform agents for container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[03jan.2022 14:30:59.562] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[03jan.2022 14:30:59.562] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[03jan.2022 14:30:59.563] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ModLauncher Root Container(ModLauncher:4f56a0a2)
+[03jan.2022 14:30:59.563] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ModLauncher Root Container(ModLauncher:4f56a0a2)
+[03jan.2022 14:30:59.565] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service mixin
+[03jan.2022 14:30:59.565] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformation service fml
+[03jan.2022 14:30:59.566] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Setting up basic FML game directories
+[03jan.2022 14:30:59.567] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing GAMEDIR directory : C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient
+[03jan.2022 14:30:59.567] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path GAMEDIR is C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient
+[03jan.2022 14:30:59.568] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing MODSDIR directory : C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\mods
+[03jan.2022 14:30:59.568] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path MODSDIR is C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\mods
+[03jan.2022 14:30:59.568] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing CONFIGDIR directory : C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config
+[03jan.2022 14:30:59.568] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path CONFIGDIR is C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config
+[03jan.2022 14:30:59.569] [main/DEBUG] [net.minecraftforge.fml.loading.FMLPaths/CORE]: Path FMLCONFIG is C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\fml.toml
+[03jan.2022 14:30:59.569] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading configuration
+[03jan.2022 14:30:59.607] [main/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing default config directory directory : C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\defaultconfigs
+[03jan.2022 14:30:59.608] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing ModFile
+[03jan.2022 14:30:59.611] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Preparing launch handler
+[03jan.2022 14:30:59.612] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Using forgeclientuserdev as launch service
+[03jan.2022 14:30:59.627] [main/DEBUG] [net.minecraftforge.fml.loading.FMLLoader/CORE]: Received command line version data  : VersionInfo[forgeVersion=39.0.9, mcVersion=1.18.1, mcpVersion=20211210.034407, forgeGroup=net.minecraftforge]
+[03jan.2022 14:30:59.629] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformation service fml
+[03jan.2022 14:30:59.630] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Current naming domain is 'mcp'
+[03jan.2022 14:30:59.630] [main/DEBUG] [cpw.mods.modlauncher.NameMappingServiceHandler/MODLAUNCHER]: Identified name mapping providers {srg=srgtomcp:1234}
+[03jan.2022 14:30:59.631] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services begin scanning
+[03jan.2022 14:30:59.632] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service mixin
+[03jan.2022 14:30:59.632] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service mixin
+[03jan.2022 14:30:59.632] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Beginning scan trigger - transformation service fml
+[03jan.2022 14:30:59.632] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Initiating mod scan
+[03jan.2022 14:30:59.641] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModListHandler/CORE]: Found mod coordinates from lists: []
+[03jan.2022 14:30:59.643] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModDiscoverer/CORE]: Found Mod Locators : (mods folder:null),(maven libs:null),(exploded directory:null),(minecraft:null),(userdev classpath:null)
+[03jan.2022 14:30:59.647] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Got mod coordinates quest_giver%%C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\resources\main;quest_giver%%C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\classes\java\main from env
+[03jan.2022 14:30:59.649] [main/DEBUG] [net.minecraftforge.fml.loading.targets.CommonLaunchHandler/CORE]: Found supplied mod coordinates [{quest_giver=[C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\resources\main, C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\classes\java\main]}]
+[03jan.2022 14:30:59.971] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar with {minecraft} mods - versions {1.18.1}
+[03jan.2022 14:30:59.975] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1\forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar with languages [LanguageSpec[languageName=minecraft, acceptedVersions=1]]
+[03jan.2022 14:30:59.976] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\resources\main
+[03jan.2022 14:30:59.984] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file main with {quest_giver} mods - versions {0.0NONE}
+[03jan.2022 14:30:59.984] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\resources\main with languages [LanguageSpec[languageName=javafml, acceptedVersions=[39,)]]
+[03jan.2022 14:30:59.985] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate 
+[03jan.2022 14:30:59.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file  with {forge} mods - versions {39.0.9}
+[03jan.2022 14:30:59.989] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file  with languages [LanguageSpec[languageName=javafml, acceptedVersions=[24,]]]
+[03jan.2022 14:31:00.018] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_method with Javascript path coremods/field_to_method.js
+[03jan.2022 14:31:00.019] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod field_to_instanceof with Javascript path coremods/field_to_instanceof.js
+[03jan.2022 14:31:00.019] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod add_bouncer_method with Javascript path coremods/add_bouncer_method.js
+[03jan.2022 14:31:00.019] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_method.js
+[03jan.2022 14:31:00.019] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/field_to_instanceof.js
+[03jan.2022 14:31:00.019] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/add_bouncer_method.js
+[03jan.2022 14:31:00.020] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\LibX\1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1\LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar
+[03jan.2022 14:31:00.021] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar with {libx} mods - versions {1.18.1-3.1.7}
+[03jan.2022 14:31:00.021] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\LibX\1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1\LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[39,)]]
+[03jan.2022 14:31:00.022] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod interact with Javascript path coremods/interact.js
+[03jan.2022 14:31:00.022] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod random_tick with Javascript path coremods/random_tick.js
+[03jan.2022 14:31:00.022] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod world_seed with Javascript path coremods/world_seed.js
+[03jan.2022 14:31:00.023] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/interact.js
+[03jan.2022 14:31:00.023] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/random_tick.js
+[03jan.2022 14:31:00.023] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/world_seed.js
+[03jan.2022 14:31:00.023] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\MineMention\1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1\MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar
+[03jan.2022 14:31:00.024] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar with {minemention} mods - versions {1.18.1-1.2.0}
+[03jan.2022 14:31:00.025] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\MineMention\1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1\MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[37,)]]
+[03jan.2022 14:31:00.025] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\LibX\1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1\LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar
+[03jan.2022 14:31:00.026] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar with {libx} mods - versions {1.18.1-3.1.7}
+[03jan.2022 14:31:00.026] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\LibX\1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1\LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[39,)]]
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod interact with Javascript path coremods/interact.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod random_tick with Javascript path coremods/random_tick.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Found coremod world_seed with Javascript path coremods/world_seed.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/interact.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/random_tick.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Found coremod coremods/world_seed.js
+[03jan.2022 14:31:00.027] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Considering mod file candidate C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\MineMention\1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1\MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar
+[03jan.2022 14:31:00.028] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFileInfo/LOADING]: Found valid mod file MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar with {minemention} mods - versions {1.18.1-1.2.0}
+[03jan.2022 14:31:00.029] [main/DEBUG] [net.minecraftforge.fml.loading.moddiscovery.ModFile/LOADING]: Loading mod file C:\Users\Eigenaar\.gradle\caches\forge_gradle\deobf_dependencies\io\github\noeppi_noeppi\mods\MineMention\1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1\MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[37,)]]
+[03jan.2022 14:31:00.030] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: End scan trigger - transformation service fml
+[03jan.2022 14:31:00.218] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found 2 language providers
+[03jan.2022 14:31:00.218] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider minecraft, version 1.0
+[03jan.2022 14:31:00.219] [main/DEBUG] [net.minecraftforge.fml.loading.LanguageLoadingProvider/CORE]: Found language provider javafml, version 39
+[03jan.2022 14:31:00.222] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found 2 mods for first modid libx, selecting most recent based on version data
+[03jan.2022 14:31:00.223] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Selected file LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18.1.jar for modid libx with version 1.18.1-3.1.7
+[03jan.2022 14:31:00.223] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Found 2 mods for first modid minemention, selecting most recent based on version data
+[03jan.2022 14:31:00.223] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/]: Selected file MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.19-1.18.1.jar for modid minemention with version 1.18.1-1.2.0
+[03jan.2022 14:31:00.226] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 7 mod requirements (7 mandatory, 0 optional)
+[03jan.2022 14:31:00.226] [main/DEBUG] [net.minecraftforge.fml.loading.ModSorter/LOADING]: Found 0 mod requirements missing (0 mandatory, 0 optional)
+[03jan.2022 14:31:00.605] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 28173 method mappings from methods.csv
+[03jan.2022 14:31:00.627] [main/DEBUG] [net.minecraftforge.fml.loading.MCPNamingService/CORE]: Loaded 26649 field mappings from fields.csv
+[03jan.2022 14:31:00.682] [main/DEBUG] [cpw.mods.modlauncher.TransformationServicesHandler/MODLAUNCHER]: Transformation services loading transformers
+[03jan.2022 14:31:00.683] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service mixin
+[03jan.2022 14:31:00.684] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service mixin
+[03jan.2022 14:31:00.684] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initializing transformers for transformation service fml
+[03jan.2022 14:31:00.684] [main/DEBUG] [net.minecraftforge.fml.loading.FMLServiceProvider/CORE]: Loading coremod transformers
+[03jan.2022 14:31:00.684] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/interact.js
+[03jan.2022 14:31:00.925] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:00.925] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/random_tick.js
+[03jan.2022 14:31:00.974] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:00.975] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/world_seed.js
+[03jan.2022 14:31:01.025] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:01.025] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_method.js
+[03jan.2022 14:31:01.038] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:01.038] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/field_to_instanceof.js
+[03jan.2022 14:31:01.076] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:01.076] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: Loading CoreMod from coremods/add_bouncer_method.js
+[03jan.2022 14:31:01.096] [main/DEBUG] [net.minecraftforge.coremod.CoreModEngine/COREMOD]: CoreMod loaded successfully
+[03jan.2022 14:31:01.105] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModMethodTransformer@3d4e405e to Target : METHOD {Lnet/minecraft/server/level/ServerPlayerGameMode;} {useItemOn} {(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;}
+[03jan.2022 14:31:01.106] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModMethodTransformer@15b642b9 to Target : METHOD {Lnet/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase;} {randomTick} {(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V}
+[03jan.2022 14:31:01.107] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModMethodTransformer@518bfd90 to Target : METHOD {Lnet/minecraft/world/level/material/FluidState;} {randomTick} {(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V}
+[03jan.2022 14:31:01.107] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModMethodTransformer@317a118b to Target : METHOD {Lnet/minecraft/world/level/levelgen/WorldGenSettings;} {<init>} {(JZZLnet/minecraft/core/MappedRegistry;Ljava/util/Optional;)V}
+[03jan.2022 14:31:01.107] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@715b886f to Target : CLASS {Lnet/minecraft/world/effect/MobEffectInstance;} {} {V}
+[03jan.2022 14:31:01.107] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@7fb29ca9 to Target : CLASS {Lnet/minecraft/world/level/block/LiquidBlock;} {} {V}
+[03jan.2022 14:31:01.108] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@1e253c9d to Target : CLASS {Lnet/minecraft/world/item/BucketItem;} {} {V}
+[03jan.2022 14:31:01.108] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@350d3f4d to Target : CLASS {Lnet/minecraft/world/level/block/StairBlock;} {} {V}
+[03jan.2022 14:31:01.108] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@18b8d173 to Target : CLASS {Lnet/minecraft/world/level/block/FlowerPotBlock;} {} {V}
+[03jan.2022 14:31:01.108] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@73844119 to Target : CLASS {Lnet/minecraft/world/item/ItemStack;} {} {V}
+[03jan.2022 14:31:01.108] [main/DEBUG] [cpw.mods.modlauncher.TransformStore/MODLAUNCHER]: Adding transformer net.minecraftforge.coremod.transformer.CoreModClassTransformer@44f24a20 to Target : CLASS {Lnet/minecraft/network/play/client/CClientSettingsPacket;} {} {V}
+[03jan.2022 14:31:01.109] [main/DEBUG] [cpw.mods.modlauncher.TransformationServiceDecorator/MODLAUNCHER]: Initialized transformers for transformation service fml
+[03jan.2022 14:31:01.422] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[03jan.2022 14:31:01.422] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[03jan.2022 14:31:01.422] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(minecraft)
+[03jan.2022 14:31:01.422] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(minecraft)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(minecraft)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(minecraft)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(minecraft)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(quest_giver)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(quest_giver)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(quest_giver)
+[03jan.2022 14:31:01.423] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(quest_giver)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(quest_giver)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(quest_giver)]
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(forge)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(forge)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(forge)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(forge)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(forge)
+[03jan.2022 14:31:01.424] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(libx)
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(libx)
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(libx)
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(libx)
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(libx)
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(libx)]
+[03jan.2022 14:31:01.425] [main/DEBUG] [mixin/]: Adding mixin platform agents for container SecureJarResource(minemention)
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentMinecraftForge for SecureJarResource(minemention)
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: MixinPlatformAgentMinecraftForge rejected container SecureJarResource(minemention)
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for SecureJarResource(minemention)
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container SecureJarResource(minemention)
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minemention)]
+[03jan.2022 14:31:01.426] [main/DEBUG] [mixin/]: Registering mixin config: minemention.mixins.json
+[03jan.2022 14:31:01.440] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by minemention.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[03jan.2022 14:31:01.444] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[03jan.2022 14:31:01.444] [main/DEBUG] [mixin/]: inject() running with 6 agents
+[03jan.2022 14:31:01.444] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ModLauncher Root Container(ModLauncher:4f56a0a2)]
+[03jan.2022 14:31:01.444] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minecraft)]
+[03jan.2022 14:31:01.444] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(quest_giver)]
+[03jan.2022 14:31:01.445] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(forge)]
+[03jan.2022 14:31:01.445] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(libx)]
+[03jan.2022 14:31:01.445] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:SecureJarResource(minemention)]
+[03jan.2022 14:31:01.445] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\Eigenaar\.gradle\caches\forge_gradle\assets, --assetIndex, 1.18]
+[03jan.2022 14:31:01.527] [main/DEBUG] [mixin/]: Error cleaning class output directory: .mixin.out
+[03jan.2022 14:31:01.531] [main/DEBUG] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[03jan.2022 14:31:01.532] [main/DEBUG] [mixin/]: Selecting config minemention.mixins.json
+[03jan.2022 14:31:01.762] [main/INFO] [mixin/]: Remapping refMap minemention.refmap.json using C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\build\createSrgToMcp\output.srg
+[03jan.2022 14:31:01.762] [main/DEBUG] [mixin/]: Preparing minemention.mixins.json (1)
+[03jan.2022 14:31:01.809] [main/DEBUG] [mixin/]: Registering new injector for @Inject with org.spongepowered.asm.mixin.injection.struct.CallbackInjectionInfo
+[03jan.2022 14:31:01.812] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArg with org.spongepowered.asm.mixin.injection.struct.ModifyArgInjectionInfo
+[03jan.2022 14:31:01.813] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArgs with org.spongepowered.asm.mixin.injection.struct.ModifyArgsInjectionInfo
+[03jan.2022 14:31:01.814] [main/DEBUG] [mixin/]: Registering new injector for @Redirect with org.spongepowered.asm.mixin.injection.struct.RedirectInjectionInfo
+[03jan.2022 14:31:01.815] [main/DEBUG] [mixin/]: Registering new injector for @ModifyVariable with org.spongepowered.asm.mixin.injection.struct.ModifyVariableInjectionInfo
+[03jan.2022 14:31:01.817] [main/DEBUG] [mixin/]: Registering new injector for @ModifyConstant with org.spongepowered.asm.mixin.injection.struct.ModifyConstantInjectionInfo
+[03jan.2022 14:31:01.821] [main/DEBUG] [mixin/]: Prepared 1 mixins in 0,288 sec (288,0ms avg) (0ms load, 0ms transform, 0ms plugin)
+[03jan.2022 14:31:01.969] [main/DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory/]: Using Log4J2 as the default logging framework
+[03jan.2022 14:31:01.971] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[03jan.2022 14:31:01.971] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[03jan.2022 14:31:02.952] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/LiquidBlock
+[03jan.2022 14:31:02.982] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/StairBlock
+[03jan.2022 14:31:03.047] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/level/block/FlowerPotBlock
+[03jan.2022 14:31:03.138] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming randomTick with desc (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V
+[03jan.2022 14:31:03.359] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming randomTick with desc (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/util/Random;)V
+[03jan.2022 14:31:03.766] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/ItemStack
+[03jan.2022 14:31:05.892] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/item/BucketItem
+[03jan.2022 14:31:06.045] [pool-3-thread-1/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming net/minecraft/world/effect/MobEffectInstance
+[03jan.2022 14:31:07.162] [Render thread/DEBUG] [mixin/]: Mixing MixinChatScreen from minemention.mixins.json into net.minecraft.client.gui.screens.ChatScreen
+[03jan.2022 14:31:07.822] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[03jan.2022 14:31:09.303] [Render thread/DEBUG] [net.minecraftforge.fml.ModWorkManager/LOADING]: Using 12 threads for parallel mod-loading
+[03jan.2022 14:31:09.313] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@7b306b9f - got cpw.mods.cl.ModuleClassLoader@3bb9efbc
+[03jan.2022 14:31:09.314] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for io.github.noeppi_noeppi.libx.LibX
+[03jan.2022 14:31:09.322] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@7b306b9f - got cpw.mods.cl.ModuleClassLoader@3bb9efbc
+[03jan.2022 14:31:09.322] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for com.feywild.quest_giver.QuestGiverMod
+[03jan.2022 14:31:09.325] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@7b306b9f - got cpw.mods.cl.ModuleClassLoader@3bb9efbc
+[03jan.2022 14:31:09.325] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for io.github.noeppi_noeppi.mods.minemention.MineMention
+[03jan.2022 14:31:09.326] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLJavaModLanguageProvider/LOADING]: Loading FMLModContainer from classloader cpw.mods.modlauncher.TransformingClassLoader@7b306b9f - got cpw.mods.cl.ModuleClassLoader@3bb9efbc
+[03jan.2022 14:31:09.327] [Render thread/DEBUG] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Creating FMLModContainer instance for net.minecraftforge.common.ForgeMod
+[03jan.2022 14:31:09.541] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for quest_giver
+[03jan.2022 14:31:09.599] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for minemention
+[03jan.2022 14:31:09.714] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[03jan.2022 14:31:09.714] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
+[03jan.2022 14:31:09.715] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[03jan.2022 14:31:09.716] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
+[03jan.2022 14:31:09.716] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
+[03jan.2022 14:31:09.716] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
+java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
+	at io.netty.util.internal.ReflectionUtil.trySetAccessible(ReflectionUtil.java:31) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.internal.PlatformDependent0$4.run(PlatformDependent0.java:253) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:247) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:294) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:42) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?]
+	at net.minecraftforge.common.ForgeMod.<init>(ForgeMod.java:144) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:81) ~[javafmllanguage-1.18.1-39.0.9.jar%2381!:?]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$4(ModContainer.java:120) ~[fmlcore-1.18.1-39.0.9.jar%2383!:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) [?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) [?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+[03jan.2022 14:31:09.718] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[03jan.2022 14:31:09.720] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent0$6 (in module io.netty.all) cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to module io.netty.all
+	at jdk.internal.reflect.Reflection.newIllegalAccessException(Reflection.java:392) ~[?:?]
+	at java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:674) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:560) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0$6.run(PlatformDependent0.java:375) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at java.security.AccessController.doPrivileged(AccessController.java:318) ~[?:?]
+	at io.netty.util.internal.PlatformDependent0.<clinit>(PlatformDependent0.java:366) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.internal.PlatformDependent.isAndroid(PlatformDependent.java:294) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.internal.PlatformDependent.<clinit>(PlatformDependent.java:88) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.ConstantPool.<init>(ConstantPool.java:34) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.AttributeKey$1.<init>(AttributeKey.java:27) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at io.netty.util.AttributeKey.<clinit>(AttributeKey.java:27) ~[netty-all-4.1.68.Final.jar%2343!:4.1.68.Final]
+	at net.minecraftforge.network.NetworkConstants.<clinit>(NetworkConstants.java:42) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?]
+	at net.minecraftforge.common.ForgeMod.<init>(ForgeMod.java:144) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:81) ~[javafmllanguage-1.18.1-39.0.9.jar%2381!:?]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$4(ModContainer.java:120) ~[fmlcore-1.18.1-39.0.9.jar%2383!:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) [?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) [?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+[03jan.2022 14:31:09.722] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+[03jan.2022 14:31:09.722] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
+[03jan.2022 14:31:09.722] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 4282384384 bytes (maybe)
+[03jan.2022 14:31:09.723] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\Eigenaar\AppData\Local\Temp (java.io.tmpdir)
+[03jan.2022 14:31:09.724] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[03jan.2022 14:31:09.724] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: Platform: Windows
+[03jan.2022 14:31:09.725] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[03jan.2022 14:31:09.725] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+[03jan.2022 14:31:09.727] [modloading-worker-0/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[03jan.2022 14:31:09.727] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[03jan.2022 14:31:09.760] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for libx
+[03jan.2022 14:31:09.862] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-client.toml for forge tracking
+[03jan.2022 14:31:09.863] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-server.toml for forge tracking
+[03jan.2022 14:31:09.863] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Config file forge-common.toml for forge tracking
+[03jan.2022 14:31:09.889] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for forge
+[03jan.2022 14:31:09.891] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.common.ForgeSpawnEggItem$CommonHandler to MOD
+[03jan.2022 14:31:09.917] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.common.ForgeSpawnEggItem$ColorRegisterHandler to MOD
+[03jan.2022 14:31:09.922] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.client.model.ModelDataManager to FORGE
+[03jan.2022 14:31:09.925] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.minecraftforge.client.ForgeHooksClient$ClientEvents to MOD
+[03jan.2022 14:31:11.422] [Render thread/DEBUG] [io.netty.util.internal.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+[03jan.2022 14:31:11.422] [Render thread/DEBUG] [io.netty.util.internal.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+[03jan.2022 14:31:11.423] [Render thread/DEBUG] [io.netty.util.internal.ThreadLocalRandom/]: -Dio.netty.initialSeedUniquifier: 0x396d8947409cf95b
+[03jan.2022 14:31:11.625] [Render thread/INFO] [com.mojang.text2speech.NarratorWindows/]: Narrator library for x64 successfully loaded
+[03jan.2022 14:31:12.080] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Loading configs type CLIENT
+[03jan.2022 14:31:12.082] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Built TOML config for C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-client.toml
+[03jan.2022 14:31:12.084] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Loaded TOML config file C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-client.toml
+[03jan.2022 14:31:12.085] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Watching TOML config file C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-client.toml for changes
+[03jan.2022 14:31:12.095] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Loading configs type COMMON
+[03jan.2022 14:31:12.095] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Built TOML config for C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-common.toml
+[03jan.2022 14:31:12.096] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Loaded TOML config file C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-common.toml
+[03jan.2022 14:31:12.097] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Watching TOML config file C:\Users\Eigenaar\Desktop\MinecraftModding\Quest_Giver\runClient\config\forge-common.toml for changes
+[03jan.2022 14:31:12.110] [Thread-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Config file forge-common.toml changed, sending notifies
+[03jan.2022 14:31:12.686] [Render thread/DEBUG] [net.minecraftforge.fml.DeferredWorkQueue/LOADING]: Dispatching synchronous work for work queue COMMON_SETUP: 1 jobs
+[03jan.2022 14:31:12.716] [Render thread/DEBUG] [net.minecraftforge.fml.DeferredWorkQueue/LOADING]: Synchronous work queue completed in 5.457 ms
+[03jan.2022 14:31:12.754] [Render thread/DEBUG] [net.minecraftforge.fml.DeferredWorkQueue/LOADING]: Dispatching synchronous work for work queue SIDED_SETUP: 1 jobs
+[03jan.2022 14:31:12.829] [Render thread/DEBUG] [net.minecraftforge.fml.DeferredWorkQueue/LOADING]: Synchronous work queue completed in 74.60 ms
+[03jan.2022 14:31:13.017] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [libx] Starting version check at https://assets.melanx.de/updates/libx.json
+[03jan.2022 14:31:13.867] [Forge Version Check/DEBUG] [net.minecraftforge.fml.VersionChecker/]: [libx] Received version check data:
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/libx",
+  "promos": {
+    "1.16.3-recommended": "1.16.3-1.0.76",
+    "1.16.3-latest": "1.16.3-1.0.76",
+    "1.16.4-recommended": "1.16.3-1.0.76",
+    "1.16.4-latest": "1.16.3-1.0.76",
+    "1.16.5-recommended": "1.16.3-1.0.76",
+    "1.16.5-latest": "1.16.3-1.0.76",
+    "1.17.1-recommended": "1.17.1-2.1.25",
+    "1.17.1-latest": "1.17.1-2.1.25",
+    "1.18-latest": "1.18-3.0.1",
+    "1.18.1-recommended": "1.18.1-3.1.0",
+    "1.18.1-latest": "1.18.1-3.1.7"
+  },
+  "1.16.3": {
+    "1.16.3-1.0.1": "Fixed curseforge upload - noeppi_noeppi",
+    "1.16.3-1.0.2": "Update README - noeppi_noeppi\nMerge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nChanges to JavaDoc - noeppi_noeppi\nMerge pull request #1 from joblo2213/1.16.3 - noeppi_noeppi\nAdd workflow that deploys the docs to gh-pages - Jonas\nchange documentation output directory - noeppi_noeppi",
+    "1.16.3-1.0.3": "Fix jenkins build - noeppi_noeppi",
+    "1.16.3-1.0.4": "Fix the Block break rendering to work with custom texture packs. - noeppi_noeppi",
+    "1.16.3-1.0.5": "change required minecraft version range - noeppi_noeppi",
+    "1.16.3-1.0.6": "add method for 2x2 compression recipes - MelanX",
+    "1.16.3-1.0.7": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nFixes #2 - noeppi_noeppi",
+    "1.16.3-1.0.8": "Merge pull request #3 from joblo2213/patch-1 - noeppi_noeppi\nUpdate ssh-agent used for workflow to v0.4.1 - Jonas",
+    "1.16.3-1.0.9": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nSome new features - noeppi_noeppi",
+    "1.16.3-1.0.10": "Fix a data generation bug related to ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.11": "Little changes to the Copy to clipboard function in the libx hand command and added libx entitydata command - noeppi_noeppi\nadd click and hover events to /libx hand command - MelanX",
+    "1.16.3-1.0.12": "add 1.16.5 tag for curseforge - MelanX",
+    "1.16.3-1.0.13": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nConfig system - noeppi_noeppi",
+    "1.16.3-1.0.14": "Events via mixin - noeppi_noeppi",
+    "1.16.3-1.0.15": "add possibility to copy nbt as json - MelanX",
+    "1.16.3-1.0.16": "Fixes for the hand command - noeppi_noeppi",
+    "1.16.3-1.0.17": "Fix the config system on the server - noeppi_noeppi",
+    "1.16.3-1.0.18": "add method to copy properties for a loot table - MelanX\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.19": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nWhy did they do this? 2 - noeppi_noeppi\nWhy did they do this? - noeppi_noeppi\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.20": "Remove the clutter in gradle - noeppi_noeppi\nFix mixins outside a dev env - noeppi_noeppi",
+    "1.16.3-1.0.21": "Fixes to the config system. - noeppi_noeppi",
+    "1.16.3-1.0.22": "ResourceLocation values as config keys and a config load event - noeppi_noeppi",
+    "1.16.3-1.0.23": "Events for random ticks - noeppi_noeppi",
+    "1.16.3-1.0.24": "Hopefully fix config issue - noeppi_noeppi",
+    "1.16.3-1.0.25": "Add text component util - noeppi_noeppi",
+    "1.16.3-1.0.27": "Breaking changes to the annotations - noeppi_noeppi",
+    "1.16.3-1.0.28": "Added bounding box utils, comments for config groups and config value validators - noeppi_noeppi",
+    "1.16.3-1.0.29": "Event for right clicks on blocks with empty hand - noeppi_noeppi",
+    "1.16.3-1.0.30": "Merge pull request #8 from noeppi-noeppi/feature/modlist-command - noeppi_noeppi\nRefactor it to use streams and replace unnecessary boolean argument with a literal. - noeppi_noeppi\nMerge branch '1.16.3' into feature/modlist-command - noeppi_noeppi\nsort list alphabetically - MelanX\nimplement modlist command - MelanX\nMerge branch '1.16.3' into feature/modlist-command - MelanX\nadd method for 2x2 compression recipes - MelanX",
+    "1.16.3-1.0.31": "Merge branch '1.16.3' of https://github.com/noeppi-noeppi/LibX into 1.16.3 - noeppi_noeppi\nAdd option to list of supported types in config annotation processor. - noeppi_noeppi",
+    "1.16.3-1.0.32": "Remove code that was there for debug - noeppi_noeppi\nA new generic container, a new event and items with inventory - noeppi_noeppi",
+    "1.16.3-1.0.33": "Remove the ammo event. See https://github.com/MinecraftForge/MinecraftForge/pull/7715 - noeppi_noeppi",
+    "1.16.3-1.0.34": "Some breaking changes to the block and item tag providers. They use the setup layout now like any other libx base provider. This should not be a problem to end users as the classes are only used during datagen. Also some more utility functions for the recipe provider base - noeppi_noeppi",
+    "1.16.3-1.0.35": "This will give a duplicate version on curse but I really need to remove the tab characters now. - noeppi_noeppi",
+    "1.16.3-1.0.36": "More breaking changes in datagen. This time it's loot tables. As the provider was very limited until now it got a complete overhaul. - noeppi_noeppi",
+    "1.16.3-1.0.37": "Rename a method - noeppi_noeppi",
+    "1.16.3-1.0.38": "Make it possible to have prefixes in RegisterClass annotations to avoid duplicates and keep field names simple. - noeppi_noeppi",
+    "1.16.3-1.0.39": "Change the maven location back - noeppi_noeppi\nAdd a new loot entry type that can select multiple items from its children in one entry. This allows for much more complex loot tables. - noeppi_noeppi",
+    "1.16.3-1.0.40": "Add a way to transform the matrixstack for rendering into the world in RenderWorldLastEvent - noeppi_noeppi",
+    "1.16.3-1.0.41": "Added NBTX and made spawn eggs automatically generate a correct model - noeppi_noeppi",
+    "1.16.3-1.0.42": "Fix a null pointer exception for blocks that do not need loot tables - noeppi_noeppi",
+    "1.16.3-1.0.43": "Added a field with minecraft:missingno resource location and made NbtIngredient return the stack given on creation as matching stacks. - noeppi_noeppi",
+    "1.16.3-1.0.44": "Add WorldSeedHolder - noeppi_noeppi",
+    "1.16.3-1.0.45": "Remove a print line - noeppi_noeppi",
+    "1.16.3-1.0.46": "Add resource lists - noeppi_noeppi",
+    "1.16.3-1.0.47": "automatically generate correct models for leaves in BlockStateProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.48": "Added enum config value mappers - noeppi_noeppi",
+    "1.16.3-1.0.49": "Added codec support to modinit - noeppi_noeppi",
+    "1.16.3-1.0.50": "Make codec field names lowercase just like registry names - noeppi_noeppi",
+    "1.16.3-1.0.51": "Add SmeltingProviderBase - noeppi_noeppi\nRemove a print line - noeppi_noeppi",
+    "1.16.3-1.0.52": "Add a method that is called during setup to Registerable - noeppi_noeppi",
+    "1.16.3-1.0.53": "Add a way for registerables to enqueue work to the synchronous work queue after parallel mod loading. - noeppi_noeppi",
+    "1.16.3-1.0.54": "",
+    "1.16.3-1.0.55": "",
+    "1.16.3-1.0.56": "Fix a method in BlockLootProviderBase - noeppi_noeppi\nSynchronize collections in ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.57": "Fix a method in BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.58": "A new method for BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.59": "Add methods for count modifiers to BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.60": "Added ingredient stacks - noeppi_noeppi",
+    "1.16.3-1.0.61": "Add value mappers for ingredient stacks and slightly change the injection point for DatapacksReloadedEvent - noeppi_noeppi",
+    "1.16.3-1.0.62": "Fix config processor for enum values - noeppi_noeppi",
+    "1.16.3-1.0.63": "Added advancement provider base and fixed some typos - noeppi_noeppi",
+    "1.16.3-1.0.64": "Made it possible to use registry lookup codecs in modinit - noeppi_noeppi",
+    "1.16.3-1.0.65": "Internal changes - noeppi_noeppi",
+    "1.16.3-1.0.66": "Improve the formatting of config jsons - noeppi_noeppi",
+    "1.16.3-1.0.67": "Now really fix the formatting - noeppi_noeppi",
+    "1.16.3-1.0.68": "Apply changes from #11 as it was missing some occurrences. - noeppi_noeppi",
+    "1.16.3-1.0.69": "Config value mapper for UUIDs and a method to draw block break with a custom sprite for custom faces - noeppi_noeppi",
+    "1.16.3-1.0.70": "Fixes #12 - noeppi_noeppi",
+    "1.16.3-1.0.71": "Sync slot limits in generic container. - noeppi_noeppi",
+    "1.16.3-1.0.72": "Fix warning messages when generic containers are created without validator and use enqueueWork in setup events. - noeppi_noeppi",
+    "1.16.3-1.0.73": "Add methods for blockless container types - noeppi_noeppi\nAllow ContainerBase without a tile entity - noeppi_noeppi",
+    "1.16.3-1.0.74": "ContainerBase for entities - noeppi_noeppi",
+    "1.16.3-1.0.75": "Added enum data serializers - noeppi_noeppi",
+    "1.16.3-1.0.76": "Fixed enum data serializers - noeppi_noeppi"
+  },
+  "1.16.4": {
+    "1.16.3-1.0.5": "change required minecraft version range - noeppi_noeppi",
+    "1.16.3-1.0.6": "add method for 2x2 compression recipes - MelanX",
+    "1.16.3-1.0.7": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nFixes #2 - noeppi_noeppi",
+    "1.16.3-1.0.8": "Merge pull request #3 from joblo2213/patch-1 - noeppi_noeppi\nUpdate ssh-agent used for workflow to v0.4.1 - Jonas",
+    "1.16.3-1.0.9": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nSome new features - noeppi_noeppi",
+    "1.16.3-1.0.10": "Fix a data generation bug related to ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.11": "Little changes to the Copy to clipboard function in the libx hand command and added libx entitydata command - noeppi_noeppi\nadd click and hover events to /libx hand command - MelanX",
+    "1.16.3-1.0.12": "add 1.16.5 tag for curseforge - MelanX",
+    "1.16.3-1.0.13": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nConfig system - noeppi_noeppi",
+    "1.16.3-1.0.14": "Events via mixin - noeppi_noeppi",
+    "1.16.3-1.0.15": "add possibility to copy nbt as json - MelanX",
+    "1.16.3-1.0.16": "Fixes for the hand command - noeppi_noeppi",
+    "1.16.3-1.0.17": "Fix the config system on the server - noeppi_noeppi",
+    "1.16.3-1.0.18": "add method to copy properties for a loot table - MelanX\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.19": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nWhy did they do this? 2 - noeppi_noeppi\nWhy did they do this? - noeppi_noeppi\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.20": "Remove the clutter in gradle - noeppi_noeppi\nFix mixins outside a dev env - noeppi_noeppi",
+    "1.16.3-1.0.21": "Fixes to the config system. - noeppi_noeppi",
+    "1.16.3-1.0.22": "ResourceLocation values as config keys and a config load event - noeppi_noeppi",
+    "1.16.3-1.0.23": "Events for random ticks - noeppi_noeppi",
+    "1.16.3-1.0.24": "Hopefully fix config issue - noeppi_noeppi",
+    "1.16.3-1.0.25": "Add text component util - noeppi_noeppi",
+    "1.16.3-1.0.27": "Breaking changes to the annotations - noeppi_noeppi",
+    "1.16.3-1.0.28": "Added bounding box utils, comments for config groups and config value validators - noeppi_noeppi",
+    "1.16.3-1.0.29": "Event for right clicks on blocks with empty hand - noeppi_noeppi",
+    "1.16.3-1.0.30": "Merge pull request #8 from noeppi-noeppi/feature/modlist-command - noeppi_noeppi\nRefactor it to use streams and replace unnecessary boolean argument with a literal. - noeppi_noeppi\nMerge branch '1.16.3' into feature/modlist-command - noeppi_noeppi\nsort list alphabetically - MelanX\nimplement modlist command - MelanX\nMerge branch '1.16.3' into feature/modlist-command - MelanX\nadd method for 2x2 compression recipes - MelanX",
+    "1.16.3-1.0.31": "Merge branch '1.16.3' of https://github.com/noeppi-noeppi/LibX into 1.16.3 - noeppi_noeppi\nAdd option to list of supported types in config annotation processor. - noeppi_noeppi",
+    "1.16.3-1.0.32": "Remove code that was there for debug - noeppi_noeppi\nA new generic container, a new event and items with inventory - noeppi_noeppi",
+    "1.16.3-1.0.33": "Remove the ammo event. See https://github.com/MinecraftForge/MinecraftForge/pull/7715 - noeppi_noeppi",
+    "1.16.3-1.0.34": "Some breaking changes to the block and item tag providers. They use the setup layout now like any other libx base provider. This should not be a problem to end users as the classes are only used during datagen. Also some more utility functions for the recipe provider base - noeppi_noeppi",
+    "1.16.3-1.0.35": "This will give a duplicate version on curse but I really need to remove the tab characters now. - noeppi_noeppi",
+    "1.16.3-1.0.36": "More breaking changes in datagen. This time it's loot tables. As the provider was very limited until now it got a complete overhaul. - noeppi_noeppi",
+    "1.16.3-1.0.37": "Rename a method - noeppi_noeppi",
+    "1.16.3-1.0.38": "Make it possible to have prefixes in RegisterClass annotations to avoid duplicates and keep field names simple. - noeppi_noeppi",
+    "1.16.3-1.0.39": "Change the maven location back - noeppi_noeppi\nAdd a new loot entry type that can select multiple items from its children in one entry. This allows for much more complex loot tables. - noeppi_noeppi",
+    "1.16.3-1.0.40": "Add a way to transform the matrixstack for rendering into the world in RenderWorldLastEvent - noeppi_noeppi",
+    "1.16.3-1.0.41": "Added NBTX and made spawn eggs automatically generate a correct model - noeppi_noeppi",
+    "1.16.3-1.0.42": "Fix a null pointer exception for blocks that do not need loot tables - noeppi_noeppi",
+    "1.16.3-1.0.43": "Added a field with minecraft:missingno resource location and made NbtIngredient return the stack given on creation as matching stacks. - noeppi_noeppi",
+    "1.16.3-1.0.44": "Add WorldSeedHolder - noeppi_noeppi",
+    "1.16.3-1.0.45": "Remove a print line - noeppi_noeppi",
+    "1.16.3-1.0.46": "Add resource lists - noeppi_noeppi",
+    "1.16.3-1.0.47": "automatically generate correct models for leaves in BlockStateProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.48": "Added enum config value mappers - noeppi_noeppi",
+    "1.16.3-1.0.49": "Added codec support to modinit - noeppi_noeppi",
+    "1.16.3-1.0.50": "Make codec field names lowercase just like registry names - noeppi_noeppi",
+    "1.16.3-1.0.51": "Add SmeltingProviderBase - noeppi_noeppi\nRemove a print line - noeppi_noeppi",
+    "1.16.3-1.0.52": "Add a method that is called during setup to Registerable - noeppi_noeppi",
+    "1.16.3-1.0.53": "Add a way for registerables to enqueue work to the synchronous work queue after parallel mod loading. - noeppi_noeppi",
+    "1.16.3-1.0.54": "",
+    "1.16.3-1.0.55": "",
+    "1.16.3-1.0.56": "Fix a method in BlockLootProviderBase - noeppi_noeppi\nSynchronize collections in ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.57": "Fix a method in BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.58": "A new method for BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.59": "Add methods for count modifiers to BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.60": "Added ingredient stacks - noeppi_noeppi",
+    "1.16.3-1.0.61": "Add value mappers for ingredient stacks and slightly change the injection point for DatapacksReloadedEvent - noeppi_noeppi",
+    "1.16.3-1.0.62": "Fix config processor for enum values - noeppi_noeppi",
+    "1.16.3-1.0.63": "Added advancement provider base and fixed some typos - noeppi_noeppi",
+    "1.16.3-1.0.64": "Made it possible to use registry lookup codecs in modinit - noeppi_noeppi",
+    "1.16.3-1.0.65": "Internal changes - noeppi_noeppi",
+    "1.16.3-1.0.66": "Improve the formatting of config jsons - noeppi_noeppi",
+    "1.16.3-1.0.67": "Now really fix the formatting - noeppi_noeppi",
+    "1.16.3-1.0.68": "Apply changes from #11 as it was missing some occurrences. - noeppi_noeppi",
+    "1.16.3-1.0.69": "Config value mapper for UUIDs and a method to draw block break with a custom sprite for custom faces - noeppi_noeppi",
+    "1.16.3-1.0.70": "Fixes #12 - noeppi_noeppi",
+    "1.16.3-1.0.71": "Sync slot limits in generic container. - noeppi_noeppi",
+    "1.16.3-1.0.72": "Fix warning messages when generic containers are created without validator and use enqueueWork in setup events. - noeppi_noeppi",
+    "1.16.3-1.0.73": "Add methods for blockless container types - noeppi_noeppi\nAllow ContainerBase without a tile entity - noeppi_noeppi",
+    "1.16.3-1.0.74": "ContainerBase for entities - noeppi_noeppi",
+    "1.16.3-1.0.75": "Added enum data serializers - noeppi_noeppi",
+    "1.16.3-1.0.76": "Fixed enum data serializers - noeppi_noeppi"
+  },
+  "1.16.5": {
+    "1.16.3-1.0.10": "Fix a data generation bug related to ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.11": "Little changes to the Copy to clipboard function in the libx hand command and added libx entitydata command - noeppi_noeppi\nadd click and hover events to /libx hand command - MelanX",
+    "1.16.3-1.0.12": "add 1.16.5 tag for curseforge - MelanX",
+    "1.16.3-1.0.13": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nConfig system - noeppi_noeppi",
+    "1.16.3-1.0.14": "Events via mixin - noeppi_noeppi",
+    "1.16.3-1.0.15": "add possibility to copy nbt as json - MelanX",
+    "1.16.3-1.0.16": "Fixes for the hand command - noeppi_noeppi",
+    "1.16.3-1.0.17": "Fix the config system on the server - noeppi_noeppi",
+    "1.16.3-1.0.18": "add method to copy properties for a loot table - MelanX\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.19": "Merge remote-tracking branch 'origin/1.16.3' into 1.16.3 - noeppi_noeppi\nWhy did they do this? 2 - noeppi_noeppi\nWhy did they do this? - noeppi_noeppi\nImprovements to the loot table data provider - noeppi_noeppi",
+    "1.16.3-1.0.20": "Remove the clutter in gradle - noeppi_noeppi\nFix mixins outside a dev env - noeppi_noeppi",
+    "1.16.3-1.0.21": "Fixes to the config system. - noeppi_noeppi",
+    "1.16.3-1.0.22": "ResourceLocation values as config keys and a config load event - noeppi_noeppi",
+    "1.16.3-1.0.23": "Events for random ticks - noeppi_noeppi",
+    "1.16.3-1.0.24": "Hopefully fix config issue - noeppi_noeppi",
+    "1.16.3-1.0.25": "Add text component util - noeppi_noeppi",
+    "1.16.3-1.0.27": "Breaking changes to the annotations - noeppi_noeppi",
+    "1.16.3-1.0.28": "Added bounding box utils, comments for config groups and config value validators - noeppi_noeppi",
+    "1.16.3-1.0.29": "Event for right clicks on blocks with empty hand - noeppi_noeppi",
+    "1.16.3-1.0.30": "Merge pull request #8 from noeppi-noeppi/feature/modlist-command - noeppi_noeppi\nRefactor it to use streams and replace unnecessary boolean argument with a literal. - noeppi_noeppi\nMerge branch '1.16.3' into feature/modlist-command - noeppi_noeppi\nsort list alphabetically - MelanX\nimplement modlist command - MelanX\nMerge branch '1.16.3' into feature/modlist-command - MelanX\nadd method for 2x2 compression recipes - MelanX",
+    "1.16.3-1.0.31": "Merge branch '1.16.3' of https://github.com/noeppi-noeppi/LibX into 1.16.3 - noeppi_noeppi\nAdd option to list of supported types in config annotation processor. - noeppi_noeppi",
+    "1.16.3-1.0.32": "Remove code that was there for debug - noeppi_noeppi\nA new generic container, a new event and items with inventory - noeppi_noeppi",
+    "1.16.3-1.0.33": "Remove the ammo event. See https://github.com/MinecraftForge/MinecraftForge/pull/7715 - noeppi_noeppi",
+    "1.16.3-1.0.34": "Some breaking changes to the block and item tag providers. They use the setup layout now like any other libx base provider. This should not be a problem to end users as the classes are only used during datagen. Also some more utility functions for the recipe provider base - noeppi_noeppi",
+    "1.16.3-1.0.35": "This will give a duplicate version on curse but I really need to remove the tab characters now. - noeppi_noeppi",
+    "1.16.3-1.0.36": "More breaking changes in datagen. This time it's loot tables. As the provider was very limited until now it got a complete overhaul. - noeppi_noeppi",
+    "1.16.3-1.0.37": "Rename a method - noeppi_noeppi",
+    "1.16.3-1.0.38": "Make it possible to have prefixes in RegisterClass annotations to avoid duplicates and keep field names simple. - noeppi_noeppi",
+    "1.16.3-1.0.39": "Change the maven location back - noeppi_noeppi\nAdd a new loot entry type that can select multiple items from its children in one entry. This allows for much more complex loot tables. - noeppi_noeppi",
+    "1.16.3-1.0.40": "Add a way to transform the matrixstack for rendering into the world in RenderWorldLastEvent - noeppi_noeppi",
+    "1.16.3-1.0.41": "Added NBTX and made spawn eggs automatically generate a correct model - noeppi_noeppi",
+    "1.16.3-1.0.42": "Fix a null pointer exception for blocks that do not need loot tables - noeppi_noeppi",
+    "1.16.3-1.0.43": "Added a field with minecraft:missingno resource location and made NbtIngredient return the stack given on creation as matching stacks. - noeppi_noeppi",
+    "1.16.3-1.0.44": "Add WorldSeedHolder - noeppi_noeppi",
+    "1.16.3-1.0.45": "Remove a print line - noeppi_noeppi",
+    "1.16.3-1.0.46": "Add resource lists - noeppi_noeppi",
+    "1.16.3-1.0.47": "automatically generate correct models for leaves in BlockStateProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.48": "Added enum config value mappers - noeppi_noeppi",
+    "1.16.3-1.0.49": "Added codec support to modinit - noeppi_noeppi",
+    "1.16.3-1.0.50": "Make codec field names lowercase just like registry names - noeppi_noeppi",
+    "1.16.3-1.0.51": "Add SmeltingProviderBase - noeppi_noeppi\nRemove a print line - noeppi_noeppi",
+    "1.16.3-1.0.52": "Add a method that is called during setup to Registerable - noeppi_noeppi",
+    "1.16.3-1.0.53": "Add a way for registerables to enqueue work to the synchronous work queue after parallel mod loading. - noeppi_noeppi",
+    "1.16.3-1.0.54": "",
+    "1.16.3-1.0.55": "",
+    "1.16.3-1.0.56": "Fix a method in BlockLootProviderBase - noeppi_noeppi\nSynchronize collections in ItemStackRenderer - noeppi_noeppi",
+    "1.16.3-1.0.57": "Fix a method in BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.58": "A new method for BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.59": "Add methods for count modifiers to BlockLootProviderBase - noeppi_noeppi",
+    "1.16.3-1.0.60": "Added ingredient stacks - noeppi_noeppi",
+    "1.16.3-1.0.61": "Add value mappers for ingredient stacks and slightly change the injection point for DatapacksReloadedEvent - noeppi_noeppi",
+    "1.16.3-1.0.62": "Fix config processor for enum values - noeppi_noeppi",
+    "1.16.3-1.0.63": "Added advancement provider base and fixed some typos - noeppi_noeppi",
+    "1.16.3-1.0.64": "Made it possible to use registry lookup codecs in modinit - noeppi_noeppi",
+    "1.16.3-1.0.65": "Internal changes - noeppi_noeppi",
+    "1.16.3-1.0.66": "Improve the formatting of config jsons - noeppi_noeppi",
+    "1.16.3-1.0.67": "Now really fix the formatting - noeppi_noeppi",
+    "1.16.3-1.0.68": "Apply changes from #11 as it was missing some occurrences. - noeppi_noeppi",
+    "1.16.3-1.0.69": "Config value mapper for UUIDs and a method to draw block break with a custom sprite for custom faces - noeppi_noeppi",
+    "1.16.3-1.0.70": "Fixes #12 - noeppi_noeppi",
+    "1.16.3-1.0.71": "Sync slot limits in generic container. - noeppi_noeppi",
+    "1.16.3-1.0.72": "Fix warning messages when generic containers are created without validator and use enqueueWork in setup events. - noeppi_noeppi",
+    "1.16.3-1.0.73": "Add methods for blockless container types - noeppi_noeppi\nAllow ContainerBase without a tile entity - noeppi_noeppi",
+    "1.16.3-1.0.74": "ContainerBase for entities - noeppi_noeppi",
+    "1.16.3-1.0.75": "Added enum data serializers - noeppi_noeppi",
+    "1.16.3-1.0.76": "Fixed enum data serializers - noeppi_noeppi"
+  },
+  "1.17.1": {
+    "1.17.1-2.0.6": "There probably won't be a release for 1.17.1\nUse at your own risk.",
+    "1.17.1-2.0.7": "",
+    "1.17.1-2.0.8": "Rename a method and make the resource list comment for configs a link - noeppi_noeppi",
+    "1.17.1-2.0.9": "add method to check if position is in bounds - MelanX",
+    "1.17.1-2.0.10": "add ability to set own texture for generic gui background - MelanX",
+    "1.17.1-2.0.11": "improve ability to set own texture for generic gui background - MelanX",
+    "1.17.1-2.0.12": "Changes - noeppi_noeppi",
+    "1.17.1-2.0.13": "fix Math2.isInBounds - MelanX",
+    "1.17.1-2.0.14": "Fix extraction and insertion for unrestricted inventory in BaseItemStackHandler - noeppi_noeppi",
+    "1.17.1-2.0.15": "Merge pull request #24 from noeppi-noeppi/feature/configgui - noeppinoeppi\nUpdate forge - noeppi_noeppi\nJavadoc - noeppi_noeppi\nComponent editors - noeppi_noeppi\nColour pickers - noeppi_noeppi\nResourceList editors - noeppi_noeppi\nMake resource lists rules differentiate between an explicit whitelist state that is the same as the default and an unset whitelist state which causes them to inherit the default. Also added methods to query data of a resource list. - noeppi_noeppi\nAdd methods to BaseItemStackHandler.Builder which accept slot ranges - noeppi_noeppi\nSugarCane! - noeppi_noeppi\nMerge branch '1.17' of https://github.com/noeppi-noeppi/LibX into feature/configgui - noeppinoeppi\nA few gui fixes - noeppi_noeppi\nPair and triple editors - noeppi_noeppi\nFix that the bottom right pixel did not turn red for invalid input in InputEditor - noeppi_noeppi\nResourceLocation and UUID editors - noeppi_noeppi\nMap editors - noeppi_noeppi\nEnum editors - noeppi_noeppi\nList editors - noeppi_noeppi\nRecord mappers - noeppi_noeppi\nSliders if validators have lower and upper bound set - noeppi_noeppi\nEditors for all simple value mappers - noeppi_noeppi\nAdd InputEditor, fix tooltips again and fix click sound - noeppi_noeppi\nDefault values for editors and added option editors - noeppi_noeppi\nFix tooltips - noeppi_noeppi\nScreens for configs. No editing yet - noeppi_noeppi\nBackend stuff. Now on to the screens... - noeppi_noeppi\nAccess to the validator while building config editors - noeppi_noeppi\nHook the config display up to ConfigImpl - noeppi_noeppi\nRemoved some redundancy in ConfigState and added a class to manage the data for a config screen - noeppi_noeppi\nAdd first editor to test stuff with it - noeppi_noeppi\nSearch method to make config editors searchable - noeppi_noeppi\nFirst attempt on an API that can be used by custom value mappers - noeppi_noeppi",
+    "1.17.1-2.0.16": "Add possibility to add recipe conditions to a provider - noeppi_noeppi\nMerge branch 'feature/configgui' into 1.17 - noeppinoeppi\nGerman translation - noeppi_noeppi",
+    "1.17.1-2.0.17": "Update to stable gradle - noeppi_noeppi",
+    "1.17.1-2.0.18": "",
+    "1.17.1-2.0.19": "Move some internal code into the impl package. - noeppi_noeppi",
+    "1.17.1-2.0.20": "add method for dynamic bucket item model - MelanX",
+    "1.17.1-2.0.21": "improve bucket model code - MelanX",
+    "1.17.1-2.0.22": "Merge remote-tracking branch 'origin/1.17' into 1.17 - noeppi_noeppi\nAdd a method to ModX that creates resource locations with the modid as namespace - noeppi_noeppi",
+    "1.17.1-2.1.0": "remove unused imports - noeppi_noeppi\nMoving to stable. - noeppi_noeppi\nMove setter from WorldSeedHolder into impl package - noeppi_noeppi",
+    "1.17.1-2.1.1": "Enforce final mod classes - noeppi_noeppi",
+    "1.17.1-2.1.2": "Remove experimental notice - noeppi_noeppi",
+    "1.17.1-2.1.3": "Fix null URL in comment of resource list value mapper - noeppi_noeppi",
+    "1.17.1-2.1.4": "add null check for contentsChanged in BaseItemStackHandler - MelanX",
+    "1.17.1-2.1.5": "Merge remote-tracking branch 'origin/1.17' into 1.17 - noeppi_noeppi\nUpdate mappings - noeppi_noeppi",
+    "1.17.1-2.1.6": "Merge pull request #26 from noeppi-noeppi/feature/decorativeblocks - noeppinoeppi\nChange group and local maven back - noeppi_noeppi\nDocumentation - noeppi_noeppi\nImports - noeppi_noeppi\nIt is working. Documentation still missing - noeppi_noeppi\nDatagen and hopefully solve the tag issue. Creates a few useless tag files but solves our problem. - noeppi_noeppi\nRemove static imports, so source jars can generate correctly - noeppi_noeppi\nDatagen. Needs testing. tags are annoying - noeppi_noeppi\nProgress - noeppi_noeppi\nAdd a way to have recipe logic in recipe extensions - noeppi_noeppi\nadd javadoc - MelanX\nadd datagen for decorative blocks - MelanX\nrevert \"put initializeItemClient into an interface\" - MelanX\nput initializeItemClient into an interface - MelanX\nMerge branch '1.17' into feature/decorative_blocks - MelanX\nadd base block classes - MelanX",
+    "1.17.1-2.1.7": "fix data generation for decorated wall item - MelanX",
+    "1.17.1-2.1.8": "fix data generation for decorated wall item 2.0 - MelanX",
+    "1.17.1-2.1.9": "Merge pull request #27 from noeppi-noeppi/feature/sounddatagen - noeppi_noeppi\nDocumentation - noeppi_noeppi\nSound provider changes - noeppi_noeppi\napply requested changes - MelanX\nadd javadoc and default handling - MelanX\nadd provider base for sound definition - MelanX",
+    "1.17.1-2.1.10": "Merge branch 'feature/sounddatagen' into 1.17 - noeppi_noeppi\nuse LiXAP - noeppi_noeppi",
+    "1.17.1-2.1.11": "Remove modid argument in ModX constructor. - noeppi_noeppi",
+    "1.17.1-2.1.12": "Update LibXAP - noeppi_noeppi",
+    "1.17.1-2.1.13": "Add an update checker URL - noeppi_noeppi",
+    "1.17.1-2.1.14": "Add TextProcessor - noeppi_noeppi",
+    "1.17.1-2.1.15": "TypeScript coremods - noeppi_noeppi",
+    "1.17.1-2.1.16": "A texture provider - noeppi_noeppi",
+    "1.17.1-2.1.17": "Fix that slots in BaseItemStackHandler that have no validator won't accept any items - noeppi_noeppi",
+    "1.17.1-2.1.18": "BaseItemStackHandler implements IAdvancedItemHandlerModifiable now. - noeppi_noeppi",
+    "1.17.1-2.1.19": "Add base slot, so we can run validators when using BaseItemStackHandler - noeppi_noeppi",
+    "1.17.1-2.1.20": "Build javadoc meta. - noeppi_noeppi",
+    "1.17.1-2.1.21": "Fix the action - noeppi_noeppi",
+    "1.17.1-2.1.22": "Don't build javadoc for 1.17 any longer - noeppi_noeppi",
+    "1.17.1-2.1.24": "Merge pull request #36 from noeppi-noeppi/backport/dataloader - noeppi_noeppi\nFix Dataloader#locate behaving wrongly and only accept json files - noeppi_noeppi",
+    "1.17.1-2.1.25": "Merge pull request #37 from noeppi-noeppi/backport/decoratedblocksmaterial - noeppi_noeppi\nCheck for the block material when assigning wooden variants of tags for decorated blocks. Fixes #35 - noeppi_noeppi"
+  },
+  "1.18": {
+    "1.18-3.0.0": "1.18 - noeppi_noeppi",
+    "1.18-3.0.1": "Merge branch 'pr/32' into 1.18 - noeppi_noeppi\nSome more changes to the block related menus - noeppi_noeppi\nUpdate gradle wrapper - noeppi_noeppi\nAdd MenuBlock - lazynessmind\nRenamed BlockMenu to BEMenuBlock - lazynessmind\nMoved BlockEntityMenu.openMenu - lazynessmind"
+  },
+  "1.18.1": {
+    "1.18-3.0.1": "Merge branch 'pr/32' into 1.18 - noeppi_noeppi\nSome more changes to the block related menus - noeppi_noeppi\nUpdate gradle wrapper - noeppi_noeppi\nAdd MenuBlock - lazynessmind\nRenamed BlockMenu to BEMenuBlock - lazynessmind\nMoved BlockEntityMenu.openMenu - lazynessmind",
+    "1.18.1-3.1.0": "1.18.1 - noeppi_noeppi",
+    "1.18.1-3.1.1": "Forgot to finish the javadoc sentence - noeppi_noeppi",
+    "1.18.1-3.1.2": "use terms allow list and deny list instead of whitelist and blacklist. Closes #34 - noeppi_noeppi",
+    "1.18.1-3.1.3": "Fix Dataloader#locate behaving wrongly and only accept json files - noeppi_noeppi",
+    "1.18.1-3.1.4": "Stonecutting and Smithing recipe extensions - noeppi_noeppi",
+    "1.18.1-3.1.5": "Check for the block material when assigning wooden variants of tags for decorated blocks. Fixes #35 - noeppi_noeppi",
+    "1.18.1-3.1.6": "Properly check access of @Datagen constructors - noeppi_noeppi",
+    "1.18.1-3.1.7": "EnumCodec fixes - noeppi_noeppi"
+  }
+}
+[03jan.2022 14:31:13.881] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [libx] Found status: AHEAD Current: 1.18.1-3.1.7 Target: null
+[03jan.2022 14:31:13.901] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [minemention] Starting version check at https://assets.melanx.de/updates/minemention.json
+[03jan.2022 14:31:13.937] [Forge Version Check/DEBUG] [net.minecraftforge.fml.VersionChecker/]: [minemention] Received version check data:
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/minemention",
+  "promos": {
+    "1.16.4-recommended": "1.16.4-0.1.10",
+    "1.16.4-latest": "1.16.4-0.1.10",
+    "1.16.5-recommended": "1.16.4-0.1.10",
+    "1.16.5-latest": "1.16.4-0.1.10",
+    "1.17.1-recommended": "1.17.1-1.0.6",
+    "1.17.1-latest": "1.17.1-1.0.6",
+    "1.18.1-recommended": "1.18.1-1.2.0",
+    "1.18.1-latest": "1.18.1-1.2.0"
+  },
+  "1.16.4": {
+    "1.16.4-0.1.0": "First version",
+    "1.16.4-0.1.5": "Fix errors in log when using an invalid mention.\n \nSupport for FTB teams",
+    "1.16.4-0.1.6": "All messages are now logged no matter who is mentioned.",
+    "1.16.4-0.1.8": "Slightly changed player mention color and made weblinks work",
+    "1.16.4-0.1.10": "Drop FTB teams support as I have not yet figured out how to use their new API. Fixes a crash with modern FTB teams versions"
+  },
+  "1.16.5": {
+    "1.16.4-0.1.0": "First version",
+    "1.16.4-0.1.5": "Fix errors in log when using an invalid mention.\n \nSupport for FTB teams",
+    "1.16.4-0.1.6": "All messages are now logged no matter who is mentioned.",
+    "1.16.4-0.1.8": "Slightly changed player mention color and made weblinks work",
+    "1.16.4-0.1.10": "Drop FTB teams support as I have not yet figured out how to use their new API. Fixes a crash with modern FTB teams versions"
+  },
+  "1.17.1": {
+    "1.17.1-1.0.6": "1.17"
+  },
+  "1.18.1": {
+    "1.18.1-1.2.0": "1.18"
+  }
+}
+[03jan.2022 14:31:13.938] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [minemention] Found status: UP_TO_DATE Current: 1.18.1-1.2.0 Target: null
+[03jan.2022 14:31:13.938] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[03jan.2022 14:31:14.373] [Forge Version Check/DEBUG] [net.minecraftforge.fml.VersionChecker/]: [forge] Received version check data:
+{
+  "homepage": "https://files.minecraftforge.net/net/minecraftforge/forge/",
+  "promos": {
+    "1.1-latest": "1.3.4.29",
+    "1.2.3-latest": "1.4.1.64",
+    "1.2.4-latest": "2.0.0.68",
+    "1.2.5-latest": "3.4.9.171",
+    "1.3.2-latest": "4.3.5.318",
+    "1.4.0-latest": "5.0.0.326",
+    "1.4.1-latest": "6.0.0.329",
+    "1.4.2-latest": "6.0.1.355",
+    "1.4.3-latest": "6.2.1.358",
+    "1.4.4-latest": "6.3.0.378",
+    "1.4.5-latest": "6.4.2.448",
+    "1.4.6-latest": "6.5.0.489",
+    "1.4.7-latest": "6.6.2.534",
+    "1.5-latest": "7.7.0.598",
+    "1.5.1-latest": "7.7.2.682",
+    "1.5.2-latest": "7.8.1.738",
+    "1.5.2-recommended": "7.8.1.738",
+    "1.6.1-latest": "8.9.0.775",
+    "1.6.2-latest": "9.10.1.871",
+    "1.6.2-recommended": "9.10.1.871",
+    "1.6.3-latest": "9.11.0.878",
+    "1.6.4-latest": "9.11.1.1345",
+    "1.6.4-recommended": "9.11.1.1345",
+    "1.7.2-latest": "10.12.2.1161",
+    "1.7.2-recommended": "10.12.2.1161",
+    "1.7.10_pre4-latest": "10.12.2.1149",
+    "1.7.10-latest": "10.13.4.1614",
+    "1.7.10-recommended": "10.13.4.1614",
+    "1.8-latest": "11.14.4.1577",
+    "1.8-recommended": "11.14.4.1563",
+    "1.8.8-latest": "11.15.0.1655",
+    "1.8.9-latest": "11.15.1.2318",
+    "1.8.9-recommended": "11.15.1.2318",
+    "1.9-latest": "12.16.1.1938",
+    "1.9-recommended": "12.16.1.1887",
+    "1.9.4-latest": "12.17.0.2317",
+    "1.9.4-recommended": "12.17.0.2317",
+    "1.10-latest": "12.18.0.2000",
+    "1.10.2-latest": "12.18.3.2511",
+    "1.10.2-recommended": "12.18.3.2511",
+    "1.11-latest": "13.19.1.2199",
+    "1.11-recommended": "13.19.1.2189",
+    "1.11.2-latest": "13.20.1.2588",
+    "1.11.2-recommended": "13.20.1.2588",
+    "1.12-latest": "14.21.1.2443",
+    "1.12-recommended": "14.21.1.2387",
+    "1.12.1-latest": "14.22.1.2485",
+    "1.12.1-recommended": "14.22.1.2478",
+    "1.12.2-latest": "14.23.5.2860",
+    "1.12.2-recommended": "14.23.5.2859",
+    "1.13.2-latest": "25.0.223",
+    "1.14.2-latest": "26.0.63",
+    "1.14.3-latest": "27.0.60",
+    "1.14.4-latest": "28.2.26",
+    "1.14.4-recommended": "28.2.26",
+    "1.15-latest": "29.0.4",
+    "1.15.1-latest": "30.0.51",
+    "1.15.2-latest": "31.2.57",
+    "1.15.2-recommended": "31.2.57",
+    "1.16.1-latest": "32.0.108",
+    "1.16.2-latest": "33.0.61",
+    "1.16.3-latest": "34.1.42",
+    "1.16.3-recommended": "34.1.0",
+    "1.16.4-latest": "35.1.37",
+    "1.16.4-recommended": "35.1.4",
+    "1.16.5-latest": "36.2.22",
+    "1.16.5-recommended": "36.2.20",
+    "1.17.1-latest": "37.1.1",
+    "1.17.1-recommended": "37.1.1",
+    "1.18-latest": "38.0.17",
+    "1.18.1-latest": "39.0.10"
+  }
+}
+[03jan.2022 14:31:14.373] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: BETA_OUTDATED Current: 39.0.9 Target: 39.0.10
+[03jan.2022 14:31:32.079] [Render thread/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming <init> with desc (JZZLnet/minecraft/core/MappedRegistry;Ljava/util/Optional;)V
+[03jan.2022 14:31:34.127] [Render thread/DEBUG] [net.minecraftforge.coremod.transformer.CoreModBaseTransformer/COREMOD]: Transforming useItemOn with desc (Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;
+[03jan.2022 14:31:38.088] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[03jan.2022 14:31:38.220] [Server thread/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Making serverconfig directory : .\saves\New World\serverconfig
+[03jan.2022 14:31:38.221] [Server thread/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Created serverconfig directory : .\saves\New World\serverconfig
+[03jan.2022 14:31:38.221] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Loading configs type SERVER
+[03jan.2022 14:31:38.221] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Built TOML config for .\saves\New World\serverconfig\forge-server.toml
+[03jan.2022 14:31:38.222] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Loaded TOML config file .\saves\New World\serverconfig\forge-server.toml
+[03jan.2022 14:31:38.223] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Watching TOML config file .\saves\New World\serverconfig\forge-server.toml for changes
+[03jan.2022 14:31:38.234] [Thread-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Config file forge-server.toml changed, sending notifies
+[03jan.2022 14:31:58.374] [Render thread/DEBUG] [io.netty.channel.MultithreadEventLoopGroup/]: -Dio.netty.eventLoopThreads: 24
+[03jan.2022 14:31:58.398] [Render thread/DEBUG] [io.netty.channel.nio.NioEventLoop/]: -Dio.netty.noKeySetOptimization: false
+[03jan.2022 14:31:58.398] [Render thread/DEBUG] [io.netty.channel.nio.NioEventLoop/]: -Dio.netty.selectorAutoRebuildThreshold: 512
+[03jan.2022 14:31:58.405] [Render thread/DEBUG] [io.netty.util.internal.PlatformDependent/]: org.jctools-core.MpscChunkedArrayQueue: available
+[03jan.2022 14:31:58.443] [Render thread/DEBUG] [io.netty.channel.DefaultChannelId/]: -Dio.netty.processId: 6072 (auto-detected)
+[03jan.2022 14:31:58.445] [Render thread/DEBUG] [io.netty.util.NetUtil/]: -Djava.net.preferIPv4Stack: false
+[03jan.2022 14:31:58.445] [Render thread/DEBUG] [io.netty.util.NetUtil/]: -Djava.net.preferIPv6Addresses: false
+[03jan.2022 14:31:58.450] [Render thread/DEBUG] [io.netty.util.NetUtilInitializations/]: Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+[03jan.2022 14:31:58.451] [Render thread/DEBUG] [io.netty.util.NetUtil/]: Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+[03jan.2022 14:31:58.457] [Render thread/DEBUG] [io.netty.channel.DefaultChannelId/]: -Dio.netty.machineId: 2c:f0:5d:ff:fe:cc:eb:51 (auto-detected)
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.numHeapArenas: 24
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.numDirectArenas: 24
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.pageSize: 8192
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.maxOrder: 11
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.chunkSize: 16777216
+[03jan.2022 14:31:58.497] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.smallCacheSize: 256
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.normalCacheSize: 64
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.cacheTrimInterval: 8192
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.useCacheForAllThreads: true
+[03jan.2022 14:31:58.498] [Render thread/DEBUG] [io.netty.buffer.PooledByteBufAllocator/]: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+[03jan.2022 14:31:58.511] [Render thread/DEBUG] [io.netty.buffer.ByteBufUtil/]: -Dio.netty.allocator.type: pooled
+[03jan.2022 14:31:58.511] [Render thread/DEBUG] [io.netty.buffer.ByteBufUtil/]: -Dio.netty.threadLocalDirectBufferSize: 0
+[03jan.2022 14:31:58.511] [Render thread/DEBUG] [io.netty.buffer.ByteBufUtil/]: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+[03jan.2022 14:31:58.631] [Netty Local Client IO #0/DEBUG] [io.netty.util.Recycler/]: -Dio.netty.recycler.maxCapacityPerThread: 4096
+[03jan.2022 14:31:58.631] [Netty Local Client IO #0/DEBUG] [io.netty.util.Recycler/]: -Dio.netty.recycler.maxSharedCapacityFactor: 2
+[03jan.2022 14:31:58.631] [Netty Local Client IO #0/DEBUG] [io.netty.util.Recycler/]: -Dio.netty.recycler.linkCapacity: 16
+[03jan.2022 14:31:58.631] [Netty Local Client IO #0/DEBUG] [io.netty.util.Recycler/]: -Dio.netty.recycler.ratio: 8
+[03jan.2022 14:31:58.631] [Netty Local Client IO #0/DEBUG] [io.netty.util.Recycler/]: -Dio.netty.recycler.delayedQueue.ratio: 8
+[03jan.2022 14:31:58.646] [Netty Server IO #1/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkAccessible: true
+[03jan.2022 14:31:58.647] [Netty Server IO #1/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkBounds: true
+[03jan.2022 14:31:58.648] [Netty Server IO #1/DEBUG] [io.netty.util.ResourceLeakDetectorFactory/]: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@66de8348
+[03jan.2022 14:32:05.200] [Server thread/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing serverconfig directory : .\saves\New World\serverconfig
+[03jan.2022 14:32:05.200] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Unloading configs type SERVER

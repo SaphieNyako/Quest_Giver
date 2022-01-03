@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+license="MIT"
+[[mods]]
+modId="quest_giver"
+version="${file.jarVersion}"
+displayName="Quest Giver"
+logoFile="quest_giver.png"
+credits="Feywild Community"
+authors="Saphie"
+description='''
+Quest Giver.
+'''
+
+[[dependencies.quest_giver]]
+
+    modId="forge"
+    mandatory=true
+    versionRange="[39,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.quest_giver]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"

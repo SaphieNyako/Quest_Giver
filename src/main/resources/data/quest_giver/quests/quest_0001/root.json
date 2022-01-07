@@ -1,0 +1,12 @@
+{
+  "reputation": 25,
+  "icon": "minecraft:diamond",
+  "start": {
+    "title": {
+      "text": "test for quest giver mod."
+    },
+    "description": {
+      "text": "test for $(red) quest giver mod $()."
+    }
+  }
+}

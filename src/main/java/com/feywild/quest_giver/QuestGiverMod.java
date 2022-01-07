@@ -1,7 +1,17 @@
 package com.feywild.quest_giver;
 
+import com.feywild.quest_giver.network.QuestGiverNetwork;
+import com.feywild.quest_giver.quest.QuestManager;
+import com.feywild.quest_giver.quest.player.CapabilityQuests;
+import com.feywild.quest_giver.quest.reward.ItemReward;
+import com.feywild.quest_giver.quest.reward.RewardTypes;
+import com.feywild.quest_giver.quest.task.CraftTask;
+import com.feywild.quest_giver.quest.task.KillTask;
+import com.feywild.quest_giver.quest.task.TaskTypes;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,12 +38,26 @@ public final class QuestGiverMod extends ModXRegistration
 {
 
     private static QuestGiverMod instance;
-    //    private static QuestGiverNetWork network;
+    private static QuestGiverNetwork network;
 
     public QuestGiverMod() {
 
         instance = this;
-        //test
+        network = new QuestGiverNetwork(this);
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
+
+        MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
+        MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
+
+        MinecraftForge.EVENT_BUS.register(new EventListener());
+
+        // Quest task & reward types. Not in setup as they are required for datagen.
+        TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
+
+        RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
+
        //STILL REQUIRED?
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -43,7 +67,10 @@ public final class QuestGiverMod extends ModXRegistration
         return instance;
     }
 
-    //TODO Network
+    @Nonnull
+    public static QuestGiverNetwork getNetwork() {
+        return network;
+    }
 
     @Override
     protected void initRegistration(RegistrationBuilder builder) {
@@ -63,7 +90,7 @@ public final class QuestGiverMod extends ModXRegistration
 
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
-        //TODO Add Quest Manager
+        event.addListener(QuestManager.createReloadListener());
     }
 
 }

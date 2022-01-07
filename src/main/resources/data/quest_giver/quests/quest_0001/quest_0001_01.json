@@ -1,0 +1,22 @@
+{
+  "parent": "quest_giver:root",
+  "reputation": 5,
+  "icon": "minecraft:potato",
+  "start": {
+    "title": {
+      "text": "quest1"
+    },
+    "description": {
+      "text": "quest1"
+    }
+  },
+  "tasks": [
+    {
+      "item": {
+        "tag": "forge:dyes"
+      },
+      "id": "quest_giver:craft",
+      "times": 9
+    }
+  ]
+}

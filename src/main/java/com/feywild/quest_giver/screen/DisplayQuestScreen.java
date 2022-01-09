@@ -5,6 +5,7 @@ import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.Quest;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +52,25 @@ public class DisplayQuestScreen extends Screen {
         }
     }
 
+    @Override
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        this.drawTextLines(poseStack, mouseX, mouseY);
+    }
 
+    private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
+        if (this.minecraft != null) {
+            drawString(poseStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 20, 0xFFFFFF);
+            for (int i = 0; i < this.description.size(); i++) {
+                this.minecraft.font.drawShadow(poseStack, this.description.get(i), 20, 55 + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+            }
+        }
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
 
 }

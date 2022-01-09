@@ -11,7 +11,6 @@ import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -65,7 +64,7 @@ public class EventListener {
             if (event.getTarget() instanceof Villager) { //&& event.getTarget().getTags().contains("quest_0001")
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayer) player, hand, event.getTarget(), QuestNumber.QUEST_0001);
+                    this.interactQuest((ServerPlayer) player, hand, event.getTarget(), QuestNumber.QUEST_0001); //Can just do this with a string from the tag.
                 }
             }
         }
@@ -87,7 +86,7 @@ public class EventListener {
             } else {
                 List<SelectableQuest> active = quests.getActiveQuests();
 
-                if (active.size() == 1) { //If there is an active quest
+                if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
                     player.swing(hand, true);

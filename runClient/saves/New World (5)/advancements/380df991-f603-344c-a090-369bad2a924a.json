@@ -1,0 +1,9 @@
+{
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:swamp": "2022-01-16 19:08:10 +0100"
+    },
+    "done": false
+  },
+  "DataVersion": 2865
+}

@@ -23,8 +23,9 @@ import java.util.stream.Collectors;
 
 public class QuestData {
 
-    /* QuestData holds all the information for the Player. What quest they are on, what aligment they have. */
+    /* QuestData holds all the information for the Player. What quest they are on, */
 
+    private List<QuestNumber> questNumbers = new ArrayList<>();
 
     private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
     private final Set<ResourceLocation> completedQuests = new HashSet<>();
@@ -299,10 +300,32 @@ public class QuestData {
         }
     }
 
+    public void setQuestNumbers() {
+
+        //TODO set difficulty
+        List<QuestNumber> easy = new ArrayList<>();
+        easy.add(QuestNumber.QUEST_0002);
+        easy.add(QuestNumber.QUEST_0003);
+
+        this.questNumbers = easy;
+    }
+
+    public List<QuestNumber> getQuestNumbers() {
+        return questNumbers;
+    }
+
     public CompoundTag write() {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("QuestNumber", QuestNumber.optionId(this.questNumber));
         nbt.putInt("Reputation", reputation);
+
+        ListTag questNumbers = new ListTag();
+        for (QuestNumber number : this.questNumbers) {
+            questNumbers.add(StringTag.valueOf(number.id));
+        }
+        nbt.put("QuestNumbers", questNumbers);
+
+
         ListTag pending = new ListTag();
         for (ResourceLocation quest : this.pendingCompletion) {
             pending.add(StringTag.valueOf(quest.toString()));
@@ -324,19 +347,29 @@ public class QuestData {
     public void read(CompoundTag nbt) {
         this.questNumber = QuestNumber.byOptionId(nbt.getString("QuestNumber"));
         this.reputation = nbt.getInt("Reputation");
+
+        ListTag questNumbers = nbt.getList("QuestNumbers", Tag.TAG_STRING);
+        this.questNumbers.clear();
+        for (int i = 0; i < questNumbers.size(); i++) {
+            QuestNumber number = QuestNumber.byId(questNumbers.getString(i));
+            if (number != null) this.questNumbers.add(number);
+        }
+
         ListTag pending = nbt.getList("Pending", Tag.TAG_STRING);
         this.pendingCompletion.clear();
         for (int i = 0; i < pending.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(pending.getString(i));
             if (id != null) this.pendingCompletion.add(id);
         }
+
         ListTag completed = nbt.getList("Completed", Tag.TAG_STRING);
-        this.completedQuests.clear();
+                this.completedQuests.clear();
         for (int i = 0; i < completed.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(completed.getString(i));
             if (id != null) this.completedQuests.add(id);
         }
         CompoundTag active = nbt.getCompound("Active");
+
         this.activeQuests.clear();
         for (String key : active.getAllKeys()) {
             ResourceLocation id = ResourceLocation.tryParse(key);

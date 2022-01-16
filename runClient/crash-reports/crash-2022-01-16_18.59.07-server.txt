@@ -1,0 +1,125 @@
+---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 16-01-2022 18:59
+Description: Ticking player
+
+java.lang.NullPointerException: Cannot invoke "net.minecraft.world.entity.npc.Villager.getTags()" because "target" is null
+	at com.feywild.quest_giver.EventListener.playerTick(EventListener.java:57) ~[%2384!:?] {re:classloading}
+	at net.minecraftforge.eventbus.ASMEventHandler_27_EventListener_playerTick_PlayerTickEvent.invoke(.dynamic) ~[?:?] {}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:85) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.event.ForgeEventFactory.onPlayerPreTick(ForgeEventFactory.java:851) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?] {re:classloading}
+	at net.minecraft.world.entity.player.Player.tick(Player.java:211) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerPlayer.doTick(ServerPlayer.java:461) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.tick(ServerGamePacketListenerImpl.java:211) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.network.Connection.tick(Connection.java:259) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.server.network.ServerConnectionListener.tick(ServerConnectionListener.java:159) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:913) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:839) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:92) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:687) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:259) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at com.feywild.quest_giver.EventListener.playerTick(EventListener.java:57) ~[%2384!:?] {re:classloading}
+	at net.minecraftforge.eventbus.ASMEventHandler_27_EventListener_playerTick_PlayerTickEvent.invoke(.dynamic) ~[?:?] {}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:85) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283) ~[eventbus-5.0.7.jar%2316!:?] {}
+	at net.minecraftforge.event.ForgeEventFactory.onPlayerPreTick(ForgeEventFactory.java:851) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2379%2385!:?] {re:classloading}
+	at net.minecraft.world.entity.player.Player.tick(Player.java:211) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+-- Player being ticked --
+Details:
+	Entity Type: minecraft:player (net.minecraft.server.level.ServerPlayer)
+	Entity ID: 334
+	Entity Name: Dev
+	Entity's Exact location: 3.50, 65.00, 42.50
+	Entity's Block location: World: (3,65,42), Section: (at 3,1,10 in 0,4,2; chunk contains blocks 0,-64,32 to 15,319,47), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Entity's Momentum: 0.00, 0.00, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: null
+Stacktrace:
+	at net.minecraft.server.level.ServerPlayer.doTick(ServerPlayer.java:461) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.tick(ServerGamePacketListenerImpl.java:211) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.network.Connection.tick(Connection.java:259) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.server.network.ServerConnectionListener.tick(ServerConnectionListener.java:159) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:913) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:839) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:92) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:687) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:259) ~[forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.18.1-recomp.jar%2380!:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.18.1
+	Minecraft Version ID: 1.18.1
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 17.0.1, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 336579216 bytes (320 MiB) / 2160066560 bytes (2060 MiB) up to 4282384384 bytes (4084 MiB)
+	CPUs: 12
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 5 2600X Six-Core Processor           
+	Identifier: AuthenticAMD Family 23 Model 8 Stepping 2
+	Microarchitecture: Zen+
+	Frequency (GHz): 3,60
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: NVIDIA GeForce GTX 1050 Ti
+	Graphics card #0 vendor: NVIDIA (0x10de)
+	Graphics card #0 VRAM (MB): 4095,00
+	Graphics card #0 deviceId: 0x1c82
+	Graphics card #0 versionInfo: DriverVersion=30.0.15.1123
+	Memory slot #0 capacity (MB): 8192,00
+	Memory slot #0 clockSpeed (GHz): 3,20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MB): 8192,00
+	Memory slot #1 clockSpeed (GHz): 3,20
+	Memory slot #1 type: DDR4
+	Virtual memory max (MB): 21711,18
+	Virtual memory used (MB): 15736,17
+	Swap memory total (MB): 5376,00
+	Swap memory used (MB): 153,00
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/334, l='ServerLevel[New World]', x=3.50, y=65.00, z=42.50]]
+	Data Packs: vanilla, mod:libx, mod:quest_giver, mod:minemention, mod:forge
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	ModLauncher: 9.0.24+9.0.24+main.7be9f01d
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		 mixin PLUGINSERVICE 
+		 eventbus PLUGINSERVICE 
+		 object_holder_definalize PLUGINSERVICE 
+		 runtime_enum_extender PLUGINSERVICE 
+		 capability_token_subclass PLUGINSERVICE 
+		 accesstransformer PLUGINSERVICE 
+		 runtimedistcleaner PLUGINSERVICE 
+		 mixin TRANSFORMATIONSERVICE 
+		 fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		javafml@null
+	Mod List: 
+		forge-1.18.1-39.0.9_mapped_sugarcane_2021.12.19-1.|Minecraft                     |minecraft                     |1.18.1              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		LibX-1.18.1-3.1.7_mapped_sugarcane_2021.12.19-1.18|LibX                          |libx                          |1.18.1-3.1.7        |DONE      |Manifest: NOSIGNATURE
+		main                                              |Quest Giver                   |quest_giver                   |0.0NONE             |DONE      |Manifest: NOSIGNATURE
+		MineMention-1.18.1-1.2.0_mapped_sugarcane_2021.12.|Minemention                   |minemention                   |1.18.1-1.2.0        |DONE      |Manifest: NOSIGNATURE
+		                                                  |Forge                         |forge                         |39.0.9              |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 4fb137f6-84ca-4912-be00-d8fbf8b88b2a
+	FML: 39.0
+	Forge: net.minecraftforge:39.0.9

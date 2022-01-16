@@ -1,6 +1,10 @@
 package com.feywild.quest_giver.quest;
 
+import net.minecraft.world.entity.player.Player;
+
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public enum QuestNumber {
@@ -11,8 +15,11 @@ public enum QuestNumber {
 
     public final String id;
 
+
     QuestNumber(String id) {
+
         this.id = id;
+
     }
 
     public static QuestNumber byId(String id) {
@@ -22,6 +29,7 @@ public enum QuestNumber {
             case "quest_0003": return QUEST_0003;
             default: throw new IllegalArgumentException("Invalid quest number: " + id);
         }
+
     }
 
     public static String optionId(@Nullable QuestNumber questNumber) {
@@ -36,5 +44,4 @@ public enum QuestNumber {
             return null;
         }
     }
-
 }

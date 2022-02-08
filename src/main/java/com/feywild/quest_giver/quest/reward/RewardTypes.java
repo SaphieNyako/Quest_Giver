@@ -33,5 +33,4 @@ public class RewardTypes {
             values.put(id, type);
         }
     }
-
 }

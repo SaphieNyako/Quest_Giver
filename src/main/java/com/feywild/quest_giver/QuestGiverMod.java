@@ -1,5 +1,7 @@
 package com.feywild.quest_giver;
 
+import com.feywild.quest_giver.entity.ModEntityTypes;
+import com.feywild.quest_giver.entity.QuestVillager;
 import com.feywild.quest_giver.network.QuestGiverNetwork;
 import com.feywild.quest_giver.quest.QuestManager;
 import com.feywild.quest_giver.quest.player.CapabilityQuests;
@@ -10,13 +12,20 @@ import com.feywild.quest_giver.quest.task.KillTask;
 import com.feywild.quest_giver.quest.task.TaskTypes;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -46,6 +55,7 @@ public final class QuestGiverMod extends ModXRegistration
         network = new QuestGiverNetwork(this);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -80,17 +90,24 @@ public final class QuestGiverMod extends ModXRegistration
     @Override
     protected void setup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(() -> {
+            SpawnPlacements.register(ModEntityTypes.questVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestVillager::canSpawn);
+        });
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-
+        EntityRenderers.register(ModEntityTypes.questVillager, VillagerRenderer::new);
     }
 
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(QuestManager.createReloadListener());
+    }
+
+    private void entityAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntityTypes.questVillager, QuestVillager.createAttributes().build());
     }
 
 }

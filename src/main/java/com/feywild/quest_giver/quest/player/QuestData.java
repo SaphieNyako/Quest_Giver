@@ -27,9 +27,9 @@ public class QuestData {
 
     private List<QuestNumber> questNumbers = new ArrayList<>();
 
-    private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
-    private final Set<ResourceLocation> completedQuests = new HashSet<>();
-    private final Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
+    private List<ResourceLocation> pendingCompletion = new ArrayList<>();
+    private Set<ResourceLocation> completedQuests = new HashSet<>();
+    private Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
     @Nullable
     private ServerPlayer player;
 
@@ -132,6 +132,10 @@ public class QuestData {
         return this.questNumber;
     }
 
+    public void setQuestNumber(QuestNumber questNumber){
+        this.questNumber = questNumber;
+    }
+
     @Nullable
     public QuestDisplay getActiveQuestDisplay(ResourceLocation id) {
         QuestLine quests = this.getQuestLine();
@@ -147,7 +151,7 @@ public class QuestData {
         }
     }
 
-    public List<SelectableQuest> getActiveQuests() {
+    public List<SelectableQuest> getQuests() {
         QuestLine quests = this.getQuestLine();
         if (quests != null && this.player != null) {
             ImmutableList.Builder<SelectableQuest> list = ImmutableList.builder();
@@ -310,8 +314,36 @@ public class QuestData {
         this.questNumbers = easy;
     }
 
+    public void setQuestNumbers(List<QuestNumber> questNumbers) {
+        this.questNumbers = questNumbers;
+    }
+
     public List<QuestNumber> getQuestNumbers() {
         return questNumbers;
+    }
+
+    public void setPendingCompletion(List<ResourceLocation> pendingCompletion){
+        this.pendingCompletion = pendingCompletion;
+    }
+
+    public List<ResourceLocation> getPendingCompletion(){
+        return pendingCompletion;
+    }
+
+    public void setCompletedQuests(Set<ResourceLocation> completedQuests){
+        this.completedQuests = completedQuests;
+    }
+
+    public Set<ResourceLocation> getCompletedQuests(){
+        return completedQuests;
+    }
+
+    public void setActiveQuests(Map<ResourceLocation, QuestProgress> activeQuests){
+        this.activeQuests = activeQuests;
+    }
+
+    public Map<ResourceLocation, QuestProgress> getActiveQuests(){
+        return activeQuests;
     }
 
     public CompoundTag write() {

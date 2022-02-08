@@ -8,6 +8,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -21,7 +22,7 @@ public class CapabilityQuests {
 
     public static final ResourceLocation KEY = new ResourceLocation(QuestGiverMod.getInstance().modid, "player_quests");
 
-    public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
+    public static Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static void register(RegisterCapabilitiesEvent event) {
         event.register(QuestData.class);
@@ -37,15 +38,39 @@ public class CapabilityQuests {
         }
     }
 
+    public Capability<QuestData> getQUESTS(){
+        return QUESTS;
+    }
+
+    public void setQUESTS(Capability<QuestData> data){
+        QUESTS = data;
+    }
+
+
     @SuppressWarnings("CodeBlock2Expr")
     public static void playerCopy(PlayerEvent.Clone event) {
         // Keep the data on death
+        Player oldData = event.getOriginal();
+        Player newData = event.getPlayer();
+
         if (event.isWasDeath()) {
-            event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
-                event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
-                    newData.read(oldData.write());
-                });
-            });
+                oldData.reviveCaps();
+                newData.getCapability(CapabilityQuests.QUESTS)
+                        .orElseThrow(RuntimeException::new)
+                        .setQuestNumber(oldData.getCapability(CapabilityQuests.QUESTS).orElseThrow(RuntimeException::new).getQuestNumber());
+                newData.getCapability(CapabilityQuests.QUESTS)
+                        .orElseThrow(RuntimeException::new)
+                        .setQuestNumbers(oldData.getCapability(CapabilityQuests.QUESTS).orElseThrow(RuntimeException::new).getQuestNumbers());
+                newData.getCapability(CapabilityQuests.QUESTS)
+                        .orElseThrow(RuntimeException::new)
+                        .setPendingCompletion(oldData.getCapability(CapabilityQuests.QUESTS).orElseThrow(RuntimeException::new).getPendingCompletion());
+                newData.getCapability(CapabilityQuests.QUESTS)
+                        .orElseThrow(RuntimeException::new)
+                        .setActiveQuests(oldData.getCapability(CapabilityQuests.QUESTS).orElseThrow(RuntimeException::new).getActiveQuests());
+                newData.getCapability(CapabilityQuests.QUESTS)
+                        .orElseThrow(RuntimeException::new)
+                        .setCompletedQuests(oldData.getCapability(CapabilityQuests.QUESTS).orElseThrow(RuntimeException::new).getCompletedQuests());
+                oldData.invalidateCaps();
         }
     }
 

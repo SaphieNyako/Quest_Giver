@@ -1,3 +1,4 @@
+
 # eclipse
 bin
 *.launch
@@ -20,6 +21,7 @@ build
 # other
 eclipse
 run
+runClient
 
 # Files from Forge MDK
 forge*changelog.txt

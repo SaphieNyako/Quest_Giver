@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -122,7 +121,7 @@ public class EventListener {
                 player.swing(hand, true);
 
             } else {
-                List<SelectableQuest> active = quests.getActiveQuests();
+                List<SelectableQuest> active = quests.getQuests();
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
@@ -158,6 +157,4 @@ public class EventListener {
         }
         return current;
     }
-
-
 }

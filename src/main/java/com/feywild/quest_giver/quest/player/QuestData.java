@@ -25,20 +25,15 @@ public class QuestData {
 
     /* QuestData holds all the information for the Player. What quest they are on, */
 
-    private List<QuestNumber> questNumbers = new ArrayList<>();
-
-    private List<ResourceLocation> pendingCompletion = new ArrayList<>();
-    private Set<ResourceLocation> completedQuests = new HashSet<>();
-    private Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
+    private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
+    private final Set<ResourceLocation> completedQuests = new HashSet<>();
+    private final Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
     @Nullable
     private ServerPlayer player;
-
-       @Nullable
-    private QuestNumber questNumber;
     @Nullable
-    // Before the player accepted the first quest, this will hold the questnumber it would have
+    private QuestNumber questNumber;
+    @Nullable // Before the player accepted the first quest, this will hold the questnumber it would have
     private QuestNumber pendingQuestNumber;
-
     private int reputation;
 
     public static QuestData get(ServerPlayer player) {
@@ -304,59 +299,10 @@ public class QuestData {
         }
     }
 
-    public void setQuestNumbers() {
-
-        //TODO set difficulty
-        List<QuestNumber> easy = new ArrayList<>();
-        easy.add(QuestNumber.QUEST_0002);
-        easy.add(QuestNumber.QUEST_0003);
-
-        this.questNumbers = easy;
-    }
-
-    public void setQuestNumbers(List<QuestNumber> questNumbers) {
-        this.questNumbers = questNumbers;
-    }
-
-    public List<QuestNumber> getQuestNumbers() {
-        return questNumbers;
-    }
-
-    public void setPendingCompletion(List<ResourceLocation> pendingCompletion){
-        this.pendingCompletion = pendingCompletion;
-    }
-
-    public List<ResourceLocation> getPendingCompletion(){
-        return pendingCompletion;
-    }
-
-    public void setCompletedQuests(Set<ResourceLocation> completedQuests){
-        this.completedQuests = completedQuests;
-    }
-
-    public Set<ResourceLocation> getCompletedQuests(){
-        return completedQuests;
-    }
-
-    public void setActiveQuests(Map<ResourceLocation, QuestProgress> activeQuests){
-        this.activeQuests = activeQuests;
-    }
-
-    public Map<ResourceLocation, QuestProgress> getActiveQuests(){
-        return activeQuests;
-    }
-
     public CompoundTag write() {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("QuestNumber", QuestNumber.optionId(this.questNumber));
         nbt.putInt("Reputation", reputation);
-
-        ListTag questNumbers = new ListTag();
-        for (QuestNumber number : this.questNumbers) {
-            questNumbers.add(StringTag.valueOf(number.id));
-        }
-        nbt.put("QuestNumbers", questNumbers);
-
 
         ListTag pending = new ListTag();
         for (ResourceLocation quest : this.pendingCompletion) {
@@ -379,13 +325,6 @@ public class QuestData {
     public void read(CompoundTag nbt) {
         this.questNumber = QuestNumber.byOptionId(nbt.getString("QuestNumber"));
         this.reputation = nbt.getInt("Reputation");
-
-        ListTag questNumbers = nbt.getList("QuestNumbers", Tag.TAG_STRING);
-        this.questNumbers.clear();
-        for (int i = 0; i < questNumbers.size(); i++) {
-            QuestNumber number = QuestNumber.byId(questNumbers.getString(i));
-            if (number != null) this.questNumbers.add(number);
-        }
 
         ListTag pending = nbt.getList("Pending", Tag.TAG_STRING);
         this.pendingCompletion.clear();

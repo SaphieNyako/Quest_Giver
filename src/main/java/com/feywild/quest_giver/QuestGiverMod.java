@@ -10,6 +10,7 @@ import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.CraftTask;
 import com.feywild.quest_giver.quest.task.KillTask;
 import com.feywild.quest_giver.quest.task.TaskTypes;
+import com.feywild.quest_giver.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -26,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +59,8 @@ public final class QuestGiverMod extends ModXRegistration
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
 
+        MinecraftForge.EVENT_BUS.addListener(this::reloadData);
+
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
@@ -68,7 +72,6 @@ public final class QuestGiverMod extends ModXRegistration
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
 
-       //STILL REQUIRED?
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -108,6 +111,20 @@ public final class QuestGiverMod extends ModXRegistration
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.questVillager, QuestVillager.createAttributes().build());
+    }
+
+    @SubscribeEvent
+    public void onServerAboutToStartEvent(ServerAboutToStartEvent event){
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
+                new ResourceLocation("quest_giver:village/desert/taiga_tool_smith_1"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
+                new ResourceLocation("quest_giver:village/plains/desert_tool_smith_1"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
+                new ResourceLocation("quest_giver:village/savanna/desert_tool_smith_1"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
+                new ResourceLocation("quest_giver:village/snowy/desert_tool_smith_1"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
+                new ResourceLocation("quest_giver:village/taiga/desert_tool_smith_1"), 10);
     }
 
 }

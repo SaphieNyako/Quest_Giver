@@ -48,33 +48,6 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event){
 
-        //once every minute check questnumber.
-        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
-            QuestData quests = QuestData.get(player);
-            if(quests.getQuestNumbers().size() == 0) {
-                //TODO LOOK FOR NPC AND GIVE NUMBER
-                if (findTarget(player.level, player) != null) {
-                    Villager target = findTarget(player.level, player);
-                    target.getTags().add(QuestNumber.QUEST_0001.id);
-                    //TODO add permanent quest marker particle
-                    quests.setQuestNumbers(); //This should be done when quest 1 is done.
-                }
-
-            } else {
-                //TODO LOOK FOR NPC AND GIVE NUMBER
-                if (findTarget(player.level, player) != null && !(findTarget(player.level, player).getTags().contains("quest_0001"))){
-
-                    Random random = new Random();
-                    Villager target = findTarget(player.level, player);
-                    QuestNumber number = quests.getQuestNumbers().get(random.nextInt(quests.getQuestNumbers().size()));
-                    //this needs be random...
-                    target.getTags().add(QuestNumber.QUEST_0002.id);
-                }
-            }
-        }
-
-
-
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             //TODO playerTick check if ItemTask is Completed
@@ -85,13 +58,13 @@ public class EventListener {
 
 
 
+
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
                 Player player = event.getPlayer();
                 InteractionHand hand = event.getPlayer().getUsedItemHand();
 
-            // TODO IF ENTITY IS VILLAGER || PILLAGER || BLOOD BORN or IF ALLIGNMENT
             if (event.getTarget() instanceof Villager villager && villager.getTags().contains(QuestNumber.QUEST_0001.id)) { //&& event.getTarget().getTags().contains("quest_0001")
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
@@ -157,4 +130,30 @@ public class EventListener {
         }
         return current;
     }
+
+    //give quest number to villager.
+     /*   if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
+            QuestData quests = QuestData.get(player);
+            if(quests.getQuestNumbers().size() == 0) {
+
+                if (findTarget(player.level, player) != null) {
+                    Villager target = findTarget(player.level, player);
+                    target.getTags().add(QuestNumber.QUEST_0001.id);
+
+                    quests.setQuestNumbers(); //This should be done when quest 1 is done.
+                }
+
+            } else {
+
+                if (findTarget(player.level, player) != null && !(findTarget(player.level, player).getTags().contains("quest_0001"))){
+
+                    Random random = new Random();
+                    Villager target = findTarget(player.level, player);
+                    QuestNumber number = quests.getQuestNumbers().get(random.nextInt(quests.getQuestNumbers().size()));
+                    //this needs be random...
+                    target.getTags().add(QuestNumber.QUEST_0002.id);
+                }
+            }
+        } */
+
 }

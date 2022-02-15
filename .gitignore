@@ -21,7 +21,7 @@ build
 # other
 eclipse
 run
-runClient
+/run*
 
 # Files from Forge MDK
 forge*changelog.txt

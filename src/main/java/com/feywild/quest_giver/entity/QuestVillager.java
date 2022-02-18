@@ -6,6 +6,7 @@ import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -83,14 +84,18 @@ public class QuestVillager extends Villager {
     public InteractionResult interactAt(@Nonnull Player player,@Nonnull Vec3 vec,@Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, vec, hand);
         if (superResult == InteractionResult.PASS && player instanceof ServerPlayer) {
-            ItemStack stack = player.getItemInHand(hand);
-            if (stack.isEmpty()) {
-                this.interactQuest((ServerPlayer) player, hand);
+            if (this.tryAcceptGift((ServerPlayer) player, hand)) {
+                player.swing(hand, true);
+            } else {
+
+
+                ItemStack stack = player.getItemInHand(hand);
+                if (stack.isEmpty()) {
+                    this.interactQuest((ServerPlayer) player, hand);
+                }
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else {
-           return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
+        return InteractionResult.sidedSuccess(this.level.isClientSide);
     }
 
 
@@ -130,5 +135,17 @@ public class QuestVillager extends Villager {
                 player.swing(hand, true);
             }
         }
+    }
+
+    private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!stack.isEmpty()) {
+            if (QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
+                if (!player.isCreative()) stack.shrink(1);
+                //TODO send message
+                return true;
+            }
+        }
+        return false;
     }
 }

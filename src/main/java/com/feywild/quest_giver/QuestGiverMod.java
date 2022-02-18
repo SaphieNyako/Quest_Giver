@@ -7,9 +7,8 @@ import com.feywild.quest_giver.quest.QuestManager;
 import com.feywild.quest_giver.quest.player.CapabilityQuests;
 import com.feywild.quest_giver.quest.reward.ItemReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
-import com.feywild.quest_giver.quest.task.CraftTask;
-import com.feywild.quest_giver.quest.task.KillTask;
-import com.feywild.quest_giver.quest.task.TaskTypes;
+import com.feywild.quest_giver.quest.task.*;
+import com.feywild.quest_giver.renderer.ExclamationMarkerRenderer;
 import com.feywild.quest_giver.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -18,30 +17,23 @@ import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderNameplateEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import javax.annotation.Nonnull;
-import java.util.stream.Collectors;
+
 
 
 @Mod("quest_giver")
@@ -65,10 +57,16 @@ public final class QuestGiverMod extends ModXRegistration
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
+        MinecraftForge.EVENT_BUS.register(QuestGiverRenderer.class);
 
         // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "gift"), GiftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
 
@@ -126,5 +124,4 @@ public final class QuestGiverMod extends ModXRegistration
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
                 new ResourceLocation("quest_giver:village/taiga/desert_tool_smith_1"), 10);
     }
-
 }

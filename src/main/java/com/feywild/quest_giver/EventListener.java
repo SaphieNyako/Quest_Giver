@@ -4,9 +4,9 @@ import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
+import com.feywild.quest_giver.quest.player.CompletableTaskInfo;
 import com.feywild.quest_giver.quest.player.QuestData;
-import com.feywild.quest_giver.quest.task.CraftTask;
-import com.feywild.quest_giver.quest.task.KillTask;
+import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +16,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -50,8 +51,17 @@ public class EventListener {
 
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
-            //TODO playerTick check if ItemTask is Completed
-            //TODO playerTick for Biome and Structure Check
+            QuestData quests = QuestData.get(player);
+            //Quest Check for ItemTask
+            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+            //Quest Check for BiomeTask
+            player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
+            //Quest Check for StructureTask
+            for (CompletableTaskInfo<StructureFeature<?>, StructureFeature<?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
+                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), task.getValue()).isValid()) {
+                    task.checkComplete(task.getValue());
+                }
+            }
         }
     }
 
@@ -61,6 +71,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
+        //TODO add gift item to entity questTask trigger
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
                 Player player = event.getPlayer();
                 InteractionHand hand = event.getPlayer().getUsedItemHand();

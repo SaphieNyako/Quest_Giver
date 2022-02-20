@@ -114,14 +114,25 @@ public final class QuestGiverMod extends ModXRegistration
     @SubscribeEvent
     public void onServerAboutToStartEvent(ServerAboutToStartEvent event){
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
-                new ResourceLocation("quest_giver:village/desert/taiga_tool_smith_1"), 10);
+                new ResourceLocation("quest_giver:village/desert/houses/stall"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("quest_giver:village/plains/desert_tool_smith_1"), 10);
+                new ResourceLocation("quest_giver:village/plains/houses/stall"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("quest_giver:village/savanna/desert_tool_smith_1"), 10);
+                new ResourceLocation("quest_giver:village/savanna/houses/stall"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("quest_giver:village/snowy/desert_tool_smith_1"), 10);
+                new ResourceLocation("quest_giver:village/snowy/houses/stall"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("quest_giver:village/taiga/desert_tool_smith_1"), 10);
+                new ResourceLocation("quest_giver:village/taiga/houses/stall"), 10);
+
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
+                new ResourceLocation("quest_giver:village/desert/villagers/quest_villager"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/villagers"),
+                new ResourceLocation("quest_giver:village/plains/villagers/quest_villager"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/villagers"),
+                new ResourceLocation("quest_giver:village/savanna/villagers/quest_villager"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/villagers"),
+                new ResourceLocation("quest_giver:village/snowy/villagers/quest_villager"), 10);
+        JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/villagers"),
+                new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager"), 10);
     }
 }

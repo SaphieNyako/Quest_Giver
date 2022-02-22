@@ -43,10 +43,15 @@ public class ExclamationMarkerRenderer {
 
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
-            RenderSystem.disableDepthTest();
+
+            RenderSystem.enableDepthTest();
+
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, (float)opacityDistance );  // 1.0 is full
 
             renderMarker(getResourceLocation(), poseStack);
+
+            RenderSystem.disableBlend();
+            RenderSystem.disableDepthTest();
 
             poseStack.popPose();
         }
@@ -70,13 +75,13 @@ public class ExclamationMarkerRenderer {
         Minecraft.getInstance().getTextureManager().getTexture(resource).setFilter(false, false);
         RenderSystem.setShaderTexture(0, resource);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer:: getPositionTexShader);
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix, (float)X_POS,			(float)(Y_POS + 16),		0).uv((float) 0, (float) 1).endVertex();
-        bufferbuilder.vertex(matrix, (float)(X_POS + 16),	(float)(Y_POS + 16),		0).uv((float) 1, (float) 1).endVertex();
-        bufferbuilder.vertex(matrix, (float)(X_POS + 16),	(float)Y_POS,			0).uv((float) 1, (float) 0).endVertex();
-        bufferbuilder.vertex(matrix, (float)X_POS,			(float)Y_POS,			0).uv((float) 0, (float) 0).endVertex();
+        bufferbuilder.vertex(matrix, X_POS, Y_POS + 16,0).uv( 0,  1).endVertex();
+        bufferbuilder.vertex(matrix, X_POS + 16, Y_POS + 16, 0).uv( 1,  1).endVertex();
+        bufferbuilder.vertex(matrix, X_POS + 16, Y_POS,	0).uv( 1,  0).endVertex();
+        bufferbuilder.vertex(matrix, X_POS, Y_POS, 0).uv( 0,  0).endVertex();
         bufferbuilder.end();
         BufferUploader.end(bufferbuilder);
     }

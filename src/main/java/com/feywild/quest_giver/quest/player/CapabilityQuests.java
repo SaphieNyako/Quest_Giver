@@ -41,9 +41,7 @@ public class CapabilityQuests {
 
     @SuppressWarnings("CodeBlock2Expr")
     public static void playerCopy(PlayerEvent.Clone event) {
-        // Keep the data on death
-
-        if (event.isWasDeath()) {
+        // Keep the data on death/copy
             event.getOriginal().reviveCaps();
             event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
                 event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
@@ -51,7 +49,6 @@ public class CapabilityQuests {
                 });
             });
             event.getOriginal().invalidateCaps();
-        }
     }
 
     private record Provider(

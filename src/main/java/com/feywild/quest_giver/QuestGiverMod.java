@@ -5,6 +5,7 @@ import com.feywild.quest_giver.entity.QuestVillager;
 import com.feywild.quest_giver.network.QuestGiverNetwork;
 import com.feywild.quest_giver.quest.QuestManager;
 import com.feywild.quest_giver.quest.player.CapabilityQuests;
+import com.feywild.quest_giver.quest.reward.CommandReward;
 import com.feywild.quest_giver.quest.reward.ItemReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.*;
@@ -69,6 +70,7 @@ public final class QuestGiverMod extends ModXRegistration
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
+        RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

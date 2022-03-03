@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -44,7 +45,6 @@ public class EventListener {
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
         }
     }
-
 
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event){

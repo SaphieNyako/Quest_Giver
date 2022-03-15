@@ -58,7 +58,7 @@ public final class QuestGiverMod extends ModXRegistration
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
-        MinecraftForge.EVENT_BUS.register(QuestGiverRenderer.class);
+
 
         // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
@@ -102,6 +102,7 @@ public final class QuestGiverMod extends ModXRegistration
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(ModEntityTypes.questVillager, VillagerRenderer::new);
+        MinecraftForge.EVENT_BUS.register(QuestGiverRenderer.class);
     }
 
     @SubscribeEvent

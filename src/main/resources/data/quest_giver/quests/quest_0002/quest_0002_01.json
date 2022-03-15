@@ -30,7 +30,7 @@
   ],
   "rewards": [
     {
-      "command": "/advancement grant @p only minecraft:adventure/adventuring_time",
+      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
       "id": "quest_giver:command"
     }
   ]

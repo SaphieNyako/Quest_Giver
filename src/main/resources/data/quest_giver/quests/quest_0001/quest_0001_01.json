@@ -4,10 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest1"
+      "text": "quest line 1 text"
     },
     "description": {
-      "text": "quest1"
+      "text": "quest line 1 text"
+    }
+
+  },
+  "complete": {
+    "title": {
+      "text": "quest line 1 completion text"
+    },
+    "description": {
+      "text": "quest line 1 completion text"
     }
   },
   "tasks": [
@@ -17,6 +26,12 @@
       },
       "id": "quest_giver:craft",
       "times": 9
+    }
+  ],
+  "rewards": [
+    {
+      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
+      "id": "quest_giver:command"
     }
   ]
 }

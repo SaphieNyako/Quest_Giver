@@ -13,7 +13,6 @@ Quest Giver.
 '''
 
 [[dependencies.quest_giver]]
-
     modId="forge"
     mandatory=true
     versionRange="[39,)"

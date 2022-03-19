@@ -8,6 +8,8 @@ import com.feywild.quest_giver.quest.player.CompletableTaskInfo;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -72,24 +74,17 @@ public class EventListener {
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         //TODO add gift item to entity questTask trigger
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
-                Player player = event.getPlayer();
+                ServerPlayer player = (ServerPlayer) event.getPlayer();
                 InteractionHand hand = event.getPlayer().getUsedItemHand();
-
-            if (event.getTarget() instanceof Villager villager && villager.getTags().contains(QuestNumber.QUEST_0001.id)) { //&& event.getTarget().getTags().contains("quest_0001")
                 ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayer) player, hand, event.getTarget(), QuestNumber.QUEST_0001);
+                if (!stack.isEmpty() && QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
+                    if (!player.isCreative()) stack.shrink(1);
+                    player.sendMessage(new TranslatableComponent("message.quest_giver.complete"), player.getUUID());
                 }
             }
-            if (event.getTarget() instanceof Villager villager && villager.getTags().contains(QuestNumber.QUEST_0002.id)) { //&& event.getTarget().getTags().contains("quest_0001")
-                ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayer) player, hand, event.getTarget(), QuestNumber.QUEST_0002);
-                }
-            }
-        }
     }
 
+    // THIS IS NOT USED NOW, LEAVE IT IN JUST IN CASE WE NEED IT AGAIN
     private void interactQuest(ServerPlayer player, InteractionHand hand, Entity entity, QuestNumber questNumber) {
 
         QuestData quests = QuestData.get(player);

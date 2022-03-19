@@ -78,7 +78,7 @@ public class QuestData {
     }
 
     // True if the task was completed
-    // Can be used so fey entities only accept gifts for quests
+    // Can be used so entities only accept gifts for quests
     public <T> boolean checkComplete(TaskType<?, T> type, T element) {
         boolean success = false;
         for (QuestLineData line : this.questLines.values()) {

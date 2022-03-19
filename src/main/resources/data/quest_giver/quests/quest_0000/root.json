@@ -3,10 +3,10 @@
   "icon": "minecraft:diamond",
   "start": {
     "title": {
-      "text": "test for quest armorer."
+      "text": "test for quest giver mod."
     },
     "description": {
-      "text": "test for $(red) quest armorer $()."
+      "text": "test for $(red) quest giver mod $()."
     }
   }
 }

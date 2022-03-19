@@ -4,19 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest butcher"
+      "text": "quest farmer"
     },
     "description": {
-      "text": "quest butcher"
+      "text": "quest farmer"
     }
 
   },
   "complete": {
     "title": {
-      "text": "quest butcher completion text"
+      "text": "quest farmer completion text"
     },
     "description": {
-      "text": "quest butcher completion text"
+      "text": "quest farmer completion text"
     }
   },
   "tasks": [

@@ -66,13 +66,10 @@ public class EventListener {
         }
     }
 
-
-
-
-
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         //TODO add gift item to entity questTask trigger
+        /*
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
                 ServerPlayer player = (ServerPlayer) event.getPlayer();
                 InteractionHand hand = event.getPlayer().getUsedItemHand();
@@ -82,6 +79,7 @@ public class EventListener {
                     player.sendMessage(new TranslatableComponent("message.quest_giver.complete"), player.getUUID());
                 }
             }
+         */
     }
 
     // THIS IS NOT USED NOW, LEAVE IT IN JUST IN CASE WE NEED IT AGAIN

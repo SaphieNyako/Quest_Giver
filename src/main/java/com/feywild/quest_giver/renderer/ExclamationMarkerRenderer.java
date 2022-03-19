@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerProfession;
 
 public class ExclamationMarkerRenderer {
 
@@ -24,7 +25,7 @@ public class ExclamationMarkerRenderer {
 
     public static void renderExclamationMarker(EntityRenderer<?> renderer, Entity entity, Component component, PoseStack poseStack, MultiBufferSource buffer, int packedLight){
 
-        if(entity instanceof QuestVillager){
+        if(entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE){ //TODO if questvillager has a quest for player, and player can do this quest
 
             double squareDistance = renderer.entityRenderDispatcher.distanceToSqr(entity);
             double fadeDistance = ((1.0 - (FADE_PERCENTAGE / 100.0)) * MAX_DISTANCE);

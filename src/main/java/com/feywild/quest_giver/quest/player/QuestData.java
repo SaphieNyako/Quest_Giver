@@ -98,7 +98,9 @@ public class QuestData {
     public CompoundTag write() {
         CompoundTag nbt = new CompoundTag();
         for (Map.Entry<QuestNumber, QuestLineData> entry : this.questLines.entrySet()) {
-            nbt.put(entry.getKey().id, entry.getValue().write());
+            if(entry.getKey() != null) {
+                nbt.put(entry.getKey().id, entry.getValue().write());
+            }
         }
         return nbt;
     }

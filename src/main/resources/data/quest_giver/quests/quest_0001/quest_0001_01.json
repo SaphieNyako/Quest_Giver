@@ -4,19 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest line 1 text"
+      "text": "quest armorer"
     },
     "description": {
-      "text": "quest line 1 text"
+      "text": "quest armorer"
     }
 
   },
   "complete": {
     "title": {
-      "text": "quest line 1 completion text"
+      "text": "quest armorer completion text"
     },
     "description": {
-      "text": "quest line 1 completion text"
+      "text": "qquest armorer completion text"
     }
   },
   "tasks": [

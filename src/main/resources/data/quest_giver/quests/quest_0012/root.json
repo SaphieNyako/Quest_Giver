@@ -3,10 +3,10 @@
   "icon": "minecraft:diamond",
   "start": {
     "title": {
-      "text": "test for quest armorer."
+      "text": "quest toolsmith."
     },
     "description": {
-      "text": "test for $(red) quest armorer $()."
+      "text": "quest toolsmith."
     }
   }
 }

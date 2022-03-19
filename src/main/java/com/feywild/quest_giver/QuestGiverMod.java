@@ -128,14 +128,14 @@ public final class QuestGiverMod extends ModXRegistration
                 new ResourceLocation("quest_giver:village/taiga/houses/stall"), 10);
 
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
-                new ResourceLocation("quest_giver:village/desert/villagers/quest_villager"), 10);
+                new ResourceLocation("quest_giver:village/desert/villagers/quest_villager_desert"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/villagers"),
                 new ResourceLocation("quest_giver:village/plains/villagers/quest_villager"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/villagers"),
-                new ResourceLocation("quest_giver:village/savanna/villagers/quest_villager"), 10);
+                new ResourceLocation("quest_giver:village/savanna/villagers/quest_villager_savanna"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/villagers"),
-                new ResourceLocation("quest_giver:village/snowy/villagers/quest_villager"), 10);
+                new ResourceLocation("quest_giver:village/snowy/villagers/quest_villager_snow"), 10);
         JigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/villagers"),
-                new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager"), 10);
+                new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager_taiga"), 10);
     }
 }

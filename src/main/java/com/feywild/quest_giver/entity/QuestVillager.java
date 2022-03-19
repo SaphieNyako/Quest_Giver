@@ -8,6 +8,7 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import net.minecraft.client.renderer.entity.layers.VillagerProfessionLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -40,12 +43,79 @@ public class QuestVillager extends Villager {
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
         super(villager, level);
         this.noCulling = true;
-        this.entityData.set(QUEST_NUMBER, getRandom().nextInt(QuestNumber.values().length));
+     //   this.entityData.set(QUEST_NUMBER, getRandom().nextInt(QuestNumber.values().length));  // SHOULDNT BE RANDOM
     }
 
     public static boolean canSpawn(EntityType<? extends QuestVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
     }
+
+
+    @Override
+    public void tick() {
+        super.tick();
+        VillagerProfession villagerprofession = this.getVillagerData().getProfession();
+        if(villagerprofession != VillagerProfession.NONE) {
+            if (villagerprofession == VillagerProfession.ARMORER) {
+                this.entityData.set(QUEST_NUMBER, 1);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.BUTCHER) {
+                this.entityData.set(QUEST_NUMBER, 2);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.CARTOGRAPHER) {
+                this.entityData.set(QUEST_NUMBER, 3);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.CLERIC) {
+                this.entityData.set(QUEST_NUMBER, 4);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.FARMER) {
+                this.entityData.set(QUEST_NUMBER, 5);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.FISHERMAN) {
+                this.entityData.set(QUEST_NUMBER, 6);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.FLETCHER) {
+                this.entityData.set(QUEST_NUMBER, 7);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.LEATHERWORKER) {
+                this.entityData.set(QUEST_NUMBER, 8);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.LIBRARIAN) {
+                this.entityData.set(QUEST_NUMBER, 9);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.MASON) {
+                this.entityData.set(QUEST_NUMBER, 10);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.SHEPHERD) {
+                this.entityData.set(QUEST_NUMBER, 11);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.TOOLSMITH) {
+                this.entityData.set(QUEST_NUMBER, 12);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == VillagerProfession.WEAPONSMITH) {
+                this.entityData.set(QUEST_NUMBER, 13);
+                this.setVillagerXp(1);
+            }
+
+        } else {
+
+        }
+    }
+
+
+
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5D).add(Attributes.FOLLOW_RANGE, 48.0D);
@@ -75,6 +145,8 @@ public class QuestVillager extends Villager {
         }
     }
 
+
+
     @Nonnull
     @Override
     public InteractionResult interactAt(@Nonnull Player player,@Nonnull Vec3 vec,@Nonnull InteractionHand hand) {
@@ -83,8 +155,6 @@ public class QuestVillager extends Villager {
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else {
-
-
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
                     this.interactQuest((ServerPlayer) player, hand);
@@ -92,6 +162,7 @@ public class QuestVillager extends Villager {
             }
         }
         return InteractionResult.sidedSuccess(this.level.isClientSide);
+        //TODO doesnt give profession trades if quest is done.
     }
 
 
@@ -103,7 +174,7 @@ public class QuestVillager extends Villager {
 
             QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
 
-            if (completionDisplay != null) { //Is there a complete quest pending
+            if (completionDisplay != null) { //Is there a complete quest pending ????
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                         () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber()));
                 player.swing(hand, true);

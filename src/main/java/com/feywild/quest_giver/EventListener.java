@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -26,7 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 
 public class EventListener {
 
@@ -97,19 +96,19 @@ public class EventListener {
 
         if (quests.canComplete(questNumber)) {
 
-            QuestDisplay completionDisplay = quests.completePendingQuest();
+            QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(questNumber)).completePendingQuest();
 
             if (completionDisplay != null) { //Is there a complete quest pending
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false));
+                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, questNumber));
                 player.swing(hand, true);
 
             } else {
-                List<SelectableQuest> active = quests.getQuests();
+                List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(questNumber)).getQuests();
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
+                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, questNumber));
                     player.swing(hand, true);
 
                 } else if (!active.isEmpty()) {
@@ -123,7 +122,7 @@ public class EventListener {
             QuestDisplay initDisplay = quests.initialize(questNumber);
             if (initDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true));
+                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, questNumber));
                 player.swing(hand, true);
             }
         }

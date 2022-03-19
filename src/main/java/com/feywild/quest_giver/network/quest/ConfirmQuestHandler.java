@@ -14,9 +14,9 @@ public class ConfirmQuestHandler {
             ServerPlayer player = context.get().getSender();
             if (player != null) {
                 if (msg.accept) {
-                    QuestData.get(player).acceptQuestNumber();
+                    QuestData.get(player).acceptQuestNumber(msg.questNumber);
                 } else {
-                    QuestData.get(player).acceptQuestNumber();
+                    QuestData.get(player).acceptQuestNumber(msg.questNumber);
                 }
             }
         });

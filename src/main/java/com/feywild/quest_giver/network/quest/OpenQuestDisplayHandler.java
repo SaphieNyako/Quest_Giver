@@ -20,7 +20,7 @@ public class OpenQuestDisplayHandler {
                     Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(msg.display.sound, SoundSource.MASTER, 1, 1, player.getX(), player.getY(), player.getZ()));
                 }
             }
-            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons));
+            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons, msg.questNumber));
         });
         context.get().setPacketHandled(true);
     }

@@ -14,12 +14,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
@@ -27,14 +24,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class QuestVillager extends Villager {
@@ -105,19 +101,19 @@ public class QuestVillager extends Villager {
 
         if (quests.canComplete(this.getQuestNumber())) {
 
-            QuestDisplay completionDisplay = quests.completePendingQuest();
+            QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
 
             if (completionDisplay != null) { //Is there a complete quest pending
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false));
+                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber()));
                 player.swing(hand, true);
 
             } else {
-                List<SelectableQuest> active = quests.getQuests();
+                List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).getQuests();
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
+                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber()));
                     player.swing(hand, true);
 
                 } else if (!active.isEmpty()) {
@@ -131,7 +127,7 @@ public class QuestVillager extends Villager {
             QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
             if (initDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true));
+                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber()));
                 player.swing(hand, true);
             }
         }

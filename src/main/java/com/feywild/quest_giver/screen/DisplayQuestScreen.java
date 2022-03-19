@@ -3,17 +3,16 @@ package com.feywild.quest_giver.screen;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
+import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -25,15 +24,16 @@ public class DisplayQuestScreen extends Screen {
     private final boolean hasConfirmationButtons;
     private Component title;
     private List<FormattedCharSequence> description;
-
+    private QuestNumber questNumber;
 
     private float xMouse;
     private float yMouse;
 
-    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons) {
+    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, QuestNumber questNumber) {
         super(display.title);
         this.display = display;
         this.hasConfirmationButtons = hasConfirmationButtons;
+        this.questNumber = questNumber;
     }
 
     @Override
@@ -61,13 +61,14 @@ public class DisplayQuestScreen extends Screen {
         if (this.hasConfirmationButtons) {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
 
+
             this.addRenderableWidget(new Button(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, 80, 20, new TextComponent("accept"), button -> {
-                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true));
+                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber));
                 this.onClose();
             }));
 
             this.addRenderableWidget(new Button(DECLINE_POSITION_X, DECLINE_POSITION_Y, 80, 20, new TextComponent("decline"), button -> {
-                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false));
+                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber));
                 this.onClose();
             }));
 

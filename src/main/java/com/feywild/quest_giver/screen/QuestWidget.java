@@ -2,6 +2,7 @@ package com.feywild.quest_giver.screen;
 
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.SelectQuestSerializer;
+import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -16,13 +17,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
+
 @OnlyIn(Dist.CLIENT)
 public class QuestWidget extends Button {
 
 
     public static final int WIDTH = 40;
     public static final int HEIGHT = 24;
+    private QuestNumber questNumber;
 
     public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/looking_glass.png");
 
@@ -41,7 +43,7 @@ public class QuestWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
+        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, questNumber));
     }
 
     @Override

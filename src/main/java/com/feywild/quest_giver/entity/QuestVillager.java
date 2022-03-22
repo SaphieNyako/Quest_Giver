@@ -43,7 +43,6 @@ public class QuestVillager extends Villager {
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
         super(villager, level);
         this.noCulling = true;
-     //   this.entityData.set(QUEST_NUMBER, getRandom().nextInt(QuestNumber.values().length));  // SHOULDNT BE RANDOM
     }
 
     public static boolean canSpawn(EntityType<? extends QuestVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
@@ -174,7 +173,7 @@ public class QuestVillager extends Villager {
 
             QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
 
-            if (completionDisplay != null) { //Is there a complete quest pending ????
+            if (completionDisplay != null) { //TODO bug fix if not clicking root accept/decline button it will show the root window, and go to next quest automatically
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                         () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber()));
                 player.swing(hand, true);
@@ -187,7 +186,7 @@ public class QuestVillager extends Villager {
                             () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber()));
                     player.swing(hand, true);
 
-                } else if (!active.isEmpty()) {
+                } else if (!active.isEmpty()) { //TODO bug fix multiple display crashes game
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.getQuestNumber(), active));
                     player.swing(hand, true);

@@ -15,15 +15,15 @@ public class ConfirmQuestSerializer implements PacketSerializer<ConfirmQuestSeri
     public void encode(Message msg, FriendlyByteBuf buffer) {
 
         buffer.writeBoolean(msg.accept);
-        buffer.writeEnum(msg.questNumber); //ERROR
+        buffer.writeEnum(msg.questNumber);
     }
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
 
+        boolean accept = buffer.readBoolean();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
-        return new Message(buffer.readBoolean(), questNumber);
-
+        return new Message(accept, questNumber);
 
     }
 

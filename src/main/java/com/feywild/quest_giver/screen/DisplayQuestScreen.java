@@ -106,4 +106,8 @@ public class DisplayQuestScreen extends Screen {
         return false;
     }
 
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return !hasConfirmationButtons;
+    }
 }

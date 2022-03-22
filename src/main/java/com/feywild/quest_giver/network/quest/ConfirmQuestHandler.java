@@ -16,7 +16,7 @@ public class ConfirmQuestHandler {
                 if (msg.accept) {
                     QuestData.get(player).acceptQuestNumber(msg.questNumber);
                 } else {
-                    QuestData.get(player).acceptQuestNumber(msg.questNumber);
+                    QuestData.get(player).denyQuest(msg.questNumber);
                 }
             }
         });

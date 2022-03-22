@@ -22,10 +22,10 @@
   "tasks": [
     {
       "item": {
-        "tag": "forge:dyes"
+        "item": "minecraft:iron_sword"
       },
       "id": "quest_giver:craft",
-      "times": 9
+      "times": 1
     }
   ],
   "rewards": [

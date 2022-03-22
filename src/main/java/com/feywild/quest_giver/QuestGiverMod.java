@@ -1,6 +1,8 @@
 package com.feywild.quest_giver;
 
+import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.ModEntityTypes;
+import com.feywild.quest_giver.entity.ModPoiTypes;
 import com.feywild.quest_giver.entity.QuestVillager;
 import com.feywild.quest_giver.network.QuestGiverNetwork;
 import com.feywild.quest_giver.quest.QuestManager;
@@ -26,6 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -49,8 +52,10 @@ public final class QuestGiverMod extends ModXRegistration
         instance = this;
         network = new QuestGiverNetwork(this);
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        bus.addListener(CapabilityQuests::register);
+        bus.addListener(this::entityAttributes);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 
@@ -58,6 +63,8 @@ public final class QuestGiverMod extends ModXRegistration
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
+        GuildMasterProfession.PROFESSION.register(bus);
+        ModPoiTypes.POI_TYPES.register(bus);
 
 
         // Quest task & reward types. Not in setup as they are required for datagen.
@@ -95,6 +102,7 @@ public final class QuestGiverMod extends ModXRegistration
     {
         event.enqueueWork(() -> {
             SpawnPlacements.register(ModEntityTypes.questVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestVillager::canSpawn);
+            ModPoiTypes.register();
         });
     }
 

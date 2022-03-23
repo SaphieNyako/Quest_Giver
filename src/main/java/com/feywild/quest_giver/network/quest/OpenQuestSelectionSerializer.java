@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 
 import java.util.List;
 

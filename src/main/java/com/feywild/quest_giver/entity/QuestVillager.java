@@ -8,7 +8,6 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
-import net.minecraft.client.renderer.entity.layers.VillagerProfessionLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -107,9 +105,10 @@ public class QuestVillager extends Villager {
                 this.entityData.set(QUEST_NUMBER, 13);
                 this.setVillagerXp(1);
             }
-
-        } else {
-
+            if (villagerprofession == GuildMasterProfession.GUILDMASTER.get()) {
+                this.entityData.set(QUEST_NUMBER, 14);
+                this.setVillagerXp(1);
+            }
         }
     }
 
@@ -173,7 +172,7 @@ public class QuestVillager extends Villager {
 
             QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
 
-            if (completionDisplay != null) { //TODO bug fix if not clicking root accept/decline button it will show the root window, and go to next quest automatically
+            if (completionDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                         () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber()));
                 player.swing(hand, true);

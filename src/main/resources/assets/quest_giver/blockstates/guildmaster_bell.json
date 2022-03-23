@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "quest_giver:block/guildmaster_bell"
+    }
+  }
+}

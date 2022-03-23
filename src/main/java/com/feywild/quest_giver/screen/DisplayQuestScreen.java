@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.entity.Entity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -24,7 +25,8 @@ public class DisplayQuestScreen extends Screen {
     private final boolean hasConfirmationButtons;
     private Component title;
     private List<FormattedCharSequence> description;
-    private QuestNumber questNumber;
+    private final QuestNumber questNumber;
+
 
     private float xMouse;
     private float yMouse;

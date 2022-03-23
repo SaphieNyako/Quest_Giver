@@ -5,6 +5,7 @@ import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
 
 public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDisplaySerializer.Message> {
 

@@ -213,4 +213,9 @@ public class QuestVillager extends Villager {
         }
         return false;
     }
+
+    @Override
+    protected boolean canRide(Entity entity) {
+        return false;
+    }
 }

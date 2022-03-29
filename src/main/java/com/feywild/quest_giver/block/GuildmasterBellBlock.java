@@ -36,6 +36,8 @@ import java.util.Random;
 
 public class GuildmasterBellBlock extends BlockBE<GuildmasterBell> {
 
+    /* THIS IS NOT IN USE - alternative idea for the Guildmaster Bell */
+
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
 
     public GuildmasterBellBlock(ModX mod){
@@ -97,4 +99,5 @@ public class GuildmasterBellBlock extends BlockBE<GuildmasterBell> {
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
         }
+
 }

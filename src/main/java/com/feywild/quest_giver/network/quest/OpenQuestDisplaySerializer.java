@@ -6,6 +6,10 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
+
+import java.util.UUID;
 
 public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDisplaySerializer.Message> {
 
@@ -19,13 +23,15 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
         msg.display.toNetwork(buffer);
         buffer.writeBoolean(msg.confirmationButtons);
         buffer.writeEnum(msg.questNumber);
+
     }
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);
         boolean confirmationButtons = buffer.readBoolean();
-        QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
+        QuestNumber questNumber = buffer.readEnum(QuestNumber.class);;
+
         return new Message(display, confirmationButtons, questNumber);
     }
 
@@ -34,6 +40,7 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
         public final QuestDisplay display;
         public final boolean confirmationButtons;
         public final QuestNumber questNumber;
+
 
         public Message(QuestDisplay display, boolean confirmationButtons, QuestNumber questNumber) {
             this.display = display;

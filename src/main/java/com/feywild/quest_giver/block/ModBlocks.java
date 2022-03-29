@@ -7,11 +7,16 @@ import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 @RegisterClass
 public class ModBlocks {
 
-    public static final BlockBE<GuildmasterBell> guildmasterBell = new GuildmasterBellBlock(QuestGiverMod.getInstance());
-
+    public static final Block guildmasterBell = new BlockBase(QuestGiverMod.getInstance(), BlockBehaviour.Properties.copy(Blocks.CARTOGRAPHY_TABLE)
+            .strength(-1, 3600000).noDrops()
+            .noOcclusion()
+            .randomTicks()
+            .noCollission()
+            .sound(SoundType.LANTERN));
 }

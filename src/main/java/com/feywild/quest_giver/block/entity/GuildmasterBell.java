@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public class GuildmasterBell extends BlockEntity {
 
+    /* THIS IS NOT IN USE - alternative idea for the Guildmaster Bell */
+
     @Nullable
     private UUID player = null;
 

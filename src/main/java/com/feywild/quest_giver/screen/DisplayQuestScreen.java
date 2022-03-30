@@ -66,8 +66,10 @@ public class DisplayQuestScreen extends Screen {
     protected void init() {
        // super.init();
 
+
+
         this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y));
-        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level));
+        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber));
 
         this.title = QuestGiverTextProcessor.INSTANCE.processLine(this.display.title);
         this.description = QuestGiverTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(

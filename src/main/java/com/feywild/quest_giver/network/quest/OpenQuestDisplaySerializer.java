@@ -4,12 +4,8 @@ package com.feywild.quest_giver.network.quest;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.Villager;
-
-import java.util.UUID;
 
 public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDisplaySerializer.Message> {
 
@@ -21,6 +17,7 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
     @Override
     public void encode(Message msg, FriendlyByteBuf buffer) {
         msg.display.toNetwork(buffer);
+        buffer.writeBlockPos(msg.pos);
         buffer.writeBoolean(msg.confirmationButtons);
         buffer.writeEnum(msg.questNumber);
 
@@ -29,10 +26,11 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
     @Override
     public Message decode(FriendlyByteBuf buffer) {
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);
+        BlockPos pos = buffer.readBlockPos();
         boolean confirmationButtons = buffer.readBoolean();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);;
 
-        return new Message(display, confirmationButtons, questNumber);
+        return new Message(display, confirmationButtons, questNumber, pos);
     }
 
     public static class Message {
@@ -40,12 +38,14 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
         public final QuestDisplay display;
         public final boolean confirmationButtons;
         public final QuestNumber questNumber;
+        public final BlockPos pos;
 
 
-        public Message(QuestDisplay display, boolean confirmationButtons, QuestNumber questNumber) {
+        public Message(QuestDisplay display, boolean confirmationButtons, QuestNumber questNumber, BlockPos pos) {
             this.display = display;
             this.confirmationButtons = confirmationButtons;
             this.questNumber = questNumber;
+            this.pos = pos;
         }
     }
 }

@@ -16,9 +16,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -96,7 +93,7 @@ public class EventListener {
 
             if (completionDisplay != null) { //Is there a complete quest pending
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, questNumber));
+                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, questNumber, entity.blockPosition()));
                 player.swing(hand, true);
 
             } else {
@@ -104,7 +101,7 @@ public class EventListener {
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, questNumber));
+                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, questNumber, entity.blockPosition()));
                     player.swing(hand, true);
 
                 } else if (!active.isEmpty()) {
@@ -118,7 +115,7 @@ public class EventListener {
             QuestDisplay initDisplay = quests.initialize(questNumber);
             if (initDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, questNumber));
+                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, questNumber, entity.blockPosition()));
                 player.swing(hand, true);
             }
         }

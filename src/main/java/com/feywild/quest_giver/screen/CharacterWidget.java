@@ -2,8 +2,6 @@ package com.feywild.quest_giver.screen;
 
 
 import com.feywild.quest_giver.entity.GuildMasterProfession;
-import com.feywild.quest_giver.entity.ModEntityTypes;
-import com.feywild.quest_giver.entity.QuestVillager;
 import com.feywild.quest_giver.quest.QuestNumber;
 import io.github.noeppi_noeppi.libx.screen.Panel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +14,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.Level;
 import javax.annotation.Nonnull;
-import java.awt.*;
 
 
 public class CharacterWidget extends Panel {
@@ -31,18 +28,18 @@ public class CharacterWidget extends Panel {
     private final Villager villager;
 
 
-
-    public CharacterWidget(Screen screen, int x, int y, Level level, QuestNumber number) {
+    public CharacterWidget(Screen screen, int x, int y, Level level, QuestNumber number, BlockPos pos) {
         super(screen ,x, y, WIDTH ,HEIGHT);
         this.level = level;
         this.number = number;
-        this.villager = setVillager(number);
+        this.villager = setVillager(number, pos);
+
     }
 
-    private Villager setVillager(QuestNumber number) {
+    private Villager setVillager(QuestNumber number, BlockPos pos) {
 
         Villager villager = new Villager(EntityType.VILLAGER, this.level);
-        VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiomeName(new BlockPos(0, 0, 0))), getProfession(number),1 );
+        VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiomeName(pos)), getProfession(number),1 );
         villager.setVillagerData(villagerData);
         return villager;
 

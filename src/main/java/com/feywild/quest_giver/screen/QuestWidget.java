@@ -11,6 +11,7 @@ import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,10 +26,9 @@ public class QuestWidget extends Button {
     public static final int WIDTH = 40;
     public static final int HEIGHT = 24;
     private QuestNumber questNumber;
+    private BlockPos pos;
 
     public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/looking_glass.png");
-
-
 
     private final SelectableQuest quest;
     private final ItemStack iconStack;
@@ -43,7 +43,7 @@ public class QuestWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, questNumber));
+        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, questNumber, pos));
     }
 
     @Override

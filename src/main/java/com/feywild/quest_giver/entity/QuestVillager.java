@@ -174,7 +174,7 @@ public class QuestVillager extends Villager {
 
             if (completionDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber()));
+                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber(),  this.blockPosition()));
                 player.swing(hand, true);
 
             } else {
@@ -182,7 +182,7 @@ public class QuestVillager extends Villager {
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber(),  this.blockPosition()));
                     player.swing(hand, true);
 
                 } else if (!active.isEmpty()) { //TODO bug fix multiple display crashes game
@@ -196,7 +196,7 @@ public class QuestVillager extends Villager {
             QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
             if (initDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber()));
+                        () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber(), this.blockPosition()));
                 player.swing(hand, true);
             }
         }

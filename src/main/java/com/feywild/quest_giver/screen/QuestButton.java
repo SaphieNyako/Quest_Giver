@@ -7,8 +7,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 
 import javax.annotation.Nonnull;
@@ -17,11 +20,26 @@ public class QuestButton extends Button {
 
     public static final int WIDTH = 90;
     public static final int HEIGHT = 22;
+    public boolean accept;
+    public BlockPos pos;
 
     public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_button.png");
 
-    public QuestButton(int x, int y, Component message, OnPress onPress) {
+    public QuestButton(int x, int y, boolean accept, BlockPos pos, Component message, OnPress onPress) {
         super(x, y, WIDTH, HEIGHT, message, onPress);
+        this.accept = accept;
+        this.pos = pos;
+    }
+
+    @Override
+    public void onPress() {
+        Minecraft minecraft = Minecraft.getInstance();
+        if(accept) {
+            minecraft.level.playLocalSound(this.pos, SoundEvents.VILLAGER_YES, SoundSource.PLAYERS, 1.0F, 1.0F, false);
+        } else {
+            minecraft.level.playLocalSound(this.pos, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0F, 1.0F, false);
+        }
+        super.onPress();
     }
 
     @Override

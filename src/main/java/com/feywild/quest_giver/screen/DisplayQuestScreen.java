@@ -73,12 +73,12 @@ public class DisplayQuestScreen extends Screen {
         if (this.hasConfirmationButtons) {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
 
-            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, new TextComponent("accept"), button -> {
+            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber));
                 this.onClose();
             }));
 
-            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, new TextComponent("decline"), button -> {
+            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, new TextComponent("decline"), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber));
                 this.onClose();
             }));
@@ -116,51 +116,5 @@ public class DisplayQuestScreen extends Screen {
     @Override
     public boolean shouldCloseOnEsc() {
         return !hasConfirmationButtons;
-    }
-
-    public static void renderEntityInInventory(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity livingEntity) {
-        float f = (float)Math.atan((double)(mouseX / 40.0F));
-        float f1 = (float)Math.atan((double)(mouseY / 40.0F));
-        PoseStack posestack = RenderSystem.getModelViewStack();
-        posestack.pushPose();
-        posestack.translate((double)posX, (double)posY, 1050.0D);
-        posestack.scale(1.0F, 1.0F, -1.0F);
-        RenderSystem.applyModelViewMatrix();
-        PoseStack posestack1 = new PoseStack();
-        posestack1.translate(0.0D, 0.0D, 1000.0D);
-        posestack1.scale((float)scale, (float)scale, (float)scale);
-        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
-        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
-        quaternion.mul(quaternion1);
-        posestack1.mulPose(quaternion);
-        float f2 = livingEntity.yBodyRot;
-        float f3 = livingEntity.getYRot();
-        float f4 = livingEntity.getXRot();
-        float f5 = livingEntity.yHeadRotO;
-        float f6 = livingEntity.yHeadRot;
-        livingEntity.yBodyRot = 180.0F + f * 20.0F;
-        livingEntity.setYRot(180.0F + f * 40.0F);
-        livingEntity.setXRot(-f1 * 20.0F);
-        livingEntity.yHeadRot = livingEntity.getYRot();
-        livingEntity.yHeadRotO = livingEntity.getYRot();
-        Lighting.setupForEntityInInventory();
-        EntityRenderDispatcher entityrenderdispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-        quaternion1.conj();
-        entityrenderdispatcher.overrideCameraOrientation(quaternion1);
-        entityrenderdispatcher.setRenderShadow(false);
-        MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-        RenderSystem.runAsFancy(() -> {
-            entityrenderdispatcher.render(livingEntity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, posestack1, multibuffersource$buffersource, 15728880);
-        });
-        multibuffersource$buffersource.endBatch();
-        entityrenderdispatcher.setRenderShadow(true);
-        livingEntity.yBodyRot = f2;
-        livingEntity.setYRot(f3);
-        livingEntity.setXRot(f4);
-        livingEntity.yHeadRotO = f5;
-        livingEntity.yHeadRot = f6;
-        posestack.popPose();
-        RenderSystem.applyModelViewMatrix();
-        Lighting.setupFor3DItems();
     }
 }

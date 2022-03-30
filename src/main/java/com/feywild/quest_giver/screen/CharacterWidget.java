@@ -6,6 +6,8 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import io.github.noeppi_noeppi.libx.screen.Panel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
@@ -51,7 +53,7 @@ public class CharacterWidget extends Panel {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
 
-        DisplayQuestScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 50 - this.xMouse, (float)(75 - 50) - this.yMouse, villager);
+        InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 50 - this.xMouse, (float)(75 - 50) - this.yMouse, villager);
     }
 
     private VillagerProfession getProfession(QuestNumber number) {

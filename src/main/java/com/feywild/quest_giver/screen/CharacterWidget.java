@@ -32,7 +32,7 @@ public class CharacterWidget extends Panel {
         this.yMouse = (float)mouseY;
 
         QuestVillager villager = new QuestVillager(ModEntityTypes.questVillager, this.level);
-        DisplayQuestScreen.renderEntityInInventory(this.x, this.y, 60,  (float) 50 - this.xMouse, (float)(75 - 50) - this.yMouse, villager);
+        DisplayQuestScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 50 - this.xMouse, (float)(75 - 50) - this.yMouse, villager);
     }
 
 }

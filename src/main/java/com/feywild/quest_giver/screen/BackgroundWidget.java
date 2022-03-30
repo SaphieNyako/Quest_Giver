@@ -11,6 +11,7 @@ import io.github.noeppi_noeppi.libx.screen.Panel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +27,7 @@ import javax.annotation.Nonnull;
 public class BackgroundWidget extends Panel {
 
     public static final int WIDTH = 390;
-    public static final int HEIGHT = 119;
+    public static final int HEIGHT = 120;
 
     public static final ResourceLocation BACKGROUND_TEXTURE_01 = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_background_01.png");
     public static final ResourceLocation BACKGROUND_TEXTURE_02 = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_background_02.png");
@@ -41,22 +42,30 @@ public class BackgroundWidget extends Panel {
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        poseStack.pushPose(); //begin
+     //   poseStack.pushPose(); //begin
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
 
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE_01);
         RenderSystem.setShaderColor(0.0F,0.0F,0.0F, 0.5F);
         this.blit(poseStack, this.x, this.y, 0, 0, 240, HEIGHT);
+
+
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE_02);
         RenderSystem.setShaderColor(0.0F,0.0F,0.0F, 0.5F);
         this.blit(poseStack, this.x + 240, this.y, 0, 0, 140, HEIGHT);
 
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE_03);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F, 1F);
-        this.blit(poseStack, this.x, this.y + 1, 0, 0, 240, HEIGHT);
+        this.blit(poseStack, this.x, this.y + 2, 0, 0, 240, HEIGHT);
+
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE_04);
         RenderSystem.setShaderColor(1.0F,1.0F,1.0F, 1F);
-        this.blit(poseStack, this.x + 240 , this.y + 1, 0, 0, 140, HEIGHT);
+        this.blit(poseStack, this.x + 240 , this.y + 2, 0, 0, 140, HEIGHT);
 
-        poseStack.popPose(); // end
+      //  poseStack.popPose(); // end
     }
 }

@@ -12,6 +12,7 @@ import com.feywild.quest_giver.quest.reward.ItemReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.renderer.ExclamationMarkerRenderer;
+import com.feywild.quest_giver.util.ClientEvents;
 import com.feywild.quest_giver.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -111,6 +112,7 @@ public final class QuestGiverMod extends ModXRegistration
     protected void clientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(ModEntityTypes.questVillager, VillagerRenderer::new);
         MinecraftForge.EVENT_BUS.register(QuestGiverRenderer.class);
+        MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
 
     @SubscribeEvent

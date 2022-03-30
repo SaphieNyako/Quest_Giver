@@ -1,15 +1,18 @@
 package com.feywild.quest_giver.screen;
 
+import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
+import com.feywild.quest_giver.util.ClientEvents;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import jdk.jfr.Event;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
@@ -38,16 +41,17 @@ public class DisplayQuestScreen extends Screen {
     private float xMouse;
     private float yMouse;
 
-    int QUEST_WINDOW_POSITION_Y = 115;
+    int QUEST_WINDOW_POSITION_Y = 120;
     int QUEST_WINDOW_POSITION_X = 50;
-    int ACCEPT_POSITION_Y = 159;
+    int ACCEPT_POSITION_Y = 188;
     int ACCEPT_POSITION_X = 380;
-    int DECLINE_POSITION_Y = 189;
+    int DECLINE_POSITION_Y = 218;
     int DECLINE_POSITION_X = 380;
-    int CHARACTER_POSITION_Y = 220;
+    int CHARACTER_POSITION_Y = 240;
     int CHARACTER_POSITION_X = 37;
-    int DESCRIPTION_POSITION_Y = 140;
+    int DESCRIPTION_POSITION_Y = 150;
     int DESCRIPTION_POSITION_X = 70;
+    int TITLE_POSITION_Y = 125;
     int WIDTH_SCREEN = 323;
 
     public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, QuestNumber questNumber) {
@@ -60,7 +64,7 @@ public class DisplayQuestScreen extends Screen {
 
     @Override
     protected void init() {
-        super.init();
+       // super.init();
 
         this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y));
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level));
@@ -83,8 +87,14 @@ public class DisplayQuestScreen extends Screen {
                 this.onClose();
             }));
         }
+        ClientEvents.setShowGui(false);
     }
 
+    @Override
+    public void onClose() {
+        ClientEvents.setShowGui(true);
+        super.onClose();
+    }
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -95,7 +105,7 @@ public class DisplayQuestScreen extends Screen {
     private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
 
         if (this.minecraft != null) {
-            drawString(poseStack, this.minecraft.font, this.title, QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2), 120, 0xFFFFFF);
+            drawString(poseStack, this.minecraft.font, this.title, QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2), TITLE_POSITION_Y, 0xFFFFFF);
             for (int i = 0; i < this.description.size(); i++) {
                 this.minecraft.font.drawShadow(poseStack, this.description.get(i), DESCRIPTION_POSITION_X, DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
             }

@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class QuestButton extends Button {
 
     public static final int WIDTH = 90;
-    public static final int HEIGHT = 25;
+    public static final int HEIGHT = 22;
 
     public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_button.png");
 

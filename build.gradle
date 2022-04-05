@@ -8,6 +8,13 @@ repositories {
 
     maven { url = 'https://maven.theillusivec4.top/' }
     maven { url = 'https://maven.melanx.de' }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -15,4 +22,5 @@ dependencies {
     annotationProcessor fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.1-3.1.7")
     implementation fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.18.1-3.1.7")
     implementation fg.deobf("io.github.noeppi_noeppi.mods:MineMention:1.18.1-1.2.0")
+    implementation fg.deobf("maven.modrinth:dungeon_quest:1.18.2-1.0.0-aplha1")
 }

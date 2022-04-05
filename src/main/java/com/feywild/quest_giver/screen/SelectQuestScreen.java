@@ -5,6 +5,7 @@ import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nonnull;
@@ -13,18 +14,22 @@ import java.util.List;
 public class SelectQuestScreen extends Screen {
 
     private final List<SelectableQuest> quests;
+    private QuestNumber questNumber;
+    private BlockPos pos;
 
-    public SelectQuestScreen(Component name,  List<SelectableQuest> quests) {
+    public SelectQuestScreen(Component name,  List<SelectableQuest> quests, QuestNumber questNumber, BlockPos pos) {
         super(name);
 
         this.quests = ImmutableList.copyOf(quests);
+        this.questNumber = questNumber;
+        this.pos = pos;
     }
 
     @Override
     protected void init() {
         super.init();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addRenderableWidget(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i)));
+            this.addRenderableWidget(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), questNumber, pos));
         }
     }
 

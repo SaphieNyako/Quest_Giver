@@ -106,7 +106,7 @@ public class EventListener {
 
                 } else if (!active.isEmpty()) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestSelectionSerializer.Message(entity.getDisplayName(), questNumber, active));
+                            () -> player), new OpenQuestSelectionSerializer.Message(entity.getDisplayName(), questNumber, active, entity.blockPosition()));
                     player.swing(hand, true);
                 }
             }

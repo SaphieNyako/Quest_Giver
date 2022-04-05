@@ -4,9 +4,9 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
     public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeComponent(msg.title);
         buffer.writeEnum(msg.questNumber);
+        buffer.writeBlockPos(msg.pos);
         buffer.writeVarInt(msg.quests.size());
         for (SelectableQuest quest : msg.quests) {
             quest.toNetwork(buffer);
@@ -31,13 +32,13 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
     public Message decode(FriendlyByteBuf buffer) {
         Component title = buffer.readComponent();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
-
+        BlockPos pos = buffer.readBlockPos();
         int questSize = buffer.readVarInt();
         ImmutableList.Builder<SelectableQuest> quests = ImmutableList.builder();
         for (int i = 0; i < questSize; i++) {
             quests.add(SelectableQuest.fromNetwork(buffer));
         }
-        return new Message(title, questNumber, quests.build());
+        return new Message(title, questNumber, quests.build(), pos);
     }
 
     public static class Message {
@@ -45,11 +46,13 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
         public final Component title;
         public final QuestNumber questNumber;
         public final List<SelectableQuest> quests;
+        public final BlockPos pos;
 
-        public Message(Component title, QuestNumber questNumber, List<SelectableQuest> quests) {
+        public Message(Component title, QuestNumber questNumber, List<SelectableQuest> quests, BlockPos pos) {
             this.title = title;
             this.questNumber = questNumber;
             this.quests = ImmutableList.copyOf(quests);
+            this.pos = pos;
         }
     }
 }

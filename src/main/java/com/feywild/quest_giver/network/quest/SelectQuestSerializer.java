@@ -24,9 +24,10 @@ public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerial
     @Override
     public Message decode(FriendlyByteBuf buffer) {
 
+        ResourceLocation quest = buffer.readResourceLocation();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
         BlockPos pos = buffer.readBlockPos();
-        return new Message(buffer.readResourceLocation(), questNumber, pos);
+        return new Message(quest, questNumber, pos);
     }
 
     public static class Message {

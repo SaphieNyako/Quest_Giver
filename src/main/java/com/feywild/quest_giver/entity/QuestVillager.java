@@ -187,7 +187,7 @@ public class QuestVillager extends Villager {
 
                 } else if (!active.isEmpty()) { //TODO bug fix multiple display crashes game
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.getQuestNumber(), active));
+                            () -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.getQuestNumber(), active, this.blockPosition()));
                     player.swing(hand, true);
                 }
             }

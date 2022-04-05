@@ -33,11 +33,13 @@ public class QuestWidget extends Button {
     private final SelectableQuest quest;
     private final ItemStack iconStack;
 
-    public QuestWidget(int x, int y, SelectableQuest quest) {
+    public QuestWidget(int x, int y, SelectableQuest quest, QuestNumber questNumber, BlockPos pos) {
         super(x, y, WIDTH, HEIGHT, QuestGiverTextProcessor.INSTANCE.processLine(quest.display.title),b -> {});
 
         this.quest = quest;
         this.iconStack = new ItemStack(quest.icon);
+        this.questNumber = questNumber;
+        this.pos = pos;
     }
 
     @Override

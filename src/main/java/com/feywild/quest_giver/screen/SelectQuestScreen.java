@@ -13,6 +13,7 @@ import java.util.List;
 
 public class SelectQuestScreen extends Screen {
 
+    //TODO: remove all GUI's when active
     private final List<SelectableQuest> quests;
     private QuestNumber questNumber;
     private BlockPos pos;

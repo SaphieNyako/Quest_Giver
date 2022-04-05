@@ -198,7 +198,7 @@ public class QuestLineData {
         if (this.player != null) {
             if (shouldNotify) {
                 //TODO Change message
-                this.player.displayClientMessage(new TranslatableComponent("message.feywild.quest_completion"), true);
+                this.player.displayClientMessage(new TranslatableComponent("message.quest_giver.quest_completion"), true);
             } else {
                 this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
             }

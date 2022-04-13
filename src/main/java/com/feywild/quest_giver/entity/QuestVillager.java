@@ -33,10 +33,12 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class QuestVillager extends Villager {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestVillager.class, EntityDataSerializers.INT);
+    private Player questTaker;
 
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
         super(villager, level);
@@ -47,6 +49,13 @@ public class QuestVillager extends Villager {
         return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
     }
 
+    public Player getQuestTaker() {
+        return questTaker;
+    }
+
+    public void setQuestTaker(Player player){
+        this.questTaker = player;
+    }
 
     @Override
     public void tick() {
@@ -112,9 +121,6 @@ public class QuestVillager extends Villager {
         }
     }
 
-
-
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5D).add(Attributes.FOLLOW_RANGE, 48.0D);
     }
@@ -171,6 +177,9 @@ public class QuestVillager extends Villager {
         if (quests.canComplete(this.getQuestNumber())) {
 
             QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
+            if (getQuestTaker() == null) {
+                this.setQuestTaker(player);
+            }
 
             if (completionDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
@@ -194,7 +203,7 @@ public class QuestVillager extends Villager {
         } else {
 
             QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
-            if (initDisplay != null) {
+            if (initDisplay != null && getQuestTaker() == null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                         () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber(), this.blockPosition()));
                 player.swing(hand, true);

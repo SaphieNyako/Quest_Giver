@@ -6,23 +6,18 @@ import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.util.ClientEvents;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.LivingEntity;
+
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +27,9 @@ public class DisplayQuestScreen extends Screen {
     private final boolean hasConfirmationButtons;
     private Component title;
     private List<FormattedCharSequence> description;
+    protected List<List<FormattedCharSequence>> textBlocks;
+    private List<FormattedCharSequence> currentTextBlock;
+    public int textBlockNumber;
     private final QuestNumber questNumber;
     private final BlockPos pos;
 
@@ -40,13 +38,15 @@ public class DisplayQuestScreen extends Screen {
 
     int QUEST_WINDOW_POSITION_Y = 120;
     int QUEST_WINDOW_POSITION_X = 50;
-    int ACCEPT_POSITION_Y = 188;
+    int ACCEPT_POSITION_Y = 190;
     int ACCEPT_POSITION_X = 380;
     int DECLINE_POSITION_Y = 218;
     int DECLINE_POSITION_X = 380;
+    int NEXT_POSITION_Y = 120;
+    int NEXT_POSITION_X = 380;
     int CHARACTER_POSITION_Y = 240;
     int CHARACTER_POSITION_X = 37;
-    int DESCRIPTION_POSITION_Y = 150;
+    int DESCRIPTION_POSITION_Y = 148;
     int DESCRIPTION_POSITION_X = 70;
     int TITLE_POSITION_Y = 125;
     int WIDTH_SCREEN = 323;
@@ -66,9 +66,27 @@ public class DisplayQuestScreen extends Screen {
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
 
         this.title = QuestGiverTextProcessor.INSTANCE.processLine(this.display.title);
+
         this.description = QuestGiverTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(
                 line -> ComponentRenderUtils.wrapComponents(line,
-                        this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+                        280 , Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+
+        this.textBlocks = getTextBlocks(this.description, 8);
+        this.textBlockNumber = 0;
+        this.currentTextBlock = this.textBlocks.get(this.textBlockNumber);
+
+        if(textBlocks.size() > 1) {
+
+            this.addRenderableWidget(new QuestButton(NEXT_POSITION_X, NEXT_POSITION_Y, true, this.pos, new TextComponent(">>"), button -> {
+                this.textBlockNumber++;
+                if(textBlockNumber < textBlocks.size()) {
+                    this.currentTextBlock = this.textBlocks.get(this.textBlockNumber);
+                } else {
+                    //TODO Make Custom Button that will show << back option when at end.
+                    this.onClose();
+                }
+            }));
+        }
 
         if (this.hasConfirmationButtons) {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
@@ -89,6 +107,7 @@ public class DisplayQuestScreen extends Screen {
     @Override
     public void onClose() {
         ClientEvents.setShowGui(true);
+        this.currentTextBlock = this.textBlocks.get(0);
         super.onClose();
     }
 
@@ -100,10 +119,13 @@ public class DisplayQuestScreen extends Screen {
 
     private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
 
+        //System.out.println(this.description.size());
+
         if (this.minecraft != null) {
             drawString(poseStack, this.minecraft.font, this.title, QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2), TITLE_POSITION_Y, 0xFFFFFF);
-            for (int i = 0; i < this.description.size(); i++) {
-                this.minecraft.font.drawShadow(poseStack, this.description.get(i), DESCRIPTION_POSITION_X, DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+
+            for(int i = 0; i < getCurrentTextBlock().size() ; i++) { //this.description.size()
+                this.minecraft.font.drawShadow(poseStack, getCurrentTextBlock().get(i), this.DESCRIPTION_POSITION_X, this.DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
             }
         }
     }
@@ -116,5 +138,25 @@ public class DisplayQuestScreen extends Screen {
     @Override
     public boolean shouldCloseOnEsc() {
         return !hasConfirmationButtons;
+    }
+
+    public List<List<FormattedCharSequence>> getTextBlocks(List<FormattedCharSequence> description, int numberOfMaxTextBlocks){
+        int i = 0;
+        List<List<FormattedCharSequence>> textBlocks = new ArrayList<>();
+        while(i < description.size()){
+            int nextInc = Math.min(description.size() - i, numberOfMaxTextBlocks);
+            List<FormattedCharSequence> textBlock = description.subList(i, i + nextInc);
+            textBlocks.add(textBlock);
+            i = i + nextInc;
+        }
+        return textBlocks;
+    }
+
+    public List<FormattedCharSequence> getCurrentTextBlock() {
+        return currentTextBlock;
+    }
+
+    public void setCurrentTextBlock(List<FormattedCharSequence> currentTextBlock) {
+        this.currentTextBlock = currentTextBlock;
     }
 }

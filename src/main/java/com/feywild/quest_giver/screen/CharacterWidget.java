@@ -41,7 +41,7 @@ public class CharacterWidget extends Panel {
     private Villager setVillager(QuestNumber number, BlockPos pos) {
 
         Villager villager = new Villager(EntityType.VILLAGER, this.level);
-        VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiomeName(pos)), getProfession(number),1 );
+        VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiome(pos)), getProfession(number),1 );
         villager.setVillagerData(villagerData);
         return villager;
 

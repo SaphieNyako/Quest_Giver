@@ -1,6 +1,8 @@
 package com.feywild.quest_giver.quest.player;
 
 import com.feywild.quest_giver.quest.task.TaskType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 import java.util.function.Consumer;
 

@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -50,10 +51,9 @@ public class QuestVillager extends Villager {
     }
 
     public static boolean canSpawn(EntityType<? extends QuestVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        return level.getBlockState(pos.below()).getBlock() == Blocks.DIRT ||  level.getBlockState(pos.below()).getBlock() == Blocks.SAND;
+        return ForgeRegistries.BLOCKS.tags().getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || ForgeRegistries.BLOCKS.tags().getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock()) ;
 
-
-     //  ForgeRegistries.BLOCKS.tags().getTag().contains(level.getBlockState(pos.below()).getBlock()) ||
+     //   level.getBlockState(pos.below()).getBlock() == Blocks.DIRT ||  level.getBlockState(pos.below()).getBlock() == Blocks.SAND;
 
     }
 

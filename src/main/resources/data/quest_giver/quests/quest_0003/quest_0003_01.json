@@ -7,7 +7,7 @@
       "text": "quest cartographer"
     },
     "description": {
-      "text": "quest cartographer"
+      "text": "find the mansion"
     }
 
   },
@@ -16,16 +16,13 @@
       "text": "quest cartographer completion text"
     },
     "description": {
-      "text": "quest cartographer completion text"
+      "text": "You found the structure"
     }
   },
   "tasks": [
     {
-      "item": {
-        "tag": "forge:dyes"
-      },
-      "id": "quest_giver:craft",
-      "times": 9
+      "structure": "minecraft:mansion",
+      "id": "quest_giver:structure"
     }
   ],
   "rewards": [

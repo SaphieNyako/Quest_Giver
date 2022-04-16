@@ -17,6 +17,8 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -61,10 +63,12 @@ public class EventListener {
             //TODO Quest Check for BiomeTask, broke in 1.18.2 port
                player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             // TODO Quest Check for StructureTask broke in 1.18.2 port
-             for (CompletableTaskInfo<StructureFeature<?>, StructureFeature<?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
-                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), StructureFeature.MINESHAFT.configured())) {
-                    task.checkComplete(task.getValue());
-                }
+
+                if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
+              //      for (CompletableTaskInfo<StructureFeature<?>, ConfiguredStructureFeature<?, ?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
+                    player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
+             //   }
+
             }
         }
     }

@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
+import org.openjdk.nashorn.api.tree.WhileLoopTree;
 
 
 import javax.annotation.Nonnull;
@@ -50,6 +51,9 @@ public class DisplayQuestScreen extends Screen {
     int DESCRIPTION_POSITION_X = 70;
     int TITLE_POSITION_Y = 125;
     int WIDTH_SCREEN = 323;
+
+    int animationCount = 0;
+    int lineCount = 0;
 
     public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, QuestNumber questNumber, BlockPos pos) {
         super(display.title);
@@ -108,24 +112,45 @@ public class DisplayQuestScreen extends Screen {
     public void onClose() {
         ClientEvents.setShowGui(true);
         this.currentTextBlock = this.textBlocks.get(0);
+        this.lineCount = 0;
+        this.animationCount = 0;
         super.onClose();
     }
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.drawTextLines(poseStack, mouseX, mouseY);
     }
 
     private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
 
-        //System.out.println(this.description.size());
+
+        System.out.println(animationCount);
+        System.out.println("linecount: " + lineCount);
+        System.out.println(lineCount < getCurrentTextBlock().size());
 
         if (this.minecraft != null) {
             drawString(poseStack, this.minecraft.font, this.title, QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2), TITLE_POSITION_Y, 0xFFFFFF);
 
-            for(int i = 0; i < getCurrentTextBlock().size() ; i++) { //this.description.size()
-                this.minecraft.font.drawShadow(poseStack, getCurrentTextBlock().get(i), this.DESCRIPTION_POSITION_X, this.DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+            if (lineCount < getCurrentTextBlock().size()) {
+                    for (int i = 0; i < lineCount + 1; i++) {
+                        this.minecraft.font.drawShadow(poseStack, getCurrentTextBlock().get(i), this.DESCRIPTION_POSITION_X, this.DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+                    }
+                if (!(this.animationCount == 8)) {
+                    this.animationCount++;
+
+                } else {
+
+                    this.lineCount++;
+                    this.animationCount = 0;
+                }
+            } else {
+                for (int i = 0; i < getCurrentTextBlock().size(); i++) {
+                    this.minecraft.font.drawShadow(poseStack, getCurrentTextBlock().get(i), this.DESCRIPTION_POSITION_X, this.DESCRIPTION_POSITION_Y + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+
+                }
             }
         }
     }

@@ -53,7 +53,7 @@ public class CharacterWidget extends Panel {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
 
-        InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 50 - this.xMouse, (float)(75 - 50) - this.yMouse, villager);
+        InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 0 - this.xMouse, (float)100 - this.yMouse, villager);
     }
 
     private VillagerProfession getProfession(QuestNumber number) {

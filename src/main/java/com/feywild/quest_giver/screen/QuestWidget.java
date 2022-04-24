@@ -11,24 +11,30 @@ import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ComponentRenderUtils;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class QuestWidget extends Button {
 
 
-    public static final int WIDTH = 40;
-    public static final int HEIGHT = 24;
+    public static final int WIDTH = 160;
+    public static final int HEIGHT = 40;
     private QuestNumber questNumber;
     private BlockPos pos;
 
-    public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/looking_glass.png");
+    public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_background_05.png");
 
     private final SelectableQuest quest;
     private final ItemStack iconStack;
@@ -50,18 +56,26 @@ public class QuestWidget extends Button {
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        RenderHelper.resetColor();
+
+        Minecraft minecraft = Minecraft.getInstance();
+        Font font = minecraft.font;
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, SELECTION_TEXTURE);
-        if (this.isHovered(mouseX, mouseY)) {
-            this.blit(poseStack, this.x, this.y + 5, 12, 0, 14, 14);
+        RenderSystem.setShaderColor(0.0F,0.0F,0.0F, 0.5F);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+        this.blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
+
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + 8, this.y + 10);
+
+        if ( quest.display.title.getContents().length() < 20) {
+            String title_string = quest.display.title.getContents();
+            drawString(poseStack, font, title_string, this.x + 30, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
         } else {
-            this.blit(poseStack, this.x, this.y + 5, 0, 0, 12, 12);
+            String title_string = quest.display.title.getContents().substring(0, 20) + "...";
+            drawString(poseStack, font, title_string, this.x + 30, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
         }
-      //  RenderSystem.setShaderTexture(0, SLOT_TEXTURE);
-      //  this.blit(poseStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24); //nummer van enum * 25
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + 19, this.y + 4);
-        Font font = Minecraft.getInstance().font;
-        drawString(poseStack, font, this.getMessage(), this.x + 44, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
     }
 
     public boolean isHovered(int x, int y) {

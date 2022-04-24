@@ -2,16 +2,27 @@ package com.feywild.quest_giver.screen;
 
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.util.ClientEvents;
+import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.github.noeppi_noeppi.libx.util.ComponentUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.entity.vehicle.Minecart;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SelectQuestScreen extends Screen {
+
+    int CHARACTER_POSITION_Y = 240;
+    int CHARACTER_POSITION_X = 37;
 
     //TODO: remove all GUI's when active
     private final List<SelectableQuest> quests;
@@ -30,14 +41,17 @@ public class SelectQuestScreen extends Screen {
     protected void init() {
         super.init();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addRenderableWidget(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), questNumber, pos));
+            this.addRenderableWidget(new QuestWidget(this.width / 2 - (160 / 2), 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), questNumber, pos));
         }
+        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
+
+        ClientEvents.setShowGui(false);
     }
 
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(poseStack);
+
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.drawTextLines(poseStack, mouseX, mouseY);
     }
@@ -51,5 +65,11 @@ public class SelectQuestScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    @Override
+    public void onClose() {
+        ClientEvents.setShowGui(true);
+        super.onClose();
     }
 }

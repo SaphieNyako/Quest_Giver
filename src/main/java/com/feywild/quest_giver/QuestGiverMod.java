@@ -9,6 +9,7 @@ import com.feywild.quest_giver.quest.QuestManager;
 import com.feywild.quest_giver.quest.player.CapabilityQuests;
 import com.feywild.quest_giver.quest.reward.CommandReward;
 import com.feywild.quest_giver.quest.reward.ItemReward;
+import com.feywild.quest_giver.quest.reward.ReputationReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.renderer.ExclamationMarkerRenderer;
@@ -79,6 +80,7 @@ public final class QuestGiverMod extends ModXRegistration
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
+        RewardTypes.register(new ResourceLocation(this.modid, "reputation"), ReputationReward.INSTANCE);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

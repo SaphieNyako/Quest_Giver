@@ -7,7 +7,7 @@
       "text": "quest farmer"
     },
     "description": {
-      "text": "quest farmer"
+      "text": "Find a good place to start a farm"
     }
 
   },
@@ -16,22 +16,21 @@
       "text": "quest farmer completion text"
     },
     "description": {
-      "text": "quest farmer completion text"
+      "text": "Wonderfull this is a perfect place to start a farm"
     }
   },
   "tasks": [
     {
-      "item": {
-        "tag": "forge:dyes"
-      },
-      "id": "quest_giver:craft",
-      "times": 9
+      "biome": "minecraft:plains",
+      "id": "quest_giver:biome"
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
-      "id": "quest_giver:command"
+      "item": {
+        "item": "minecraft:diamond_hoe"
+      },
+      "id": "quest_giver:item"
     }
   ]
 }

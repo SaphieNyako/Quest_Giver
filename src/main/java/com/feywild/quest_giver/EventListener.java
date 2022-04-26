@@ -4,36 +4,40 @@ import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
-import com.feywild.quest_giver.quest.player.CompletableTaskInfo;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 import java.util.Objects;
 
 public class EventListener {
 
+    @SubscribeEvent
+    public void pickupItem(PlayerEvent.ItemPickupEvent event){
+        if (event.getPlayer() instanceof  ServerPlayer player){
 
+            for (int i = 0; i < event.getStack().getCount(); i++) {
+                QuestData.get(player).checkComplete(ItemPickupTask.INSTANCE, event.getStack());
+            }
+
+        }
+    }
 
 
     @SubscribeEvent
@@ -59,7 +63,7 @@ public class EventListener {
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             //Quest Check for ItemTask
-            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
             //TODO Quest Check for BiomeTask, broke in 1.18.2 port
                player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             // TODO Quest Check for StructureTask broke in 1.18.2 port

@@ -22,7 +22,11 @@ public class CommandReward implements RewardType<String>{
 
     @Override
     public void grantReward(ServerPlayer player, String element) {
-        player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element);
+        if(player.server.isSingleplayer()) {
+            player.server.getCommands().performCommand(player.createCommandSourceStack(), element);
+        } else {
+            player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element);
+        }
     }
 
     @Override

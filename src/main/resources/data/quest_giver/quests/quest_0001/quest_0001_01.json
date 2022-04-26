@@ -1,13 +1,13 @@
 {
   "parent": "quest_giver:root",
   "reputation": 5,
-  "icon": "minecraft:potato",
+  "icon": "minecraft:iron_chestplate",
   "start": {
     "title": {
       "text": "quest armorer"
     },
     "description": {
-      "text": "quest armorer"
+      "text": "make me a iron chestplate"
     }
 
   },
@@ -16,22 +16,24 @@
       "text": "quest armorer completion text"
     },
     "description": {
-      "text": "qquest armorer completion text"
+      "text": "Thank you for making a iron chest plate"
     }
   },
   "tasks": [
     {
       "item": {
-        "tag": "forge:dyes"
+        "item": "minecraft:iron_chestplate"
       },
       "id": "quest_giver:craft",
-      "times": 9
+      "times": 1
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
-      "id": "quest_giver:command"
+      "item": {
+        "item": "minecraft:diamond_chestplate"
+      },
+      "id": "quest_giver:item"
     }
   ]
 }

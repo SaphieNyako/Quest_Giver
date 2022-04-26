@@ -7,7 +7,7 @@
       "text": "quest fisherman"
     },
     "description": {
-      "text": "quest fisherman"
+      "text": "capture some fish"
     }
 
   },
@@ -22,16 +22,18 @@
   "tasks": [
     {
       "item": {
-        "tag": "forge:dyes"
+        "tag": "minecraft:fishes"
       },
-      "id": "quest_giver:craft",
-      "times": 9
+      "id": "quest_giver:item_stack",
+      "amount": 9
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
-      "id": "quest_giver:command"
+      "item": {
+        "item": "minecraft:pufferfish_bucket"
+      },
+      "id": "quest_giver:item"
     }
   ]
 }

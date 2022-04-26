@@ -12,7 +12,6 @@ import com.feywild.quest_giver.quest.reward.ItemReward;
 import com.feywild.quest_giver.quest.reward.ReputationReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.*;
-import com.feywild.quest_giver.renderer.ExclamationMarkerRenderer;
 import com.feywild.quest_giver.util.ClientEvents;
 import com.feywild.quest_giver.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -25,7 +24,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderNameplateEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -72,7 +70,8 @@ public final class QuestGiverMod extends ModXRegistration
         // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "gift"), GiftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item_stack"), ItemStackTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item_pickup"), ItemPickupTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);

@@ -1,13 +1,13 @@
 {
   "parent": "quest_giver:root",
   "reputation": 5,
-  "icon": "minecraft:potato",
+  "icon": "minecraft:iron_helmet",
   "start": {
     "title": {
       "text": "quest armorer line 1-b text"
     },
     "description": {
-      "text": "quest armorer line 1-b text"
+      "text": "make me an iron helmet and iron boots"
     }
 
   },
@@ -16,22 +16,32 @@
       "text": "quest armorer line 1-b completion text"
     },
     "description": {
-      "text": "quest armorer line 1-b completion text"
+      "text": "Thank you for making an iron helmet and iron boots"
     }
   },
   "tasks": [
     {
       "item": {
-        "tag": "forge:dyes"
+        "item": "minecraft:iron_helmet"
       },
       "id": "quest_giver:craft",
-      "times": 9
+      "times": 1
+    },
+    {
+      "item": {
+        "item": "minecraft:iron_boots"
+      },
+      "id": "quest_giver:craft",
+      "times": 1
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
-      "id": "quest_giver:command"
+      "item": {
+        "item": "minecraft:diamond",
+        "count": 20
+      },
+      "id": "quest_giver:item"
     }
   ]
 }

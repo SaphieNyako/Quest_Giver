@@ -7,7 +7,7 @@
       "text": "quest leatherworker"
     },
     "description": {
-      "text": "quest leatherworker"
+      "text": "Kill some cows and get some leather"
     }
 
   },
@@ -16,22 +16,29 @@
       "text": "quest leatherworker completion text"
     },
     "description": {
-      "text": "quest leatherworker completion text"
+      "text": "Thank you!"
     }
   },
   "tasks": [
     {
+      "entity": "minecraft:cow",
+      "id": "quest_giver:kill",
+      "times": 10
+    },
+    {
       "item": {
-        "tag": "forge:dyes"
+        "item": "minecraft:leather"
       },
-      "id": "quest_giver:craft",
-      "times": 9
+      "id": "quest_giver:item_pickup",
+      "times": 5
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
-      "id": "quest_giver:command"
+      "item": {
+        "item": "minecraft:leather_boots"
+      },
+      "id": "quest_giver:item"
     }
   ]
 }

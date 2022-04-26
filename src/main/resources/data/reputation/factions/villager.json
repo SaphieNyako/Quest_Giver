@@ -1,0 +1,19 @@
+{
+  "name": "villager",
+  "default_reputation": 50,
+  "lower_reputation_bound": -50,
+  "upper_reputation_bound": 50,
+  "weighted_murder": 5,
+  "weighted_looting": 2,
+  "members": [
+    "minecraft:villager",
+    "minecraft:iron_golem",
+    "minecraft:wandering_trader"
+  ],
+  "enemies": [
+    "reputation:illager",
+    "reputation:skeleton",
+    "reputation:nether",
+    "reputation:piglin"
+  ]
+}

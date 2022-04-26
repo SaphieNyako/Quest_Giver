@@ -7,7 +7,7 @@
       "text": "quest fletcher"
     },
     "description": {
-      "text": "quest fletcher"
+      "text": "fetch some string"
     }
 
   },
@@ -16,21 +16,21 @@
       "text": "quest fletcher completion text"
     },
     "description": {
-      "text": "quest fletcher completion text"
+      "text": "That will do thank you"
     }
   },
   "tasks": [
     {
       "item": {
-        "tag": "forge:dyes"
+        "item": "minecraft:string"
       },
-      "id": "quest_giver:craft",
-      "times": 9
+      "id": "quest_giver:item_pickup",
+      "times": 5
     }
   ],
   "rewards": [
     {
-      "command": "/advancement grant @s only minecraft:adventure/adventuring_time",
+      "command": "/addreputation reputation:villager @s 100",
       "id": "quest_giver:command"
     }
   ]

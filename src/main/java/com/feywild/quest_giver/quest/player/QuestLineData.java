@@ -63,6 +63,14 @@ public class QuestLineData {
         return this.questNumber == null ? null : QuestManager.getQuests(this.questNumber);
     }
 
+    public Map<ResourceLocation, QuestProgress> getActiveQuests(){
+        return this.activeQuests;
+    }
+
+    public Set<ResourceLocation> getCompletedQuests(){
+        return this.completedQuests;
+    }
+
     public int getReputation() {return this.questNumber == null ? 0 : this.reputation;}
 
     @Nullable
@@ -197,7 +205,6 @@ public class QuestLineData {
         }
         if (this.player != null) {
             if (shouldNotify) {
-                //TODO Change message
                 this.player.displayClientMessage(new TranslatableComponent("message.quest_giver.quest_completion"), true);
             } else {
                 this.player.displayClientMessage(new TextComponent(msgToDisplay), true);

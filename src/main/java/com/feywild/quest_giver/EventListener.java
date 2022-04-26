@@ -1,5 +1,6 @@
 package com.feywild.quest_giver;
 
+import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
@@ -9,11 +10,13 @@ import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -31,7 +34,6 @@ public class EventListener {
     @SubscribeEvent
     public void pickupItem(PlayerEvent.ItemPickupEvent event){
         if (event.getPlayer() instanceof  ServerPlayer player){
-
             for (int i = 0; i < event.getStack().getCount(); i++) {
                 QuestData.get(player).checkComplete(ItemPickupTask.INSTANCE, event.getStack());
             }
@@ -39,14 +41,12 @@ public class EventListener {
         }
     }
 
-
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
         if (event.getPlayer() instanceof ServerPlayer) {
             QuestData.get((ServerPlayer) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
         }
     }
-
 
     @SubscribeEvent
     public void playerKill(LivingDeathEvent event) {
@@ -62,23 +62,28 @@ public class EventListener {
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            //Quest Check for ItemTask
+            //Quest Check for ItemStackTask
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
-            //TODO Quest Check for BiomeTask, broke in 1.18.2 port
-               player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
-            // TODO Quest Check for StructureTask broke in 1.18.2 port
-
-                if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
-              //      for (CompletableTaskInfo<StructureFeature<?>, ConfiguredStructureFeature<?, ?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
-                    player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
-             //   }
-
-            }
+            //Quest Check for Biomes
+            player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
+            //QuestCheck for Structure
+             if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
+                 player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
+             }
         }
     }
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getPlayer();
+
+        if(player instanceof ServerPlayer && event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get()) {
+            InteractionHand hand = event.getPlayer().getUsedItemHand();
+            ItemStack stack = player.getItemInHand(hand);
+            if(stack.isEmpty()){
+                this.interactQuest((ServerPlayer) player, hand, villager, QuestNumber.QUEST_0014);
+            }
+        }
         //TODO add gift item to entity questTask trigger
         /*
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
@@ -93,7 +98,6 @@ public class EventListener {
          */
     }
 
-    // THIS IS NOT USED NOW, LEAVE IT IN JUST IN CASE WE NEED IT AGAIN
     private void interactQuest(ServerPlayer player, InteractionHand hand, Entity entity, QuestNumber questNumber) {
 
         QuestData quests = QuestData.get(player);
@@ -102,9 +106,9 @@ public class EventListener {
 
             QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(questNumber)).completePendingQuest();
 
-            if (completionDisplay != null) { //Is there a complete quest pending
+            if (completionDisplay != null) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, questNumber, entity.blockPosition()));
+                        () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, questNumber,  entity.blockPosition()));
                 player.swing(hand, true);
 
             } else {
@@ -112,7 +116,7 @@ public class EventListener {
 
                 if (active.size() == 1) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, questNumber, entity.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, questNumber,  entity.blockPosition()));
                     player.swing(hand, true);
 
                 } else if (!active.isEmpty()) {
@@ -124,7 +128,7 @@ public class EventListener {
         } else {
 
             QuestDisplay initDisplay = quests.initialize(questNumber);
-            if (initDisplay != null) {
+            if (initDisplay != null ) {
                 QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                         () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, questNumber, entity.blockPosition()));
                 player.swing(hand, true);
@@ -132,6 +136,7 @@ public class EventListener {
         }
     }
 
+    //This was made to find a Target and give a QuestNumber THIS IS NOT USED RIGHT NOW
     private Villager findTarget(Level level, Player player) {
         double distance = Double.MAX_VALUE;
         TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
@@ -146,7 +151,9 @@ public class EventListener {
     }
 
     //give quest number to villager.
-     /*   if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
+     /*  @SubscribeEvent
+        public void playerTick(TickEvent.PlayerTickEvent event) {
+            if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             if(quests.getQuestNumbers().size() == 0) {
 
@@ -168,6 +175,7 @@ public class EventListener {
                     target.getTags().add(QuestNumber.QUEST_0002.id);
                 }
             }
-        } */
+        }
+     }*/
 
 }

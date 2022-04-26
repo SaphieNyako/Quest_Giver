@@ -24,7 +24,6 @@ public class SelectQuestScreen extends Screen {
     int CHARACTER_POSITION_Y = 240;
     int CHARACTER_POSITION_X = 37;
 
-    //TODO: remove all GUI's when active
     private final List<SelectableQuest> quests;
     private QuestNumber questNumber;
     private BlockPos pos;

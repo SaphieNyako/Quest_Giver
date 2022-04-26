@@ -7,7 +7,7 @@
       "text": "quest cleric"
     },
     "description": {
-      "text": "Please GIFT me 5 nether wart"
+      "text": "Please GIFT me 5 awkward potions"
     }
 
   },
@@ -16,7 +16,7 @@
       "text": "quest cleric completion text"
     },
     "description": {
-      "text": "Thanks for the nether ward here are some potions"
+      "text": "Thanks for the potions here are some improved potions"
     }
   },
   "tasks": [
@@ -33,7 +33,8 @@
     {
       "item": {
         "item": "minecraft:potion",
-        "nbt": "{Potion:\"minecraft:leaping\"}"
+        "nbt": "{Potion:\"minecraft:leaping\"}",
+        "count": 5
       },
       "id": "quest_giver:item"
     }

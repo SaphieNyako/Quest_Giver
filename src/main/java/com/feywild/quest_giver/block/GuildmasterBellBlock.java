@@ -51,7 +51,6 @@ public class GuildmasterBellBlock extends BlockBE<GuildmasterBell> {
 
     @Override
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-        //TODO should bell be removed?
         super.onRemove(state, level, pos, newState, isMoving);
     }
 

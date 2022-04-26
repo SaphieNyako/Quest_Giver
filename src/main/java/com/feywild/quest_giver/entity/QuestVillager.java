@@ -3,7 +3,9 @@ package com.feywild.quest_giver.entity;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
+import com.feywild.quest_giver.quest.Quest;
 import com.feywild.quest_giver.quest.QuestDisplay;
+import com.feywild.quest_giver.quest.QuestLine;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
@@ -11,6 +13,8 @@ import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -162,19 +166,20 @@ public class QuestVillager extends Villager {
 
     @Nonnull
     @Override
-    public InteractionResult interactAt(@Nonnull Player player,@Nonnull Vec3 vec,@Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, vec, hand);
-        if (superResult == InteractionResult.PASS && player instanceof ServerPlayer) {
-            if (this.tryAcceptGift((ServerPlayer) player, hand)) {
-                player.swing(hand, true);
-            } else {
-                ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayer) player, hand);
+    public InteractionResult  mobInteract(@Nonnull Player player ,@Nonnull InteractionHand hand) {
+            if (player instanceof ServerPlayer) {
+                if (this.tryAcceptGift((ServerPlayer) player, hand)) {
+                    player.swing(hand, true);
+                } else {
+                    ItemStack stack = player.getItemInHand(hand);
+                    if (stack.isEmpty()) {
+                        this.interactQuest((ServerPlayer) player, hand);
+                    }
                 }
             }
-        }
-        return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+
+
         //TODO doesnt give profession trades if quest is done.
     }
 
@@ -225,7 +230,7 @@ public class QuestVillager extends Villager {
         if (!stack.isEmpty()) {
             if (QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
                 if (!player.isCreative()) stack.shrink(1);
-                //TODO send message
+                player.sendMessage(new TextComponent("Thank you, "+ player.getName().getContents() + "!"), player.getUUID());
                 return true;
             }
         }

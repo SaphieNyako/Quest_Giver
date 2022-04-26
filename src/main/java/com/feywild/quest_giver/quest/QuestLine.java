@@ -50,5 +50,4 @@ public class QuestLine {
     public int getQuestCount() {
         return quests.size();
     }
-
 }

@@ -1,6 +1,7 @@
 package com.feywild.quest_giver.renderer;
 
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.QuestVillager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 public class ExclamationMarkerRenderer {
@@ -25,7 +27,8 @@ public class ExclamationMarkerRenderer {
 
     public static void renderExclamationMarker(EntityRenderer<?> renderer, Entity entity, Component component, PoseStack poseStack, MultiBufferSource buffer, int packedLight){
 
-        if(entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE){ //TODO if questvillager has a quest for player, and player can do this quest
+        if((entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE) ||
+                (entity instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get())){
 
             double squareDistance = renderer.entityRenderDispatcher.distanceToSqr(entity);
             double fadeDistance = ((1.0 - (FADE_PERCENTAGE / 100.0)) * MAX_DISTANCE);

@@ -29,6 +29,7 @@ public class ExclamationMarkerRenderer {
 
         if((entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE) ||
                 (entity instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get())){
+            //TODO Question mark when the player is on the current Questline - use clientEvents
 
             double squareDistance = renderer.entityRenderDispatcher.distanceToSqr(entity);
             double fadeDistance = ((1.0 - (FADE_PERCENTAGE / 100.0)) * MAX_DISTANCE);

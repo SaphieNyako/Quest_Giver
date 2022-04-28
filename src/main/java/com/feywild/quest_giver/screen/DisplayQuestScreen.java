@@ -83,15 +83,20 @@ public class DisplayQuestScreen extends Screen {
 
         if(textBlocks.size() > 1) {
 
-            this.addRenderableWidget(new QuestButton(NEXT_POSITION_X, NEXT_POSITION_Y, true, this.pos, new TextComponent(">>"), button -> {
+            this.addRenderableWidget(new QuestButtonSmall(NEXT_POSITION_X, NEXT_POSITION_Y, true, this.pos, new TextComponent(">>"), button -> {
                 this.textBlockNumber++;
                 reset();
+                if (textBlockNumber == textBlocks.size() -1) {
+                    button.setMessage(new TextComponent("x"));
+                }
                 if(textBlockNumber < textBlocks.size()) {
                     this.currentTextBlock = this.textBlocks.get(this.textBlockNumber);
                 } else {
+
                     //TODO Make Custom Button that will show << back option when at end.
                     this.onClose();
                 }
+
             }));
         }
 

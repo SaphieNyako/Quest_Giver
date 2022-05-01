@@ -3,11 +3,10 @@ package com.feywild.quest_giver.entity;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
-import com.feywild.quest_giver.quest.Quest;
-import com.feywild.quest_giver.quest.QuestDisplay;
-import com.feywild.quest_giver.quest.QuestLine;
-import com.feywild.quest_giver.quest.QuestNumber;
+import com.feywild.quest_giver.quest.*;
 import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.quest.player.QuestLineData;
+import com.feywild.quest_giver.quest.player.QuestProgress;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -18,6 +17,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -38,17 +38,15 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITagManager;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class QuestVillager extends Villager {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestVillager.class, EntityDataSerializers.INT);
-    private Player questTaker;
+    private UUID questTaker;
 
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
         super(villager, level);
@@ -57,17 +55,18 @@ public class QuestVillager extends Villager {
 
     public static boolean canSpawn(EntityType<? extends QuestVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return ForgeRegistries.BLOCKS.tags().getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || ForgeRegistries.BLOCKS.tags().getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock()) ;
-
-     //   level.getBlockState(pos.below()).getBlock() == Blocks.DIRT ||  level.getBlockState(pos.below()).getBlock() == Blocks.SAND;
-
     }
 
-    public Player getQuestTaker() {
+    public UUID getQuestTaker() {
         return questTaker;
     }
 
     public void setQuestTaker(Player player){
-        this.questTaker = player;
+        this.questTaker = player.getUUID();
+    }
+
+    public Player getPlayer(){
+        return ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayer(this.questTaker);
     }
 
     @Override
@@ -152,6 +151,11 @@ public class QuestVillager extends Villager {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("QuestNumber", this.entityData.get(QUEST_NUMBER));
+        if(this.questTaker != null) {
+            compound.putUUID("QuestTaker", this.questTaker);
+        } else {
+          //  serializeNBT().remove("QuestTaker");
+        }
     }
 
     @Override
@@ -160,9 +164,10 @@ public class QuestVillager extends Villager {
         if(compound.contains("QuestNumber")) {
             this.entityData.set(QUEST_NUMBER, compound.getInt("QuestNumber"));
         }
+        if(compound.contains("QuestTaker")){
+            this.questTaker = serializeNBT().hasUUID("QuestTaker") ? compound.getUUID("QuestTaker") : null;
+        }
     }
-
-
 
     @Nonnull
     @Override
@@ -178,7 +183,6 @@ public class QuestVillager extends Villager {
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
-
 
         //TODO doesnt give profession trades if quest is done.
     }

@@ -5,6 +5,7 @@ import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.util.ClientEvents;
+import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.noeppi_noeppi.libx.util.ComponentUtil;
@@ -105,6 +106,7 @@ public class DisplayQuestScreen extends Screen {
 
             this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber));
+                QuestGiverPlayerData.addToList(questNumber.id);
                 this.onClose();
             }));
 

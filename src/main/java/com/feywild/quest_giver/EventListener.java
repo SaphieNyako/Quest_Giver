@@ -8,6 +8,7 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,6 +31,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class EventListener {
+
+    @SubscribeEvent
+    public void playerClone(PlayerEvent.Clone event){
+        QuestGiverPlayerData.copy(event.getOriginal(), event.getPlayer());
+    }
 
     @SubscribeEvent
     public void pickupItem(PlayerEvent.ItemPickupEvent event){
@@ -85,6 +91,7 @@ public class EventListener {
             }
         }
         //TODO add gift item to entity questTask trigger
+
         /*
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
                 ServerPlayer player = (ServerPlayer) event.getPlayer();

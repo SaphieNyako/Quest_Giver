@@ -3,19 +3,29 @@ package com.feywild.quest_giver.renderer;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.QuestVillager;
+import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.util.ClientEvents;
+import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ExclamationMarkerRenderer {
 
@@ -30,6 +40,8 @@ public class ExclamationMarkerRenderer {
         if((entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE) ||
                 (entity instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get())){
             //TODO Question mark when the player is on the current Questline - use clientEvents
+
+            boolean exclamationMarkActive = true;
 
             double squareDistance = renderer.entityRenderDispatcher.distanceToSqr(entity);
             double fadeDistance = ((1.0 - (FADE_PERCENTAGE / 100.0)) * MAX_DISTANCE);
@@ -53,7 +65,19 @@ public class ExclamationMarkerRenderer {
 
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, (float)opacityDistance );  // 1.0 is full
 
-            renderMarker(getResourceLocation(), poseStack);
+            if(entity instanceof QuestVillager questVillager) {
+
+                  if (!QuestGiverPlayerData.getQuestList().isEmpty() || QuestGiverPlayerData.getQuestList().contains(questVillager.getQuestNumber().id)) { // if list contains questnumber
+                    for (String quest : QuestGiverPlayerData.getQuestList()) {
+                        if (Objects.equals(questVillager.getQuestNumber().id, quest)) {
+                            exclamationMarkActive = false;
+                            break;
+                        }
+                    }
+                 }
+            }
+
+            renderMarker( getResourceLocation(exclamationMarkActive), poseStack);
 
             RenderSystem.disableBlend();
             RenderSystem.disableDepthTest();
@@ -62,9 +86,14 @@ public class ExclamationMarkerRenderer {
         }
     }
 
-    public static ResourceLocation getResourceLocation(){
-        return new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/entity/quest_villager/exclamation_mark.png");
-    }
+    public static ResourceLocation getResourceLocation(boolean active){
+                if (active) {
+                        return new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/entity/quest_villager/exclamation_mark.png");
+                    } else {
+                        return new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/entity/quest_villager/question_mark.png");
+                    }
+                }
+
 
     private static void renderMarker(ResourceLocation resource, PoseStack poseStack){
         poseStack.pushPose();
@@ -90,5 +119,4 @@ public class ExclamationMarkerRenderer {
         bufferbuilder.end();
         BufferUploader.end(bufferbuilder);
     }
-
 }

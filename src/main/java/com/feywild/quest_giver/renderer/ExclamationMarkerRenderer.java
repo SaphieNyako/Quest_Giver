@@ -39,7 +39,6 @@ public class ExclamationMarkerRenderer {
 
         if((entity instanceof QuestVillager questVillager && questVillager.getVillagerData().getProfession() != VillagerProfession.NONE) ||
                 (entity instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get())){
-            //TODO Question mark when the player is on the current Questline - use clientEvents
 
             boolean exclamationMarkActive = true;
 
@@ -67,13 +66,10 @@ public class ExclamationMarkerRenderer {
 
             if(entity instanceof QuestVillager questVillager) {
 
-                  if (!QuestGiverPlayerData.getQuestList().isEmpty() || QuestGiverPlayerData.getQuestList().contains(questVillager.getQuestNumber().id)) { // if list contains questnumber
-                    for (String quest : QuestGiverPlayerData.getQuestList()) {
-                        if (Objects.equals(questVillager.getQuestNumber().id, quest)) {
-                            exclamationMarkActive = false;
-                            break;
-                        }
-                    }
+                Player player = Minecraft.getInstance().player;
+
+                  if (QuestGiverPlayerData.checkQuestList(player, questVillager.getQuestNumber())) { // if list contains questnumber
+                      exclamationMarkActive = false;
                  }
             }
 

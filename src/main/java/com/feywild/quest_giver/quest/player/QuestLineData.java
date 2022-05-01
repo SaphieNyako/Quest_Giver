@@ -40,6 +40,10 @@ public class QuestLineData {
         this.startNextQuests();
     }
 
+    public boolean checkForEnd(){
+        return this.activeQuests.containsKey(new ResourceLocation(QuestGiverMod.getInstance().modid, "end"));
+    }
+
     public void approve() {
         this.approved = true;
         this.reputation = 0;

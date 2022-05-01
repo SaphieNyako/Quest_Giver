@@ -16,12 +16,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.entity.player.Player;
 import org.openjdk.nashorn.api.tree.WhileLoopTree;
 
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DisplayQuestScreen extends Screen {
@@ -106,7 +109,11 @@ public class DisplayQuestScreen extends Screen {
 
             this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber));
-                QuestGiverPlayerData.addToList(questNumber.id);
+
+
+                Player player = Minecraft.getInstance().player != null ? Minecraft.getInstance().player : null;
+
+                QuestGiverPlayerData.addToList(player, questNumber);
                 this.onClose();
             }));
 

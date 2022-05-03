@@ -12,7 +12,8 @@ import com.feywild.quest_giver.quest.reward.ItemReward;
 import com.feywild.quest_giver.quest.reward.ReputationReward;
 import com.feywild.quest_giver.quest.reward.RewardTypes;
 import com.feywild.quest_giver.quest.task.*;
-import com.feywild.quest_giver.util.ClientEvents;
+import com.feywild.quest_giver.events.RenderEvents;
+import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -35,20 +36,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-
 import javax.annotation.Nonnull;
 
-
-
 @Mod("quest_giver")
-public final class QuestGiverMod extends ModXRegistration
-{
+public final class QuestGiverMod extends ModXRegistration {
 
     private static QuestGiverMod instance;
     private static QuestGiverNetwork network;
 
     public QuestGiverMod() {
-
         instance = this;
         network = new QuestGiverNetwork(this);
 
@@ -62,7 +58,7 @@ public final class QuestGiverMod extends ModXRegistration
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
-        MinecraftForge.EVENT_BUS.register(new EventListener());
+        MinecraftForge.EVENT_BUS.register(EventListener.class);
         GuildMasterProfession.PROFESSION.register(bus);
         ModPoiTypes.POI_TYPES.register(bus);
 
@@ -112,7 +108,7 @@ public final class QuestGiverMod extends ModXRegistration
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(ModEntityTypes.questVillager, VillagerRenderer::new);
-        MinecraftForge.EVENT_BUS.register(QuestGiverRenderer.class);
+        MinecraftForge.EVENT_BUS.register(RenderEvents.class);
         MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
 

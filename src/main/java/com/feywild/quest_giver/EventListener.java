@@ -3,42 +3,75 @@ package com.feywild.quest_giver;
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
+import com.feywild.quest_giver.network.quest.SyncRenders;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
+import com.feywild.quest_giver.util.RenderEnum;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class EventListener {
 
     @SubscribeEvent
-    public void playerClone(PlayerEvent.Clone event){
+    public static void playerClone(PlayerEvent.Clone event){
         QuestGiverPlayerData.copy(event.getOriginal(), event.getPlayer());
     }
 
     @SubscribeEvent
-    public void pickupItem(PlayerEvent.ItemPickupEvent event){
+    public static void onPlayerJoin(EntityJoinWorldEvent event) {
+        if(event.getWorld() instanceof ServerLevel) if(event.getEntity() instanceof ServerPlayer player) syncPlayerRenders(player);
+    }
+
+    @SuppressWarnings("removal")
+    public static void syncPlayerRenders(ServerPlayer player) {
+        QuestData data = QuestData.get(player);
+        List<String> markedNumbers = new ArrayList<>();
+        StringBuilder packet = new StringBuilder();
+        for (QuestNumber questNumber : data.getAllQuestLines().keySet()) {
+            QuestGiverMod.getInstance().logger.info("number: "+questNumber.id);
+            if (data.getQuestLine(questNumber) != null) {
+                packet.append(encodeStuff(Objects.requireNonNull(data.getQuestLine(questNumber)))).append("%");
+                markedNumbers.add(questNumber.id);
+            }
+        }
+        for(QuestNumber numbers : QuestNumber.values()) {
+            if(!markedNumbers.contains(numbers.id)) packet.append(numbers.id).append(",").append(RenderEnum.EXCLAMATION.getId()).append("%");
+        }
+        QuestGiverMod.getNetwork().sendTo(new SyncRenders(packet.substring(0,packet.length()-1)),player);
+    }
+
+    private static String encodeStuff(QuestLineData data) {
+        String id = RenderEnum.EXCLAMATION.getId();
+        if(data.finished) id = RenderEnum.NONE.getId();
+        else if(!data.getActiveQuests().isEmpty()) id = RenderEnum.QUESTION.getId();
+        return data.questNumber.id+","+id;
+    }
+
+    @SubscribeEvent
+    public static void pickupItem(PlayerEvent.ItemPickupEvent event){
         if (event.getPlayer() instanceof  ServerPlayer player){
             for (int i = 0; i < event.getStack().getCount(); i++) {
                 QuestData.get(player).checkComplete(ItemPickupTask.INSTANCE, event.getStack());
@@ -48,14 +81,14 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void craftItem(PlayerEvent.ItemCraftedEvent event) {
+    public static void craftItem(PlayerEvent.ItemCraftedEvent event) {
         if (event.getPlayer() instanceof ServerPlayer) {
             QuestData.get((ServerPlayer) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
         }
     }
 
     @SubscribeEvent
-    public void playerKill(LivingDeathEvent event) {
+    public static void playerKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
@@ -63,7 +96,7 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event){
+    public static void playerTick(TickEvent.PlayerTickEvent event){
 
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
@@ -80,14 +113,14 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void entityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void entityInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getPlayer();
 
         if(player instanceof ServerPlayer && event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get()) {
             InteractionHand hand = event.getPlayer().getUsedItemHand();
             ItemStack stack = player.getItemInHand(hand);
             if(stack.isEmpty()){
-                this.interactQuest((ServerPlayer) player, hand, villager, QuestNumber.QUEST_0014);
+                interactQuest((ServerPlayer) player, hand, villager, QuestNumber.QUEST_0014);
             }
         }
         //TODO add gift item to entity questTask trigger
@@ -105,7 +138,7 @@ public class EventListener {
          */
     }
 
-    private void interactQuest(ServerPlayer player, InteractionHand hand, Entity entity, QuestNumber questNumber) {
+    private static void interactQuest(ServerPlayer player, InteractionHand hand, Entity entity, QuestNumber questNumber) {
 
         QuestData quests = QuestData.get(player);
 
@@ -144,7 +177,7 @@ public class EventListener {
     }
 
     //This was made to find a Target and give a QuestNumber THIS IS NOT USED RIGHT NOW
-    private Villager findTarget(Level level, Player player) {
+    private static Villager findTarget(Level level, Player player) {
         double distance = Double.MAX_VALUE;
         TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
         Villager current = null;

@@ -1,12 +1,14 @@
 package com.feywild.quest_giver.screen;
 
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.events.RenderEvents;
 import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
-import com.feywild.quest_giver.util.ClientEvents;
+import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
+import com.feywild.quest_giver.util.RenderEnum;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.noeppi_noeppi.libx.util.ComponentUtil;
 import net.minecraft.client.Minecraft;
@@ -17,14 +19,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
-import org.openjdk.nashorn.api.tree.WhileLoopTree;
 
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DisplayQuestScreen extends Screen {
@@ -108,8 +107,8 @@ public class DisplayQuestScreen extends Screen {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
 
             this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
-                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber));
-
+                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber, RenderEnum.QUESTION));
+                RenderEvents.renders.put(questNumber.id, RenderEnum.QUESTION);
 
                 Player player = Minecraft.getInstance().player != null ? Minecraft.getInstance().player : null;
 
@@ -118,7 +117,8 @@ public class DisplayQuestScreen extends Screen {
             }));
 
             this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, new TextComponent("decline"), button -> {
-                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber));
+                QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber, RenderEnum.EXCLAMATION));
+                RenderEvents.renders.put(questNumber.id, RenderEnum.EXCLAMATION);
                 this.onClose();
             }));
         }

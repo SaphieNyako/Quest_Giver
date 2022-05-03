@@ -1,5 +1,6 @@
 package com.feywild.quest_giver.quest;
 
+import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
@@ -28,7 +29,6 @@ public enum QuestNumber {
     public final String id;
 
     QuestNumber(String id) {
-
         this.id = id;
 
     }

@@ -1,6 +1,7 @@
 package com.feywild.quest_giver.quest.player;
 
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.quest.QuestLine;
 import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

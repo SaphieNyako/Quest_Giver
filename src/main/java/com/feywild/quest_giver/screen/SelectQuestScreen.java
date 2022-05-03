@@ -2,22 +2,15 @@ package com.feywild.quest_giver.screen;
 
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
-import com.feywild.quest_giver.util.ClientEvents;
-import com.feywild.quest_giver.util.QuestGiverTextProcessor;
+import com.feywild.quest_giver.events.ClientEvents;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.noeppi_noeppi.libx.util.ComponentUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.vehicle.Minecart;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SelectQuestScreen extends Screen {
 

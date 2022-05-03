@@ -19,6 +19,7 @@ public class QuestData {
     @Nullable
     private ServerPlayer player;
 
+    @SuppressWarnings("removal")
     public static QuestData get(ServerPlayer player) {
         // Capability should always be there.
         // If not print a warning and get default instance
@@ -27,6 +28,7 @@ public class QuestData {
             return new QuestData();
         });
     }
+
 
     // Called when the capability is attached to the player
     public void attach(ServerPlayer player) {
@@ -75,6 +77,10 @@ public class QuestData {
     @Nullable
     public QuestLineData getQuestLine(QuestNumber questNumber) {
         return this.questLines.getOrDefault(questNumber, null);
+    }
+
+    public Map<QuestNumber, QuestLineData> getAllQuestLines() {
+        return this.questLines;
     }
 
     // True if the task was completed

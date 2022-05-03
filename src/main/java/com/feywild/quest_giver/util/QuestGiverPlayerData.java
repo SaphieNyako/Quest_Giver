@@ -1,5 +1,6 @@
 package com.feywild.quest_giver.util;
 
+import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.quest.QuestNumber;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -64,8 +65,8 @@ public class QuestGiverPlayerData {
     public static boolean checkQuestList(Player player, QuestNumber questNumber){
         boolean questNumberPresent = false;
 
-        System.out.println(QuestGiverPlayerData.get(player).getInt(NUMBER_ACTIVE_QUESTS));
-        System.out.println(QuestGiverPlayerData.get(player).getInt(NUMBER_ACTIVE_QUESTS) + 1);
+        QuestGiverMod.getInstance().logger.debug(QuestGiverPlayerData.get(player).getInt(NUMBER_ACTIVE_QUESTS)+"");
+        QuestGiverMod.getInstance().logger.debug((QuestGiverPlayerData.get(player).getInt(NUMBER_ACTIVE_QUESTS) + 1)+"");
         for (int i = 1; i < QuestGiverPlayerData.get(Objects.requireNonNull(player)).getInt(NUMBER_ACTIVE_QUESTS) + 1; i++) {
             questNumberPresent = QuestGiverPlayerData.get(player).getString(ACTIVE_QUEST + i).equals(questNumber.id);
             if(questNumberPresent) break;

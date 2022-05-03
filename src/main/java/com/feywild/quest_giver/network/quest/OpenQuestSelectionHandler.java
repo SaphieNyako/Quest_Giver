@@ -12,5 +12,6 @@ public class OpenQuestSelectionHandler {
     public static void handle(OpenQuestSelectionSerializer.Message msg, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> Minecraft.getInstance().setScreen(new SelectQuestScreen(msg.title, msg.quests, msg.questNumber, msg.pos)));
         context.get().setPacketHandled(true);
+
     }
 }

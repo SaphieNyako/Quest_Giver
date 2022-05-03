@@ -1,10 +1,12 @@
 package com.feywild.quest_giver.quest.player;
 
+import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.events.QuestCompletionEvent;
 import com.feywild.quest_giver.quest.*;
 import com.feywild.quest_giver.quest.task.TaskType;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.util.RenderEnum;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -31,16 +33,30 @@ public class QuestLineData {
     private int reputation;
     private boolean approved = false;
 
+    private RenderEnum icon;
+
+    public boolean finished = false;
+
     public QuestLineData(QuestNumber questNumber) {
         this.questNumber = questNumber;
+        this.icon = RenderEnum.EXCLAMATION;
     }
 
     public void attach(ServerPlayer player) {
         this.player = player;
-        this.startNextQuests();
+        this.startNextQuests(false);
+        this.icon = RenderEnum.EXCLAMATION;
     }
 
-    public boolean checkForEnd(){
+    public RenderEnum getRender() {
+        return this.icon;
+    }
+
+    public void setRender(String id) {
+        this.icon = RenderEnum.getRender(id);
+    }
+
+    public boolean checkForEnd() {
         return this.activeQuests.containsKey(new ResourceLocation(QuestGiverMod.getInstance().modid, "end"));
     }
 
@@ -59,7 +75,7 @@ public class QuestLineData {
             this.reputation += rootQuest.reputation;
             this.completedQuests.add(rootQuest.id);
         }
-        this.startNextQuests();
+        this.startNextQuests(false);
     }
     
     @Nullable
@@ -71,7 +87,7 @@ public class QuestLineData {
         return this.activeQuests;
     }
 
-    public Set<ResourceLocation> getCompletedQuests(){
+    public Set<ResourceLocation> getCompletedQuests() {
         return this.completedQuests;
     }
 
@@ -214,10 +230,10 @@ public class QuestLineData {
                 this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
             }
         }
-        this.startNextQuests();
+        this.startNextQuests(true);
     }
 
-    public void startNextQuests() {
+    public void startNextQuests(boolean fromCompletion) {
         QuestLine quests = this.getQuestLine();
         boolean hasEmptyQuests = false;
         if (quests != null) {
@@ -240,7 +256,13 @@ public class QuestLineData {
         if (hasEmptyQuests) {
             // We have quests that instantly got pending for completion
             // so we need to start their children quests now.
-            startNextQuests();
+            startNextQuests(fromCompletion);
+            finished = false;
+        }
+        else if(fromCompletion) {
+            finished = true; //if there are no more quests to start, the questline must be finished
+            this.setRender("none");
+            EventListener.syncPlayerRenders(this.player);
         }
     }
 
@@ -249,6 +271,7 @@ public class QuestLineData {
         nbt.putString("QuestNumber", QuestNumber.optionId(this.questNumber));
         nbt.putInt("Reputation", reputation);
         nbt.putBoolean("Approved", approved);
+        nbt.putBoolean("Finished", this.finished);
 
         ListTag pending = new ListTag();
         for (ResourceLocation quest : this.pendingCompletion) {
@@ -271,6 +294,7 @@ public class QuestLineData {
     public void read(CompoundTag nbt) {
         this.reputation = nbt.getInt("Reputation");
         this.approved = nbt.getBoolean("Approved");
+        this.finished = nbt.getBoolean("Finished");
 
         ListTag pending = nbt.getList("Pending", Tag.TAG_STRING);
         this.pendingCompletion.clear();

@@ -1,6 +1,8 @@
 package com.feywild.quest_giver;
 
 import com.feywild.quest_giver.entity.GuildMasterProfession;
+import com.feywild.quest_giver.entity.ModEntityTypes;
+import com.feywild.quest_giver.entity.QuestVillager;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.network.quest.SyncRenders;
@@ -10,17 +12,20 @@ import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
-import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.RenderEnum;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -34,11 +39,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class EventListener {
-
-    @SubscribeEvent
-    public static void playerClone(PlayerEvent.Clone event){
-        QuestGiverPlayerData.copy(event.getOriginal(), event.getPlayer());
-    }
 
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinWorldEvent event) {
@@ -63,11 +63,18 @@ public class EventListener {
         QuestGiverMod.getNetwork().sendTo(new SyncRenders(packet.substring(0,packet.length()-1)),player);
     }
 
+
     private static String encodeStuff(QuestLineData data) {
         String id = RenderEnum.EXCLAMATION.getId();
-        if(data.finished) id = RenderEnum.NONE.getId();
-        else if(!data.getActiveQuests().isEmpty()) id = RenderEnum.QUESTION.getId();
+        if(data.checkForEnd()) {
+            id = RenderEnum.NONE.getId();
+        }
+        else if(!data.getActiveQuests().isEmpty()) {
+            id = RenderEnum.QUESTION.getId();
+        }
         return data.questNumber.id+","+id;
+
+
     }
 
     @SubscribeEvent
@@ -115,12 +122,29 @@ public class EventListener {
     @SubscribeEvent
     public static void entityInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getPlayer();
+        if(player instanceof ServerPlayer) {
+            if(event.getTarget() instanceof QuestVillager questvillager) {
+                QuestData.get((ServerPlayer) player).checkComplete(EndTask.INSTANCE, questvillager);
+            }
+            if (event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get()) {
 
-        if(player instanceof ServerPlayer && event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get()) {
-            InteractionHand hand = event.getPlayer().getUsedItemHand();
-            ItemStack stack = player.getItemInHand(hand);
-            if(stack.isEmpty()){
-                interactQuest((ServerPlayer) player, hand, villager, QuestNumber.QUEST_0014);
+                BlockPos spawnPos = villager.blockPosition();
+                villager.remove(Entity.RemovalReason.DISCARDED);
+
+                QuestVillager entity = new QuestVillager(ModEntityTypes.questVillager, player.level);
+                VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(player.blockPosition())), GuildMasterProfession.GUILDMASTER.get(), 1);
+                entity.setVillagerData(villagerData);
+                entity.setVillagerXp(1);
+                entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                entity.setQuestNumber(14);
+                player.level.addFreshEntity(entity);
+
+
+                InteractionHand hand = event.getPlayer().getUsedItemHand();
+                ItemStack stack = player.getItemInHand(hand);
+                if (stack.isEmpty()) {
+                    interactQuest((ServerPlayer) player, hand, entity, QuestNumber.QUEST_0014);
+                }
             }
         }
         //TODO add gift item to entity questTask trigger

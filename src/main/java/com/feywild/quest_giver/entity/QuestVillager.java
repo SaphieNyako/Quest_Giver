@@ -1,5 +1,6 @@
 package com.feywild.quest_giver.entity;
 
+import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
@@ -137,8 +138,13 @@ public class QuestVillager extends Villager {
     }
 
     public QuestNumber getQuestNumber() {
+        System.out.println(this.entityData.get(QUEST_NUMBER));
         if(this.getVillagerData().getProfession()!= VillagerProfession.NONE) return QuestNumber.values()[this.entityData.get(QUEST_NUMBER)];
         else return null;
+    }
+
+    public void setQuestNumber(Integer questNumber){
+        this.entityData.set(QUEST_NUMBER, questNumber);
     }
 
     @Override
@@ -178,10 +184,12 @@ public class QuestVillager extends Villager {
             } else {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
+                    QuestData quests = QuestData.get((ServerPlayer) player);
                     this.interactQuest((ServerPlayer) player, hand);
                 }
             }
         }
+
         return InteractionResult.sidedSuccess(this.level.isClientSide);
 
         //TODO doesnt give profession trades if quest is done.

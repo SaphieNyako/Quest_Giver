@@ -35,7 +35,7 @@ public class QuestLineData {
 
     private RenderEnum icon;
 
-    public boolean finished = false;
+   // public boolean finished = false;
 
     public QuestLineData(QuestNumber questNumber) {
         this.questNumber = questNumber;
@@ -44,7 +44,7 @@ public class QuestLineData {
 
     public void attach(ServerPlayer player) {
         this.player = player;
-        this.startNextQuests(false);
+        this.startNextQuests();
         this.icon = RenderEnum.EXCLAMATION;
     }
 
@@ -57,7 +57,17 @@ public class QuestLineData {
     }
 
     public boolean checkForEnd() {
-        return this.activeQuests.containsKey(new ResourceLocation(QuestGiverMod.getInstance().modid, "end"));
+        QuestLine quests = this.getQuestLine();
+        boolean hasEmptyQuests = false;
+
+        if (quests != null) {
+            System.out.println(this.getCompletedQuests().size());
+            System.out.println(quests.getQuestCount());
+            if(this.getCompletedQuests().size() == quests.getQuestCount()){
+                hasEmptyQuests = true;
+            }
+        }
+        return hasEmptyQuests;
     }
 
     public void approve() {
@@ -75,7 +85,7 @@ public class QuestLineData {
             this.reputation += rootQuest.reputation;
             this.completedQuests.add(rootQuest.id);
         }
-        this.startNextQuests(false);
+        this.startNextQuests();
     }
     
     @Nullable
@@ -230,10 +240,10 @@ public class QuestLineData {
                 this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
             }
         }
-        this.startNextQuests(true);
+        this.startNextQuests();
     }
 
-    public void startNextQuests(boolean fromCompletion) {
+    public void startNextQuests() {
         QuestLine quests = this.getQuestLine();
         boolean hasEmptyQuests = false;
         if (quests != null) {
@@ -244,6 +254,8 @@ public class QuestLineData {
                         this.pendingCompletion.add(newQuest.id);
                         this.completedQuests.add(newQuest.id);
                         hasEmptyQuests = true;
+                      //  this.setRender("none");
+
                     }
                 } else {
                     if (!this.activeQuests.containsKey(newQuest.id)) {
@@ -256,14 +268,9 @@ public class QuestLineData {
         if (hasEmptyQuests) {
             // We have quests that instantly got pending for completion
             // so we need to start their children quests now.
-            startNextQuests(fromCompletion);
-            finished = false;
+            startNextQuests();
         }
-        else if(fromCompletion) {
-            finished = true; //if there are no more quests to start, the questline must be finished
-            this.setRender("none");
-            EventListener.syncPlayerRenders(this.player);
-        }
+        EventListener.syncPlayerRenders(this.player);
     }
 
     public CompoundTag write() {
@@ -271,7 +278,7 @@ public class QuestLineData {
         nbt.putString("QuestNumber", QuestNumber.optionId(this.questNumber));
         nbt.putInt("Reputation", reputation);
         nbt.putBoolean("Approved", approved);
-        nbt.putBoolean("Finished", this.finished);
+    //    nbt.putBoolean("Finished", this.finished);
 
         ListTag pending = new ListTag();
         for (ResourceLocation quest : this.pendingCompletion) {
@@ -294,7 +301,7 @@ public class QuestLineData {
     public void read(CompoundTag nbt) {
         this.reputation = nbt.getInt("Reputation");
         this.approved = nbt.getBoolean("Approved");
-        this.finished = nbt.getBoolean("Finished");
+     //   this.finished = nbt.getBoolean("Finished");
 
         ListTag pending = nbt.getList("Pending", Tag.TAG_STRING);
         this.pendingCompletion.clear();

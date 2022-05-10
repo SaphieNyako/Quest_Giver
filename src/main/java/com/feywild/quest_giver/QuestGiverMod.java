@@ -72,6 +72,7 @@ public final class QuestGiverMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "end"), EndTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);

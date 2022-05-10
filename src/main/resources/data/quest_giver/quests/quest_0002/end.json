@@ -1,0 +1,34 @@
+{
+  "parent": "quest_giver:quest_0002_02",
+  "reputation": 5,
+  "icon": "minecraft:mutton",
+  "start": {
+    "title": {
+      "text": "quest butcher"
+    },
+    "description": {
+      "text":     "end quest"
+    }
+  },
+  "complete": {
+    "title": {
+      "text": "quest butcher end"
+    },
+    "description": {
+      "text": "Thank you"
+    }
+  },
+  "tasks": [
+    {
+      "quest_number": "quest_0002",
+      "id": "quest_giver:end",
+      "times": 2
+    }
+  ],
+  "rewards": [
+    {
+      "command": "/give @s minecraft:cooked_mutton 9",
+      "id": "quest_giver:command"
+    }
+  ]
+}

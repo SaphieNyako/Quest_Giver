@@ -6,7 +6,6 @@ import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.events.ClientEvents;
-import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.feywild.quest_giver.util.RenderEnum;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -95,8 +94,6 @@ public class DisplayQuestScreen extends Screen {
                 if(textBlockNumber < textBlocks.size()) {
                     this.currentTextBlock = this.textBlocks.get(this.textBlockNumber);
                 } else {
-
-                    //TODO Make Custom Button that will show << back option when at end.
                     this.onClose();
                 }
 
@@ -109,10 +106,6 @@ public class DisplayQuestScreen extends Screen {
             this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber, RenderEnum.QUESTION));
                 RenderEvents.renders.put(questNumber.id, RenderEnum.QUESTION);
-
-                Player player = Minecraft.getInstance().player != null ? Minecraft.getInstance().player : null;
-
-                QuestGiverPlayerData.addToList(player, questNumber);
                 this.onClose();
             }));
 

@@ -7,7 +7,7 @@
       "text": "second quest butcher"
     },
     "description": {
-      "text": "second quest butcher, bring me mutton"
+      "text": "second quest butcher, bring me beef"
     }
 
   },
@@ -16,12 +16,12 @@
       "text": "quest butcher complete"
     },
     "description": {
-      "text": "Thank you for bringing me mutton"    }
+      "text": "Thank you for bringing me beef"    }
   },
   "tasks": [
     {
       "item": {
-        "item": "minecraft:mutton"
+        "item": "minecraft:beef"
       },
       "id": "quest_giver:item_stack",
       "amount": 9

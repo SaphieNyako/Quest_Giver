@@ -3,6 +3,8 @@ package com.feywild.quest_giver;
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.ModEntityTypes;
 import com.feywild.quest_giver.entity.QuestVillager;
+import com.feywild.quest_giver.item.ModItems;
+import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.network.quest.SyncRenders;
@@ -12,19 +14,31 @@ import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.tag.ModTags;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.data.worldgen.StructureSets;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -33,6 +47,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,15 +99,26 @@ public class EventListener {
             for (int i = 0; i < event.getStack().getCount(); i++) {
                 QuestData.get(player).checkComplete(ItemPickupTask.INSTANCE, event.getStack());
             }
-
         }
     }
 
     @SubscribeEvent
     public static void craftItem(PlayerEvent.ItemCraftedEvent event) {
-        if (event.getPlayer() instanceof ServerPlayer) {
-            QuestData.get((ServerPlayer) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
+        Player player = event.getPlayer();
+        ItemStack stack = event.getCrafting();
+
+        if (player instanceof ServerPlayer) {
+            QuestData.get((ServerPlayer) player).checkComplete(CraftTask.INSTANCE, stack);
+
+
+            if(stack.getItem() instanceof  TradingContract contract && contract.assignedToPlayer == player.getUUID()) {
+                contract.signedByPlayer(player);
+            } else {
+                ((ServerPlayer) player).sendMessage(new TextComponent("You can't sign this contract"), player.getUUID());
+                event.setCanceled(true);
+            }
         }
+
     }
 
     @SubscribeEvent
@@ -110,12 +137,25 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             //Quest Check for ItemStackTask
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
+
+            for (ItemStack item : player.getInventory().items) {
+                if (item.getItem() instanceof TradingContract contract && contract.assignedToPlayer == null) {
+                    contract.assignedToPlayer(player);
+                }
+            }
+
             //Quest Check for Biomes
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //QuestCheck for Structure
              if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
                  player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
              }
+
+             //TODO STRUCTURE SEARCH
+          //   player.getLevel().findNearestMapFeature(ModTags.ConfiguredStructureFeatures.QUEST_STRUCTURE_TAG, player.blockPosition(), 20, false); //keytag structure, pps, distance, below ground
+
+
+
         }
     }
 

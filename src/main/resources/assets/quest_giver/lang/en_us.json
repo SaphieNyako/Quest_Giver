@@ -14,5 +14,6 @@
   "entity.quest_giver.quest_villager.toolsmith": "Toolsmith - Quest Giver",
   "entity.quest_giver.quest_villager.weaponsmith": "Weaponsmith - Quest Giver",
   "entity.quest_giver.quest_villager.guildmaster": "Guildmaster - Quest Giver",
-  "message.quest_giver.quest_completion": "You have completed your tasks! Return to the Quest Giver."
+  "message.quest_giver.quest_completion": "You have completed your tasks! Return to the Quest Giver.",
+  "message.quest_giver.itemmessage": "Hold \"%s\" for more information"
 }

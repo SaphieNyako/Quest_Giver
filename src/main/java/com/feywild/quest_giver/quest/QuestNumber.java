@@ -24,7 +24,8 @@ public enum QuestNumber {
     QUEST_0011("quest_0011"),
     QUEST_0012("quest_0012"),
     QUEST_0013("quest_0013"),
-    QUEST_0014("quest_0014");
+    QUEST_0014("quest_0014"),
+    QUEST_0015("quest_0015");
 
     public final String id;
 
@@ -50,6 +51,7 @@ public enum QuestNumber {
             case "quest_0012": return QUEST_0012;
             case "quest_0013": return QUEST_0013;
             case "quest_0014": return QUEST_0014;
+            case "quest_0015": return QUEST_0015;
             default: throw new IllegalArgumentException("Invalid quest number: " + id);
         }
 

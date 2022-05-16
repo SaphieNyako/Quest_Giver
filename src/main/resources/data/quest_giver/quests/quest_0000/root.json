@@ -3,10 +3,10 @@
   "icon": "minecraft:diamond",
   "start": {
     "title": {
-      "text": "test for quest giver mod."
+      "text": "Something went wrong."
     },
     "description": {
-      "text": "test for $(red) quest giver mod $()."
+      "text": "Something went wrong, the questgiver doesn't want to trade with you anymore."
     }
   }
 }

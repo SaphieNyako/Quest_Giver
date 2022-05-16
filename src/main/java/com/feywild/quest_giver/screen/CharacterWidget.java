@@ -60,8 +60,8 @@ public class CharacterWidget extends Panel {
        return switch (number.id){
             case "quest_0001" -> VillagerProfession.ARMORER;
             case "quest_0002" -> VillagerProfession.BUTCHER;
-            case "quest_0003" -> VillagerProfession.CARTOGRAPHER;
-            case "quest_0004" -> VillagerProfession.CLERIC;
+            case "quest_0003", "quest_0015" -> VillagerProfession.CARTOGRAPHER;
+           case "quest_0004" -> VillagerProfession.CLERIC;
             case "quest_0005" -> VillagerProfession.FARMER;
             case "quest_0006" -> VillagerProfession.FISHERMAN;
             case "quest_0007" -> VillagerProfession.FLETCHER;

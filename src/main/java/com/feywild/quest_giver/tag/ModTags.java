@@ -12,7 +12,7 @@ public class ModTags {
         public static final TagKey<ConfiguredStructureFeature<?, ?>> QUEST_STRUCTURE_TAG = tag();
 
         private static TagKey<ConfiguredStructureFeature<?, ?>> tag() {
-            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "custom_structure_tag"));
+            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "quest_structures"));
         }
     }
 

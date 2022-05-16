@@ -83,7 +83,7 @@ public class QuestVillager extends Villager {
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CARTOGRAPHER) {
-                this.entityData.set(QUEST_NUMBER, 3);
+               this.entityData.set(QUEST_NUMBER, 3);
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CLERIC) {
@@ -137,10 +137,15 @@ public class QuestVillager extends Villager {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5D).add(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
-    public QuestNumber getQuestNumber() {
-        System.out.println(this.entityData.get(QUEST_NUMBER));
-        if(this.getVillagerData().getProfession()!= VillagerProfession.NONE) return QuestNumber.values()[this.entityData.get(QUEST_NUMBER)];
+    public QuestNumber getQuestNumber(){
+        if (this.getVillagerData().getProfession() != VillagerProfession.NONE)
+            try {
+                return QuestNumber.values()[this.entityData.get(QUEST_NUMBER)];
+            } catch(ArrayIndexOutOfBoundsException exception) {
+                return QuestNumber.values()[0];
+            }
         else return null;
+
     }
 
     public void setQuestNumber(Integer questNumber){

@@ -20,7 +20,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class QuestLineData {
 
@@ -122,7 +121,7 @@ public class QuestLineData {
         QuestLine quests = this.getQuestLine();
         if (quests != null && this.player != null) {
             ImmutableList.Builder<SelectableQuest> list = ImmutableList.builder();
-            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).collect(Collectors.toList())) {
+            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).toList()) {
                 Quest quest = quests.getQuest(progress.quest);
                 if (quest != null) {
                     list.add(new SelectableQuest(quest.id, quest.icon, quest.start));
@@ -270,7 +269,8 @@ public class QuestLineData {
             // so we need to start their children quests now.
             startNextQuests();
         }
-        EventListener.syncPlayerRenders(this.player);
+        //noinspection ConstantConditions
+        if(this.player.connection!=null) EventListener.syncPlayerRenders(this.player);
     }
 
     public CompoundTag write() {

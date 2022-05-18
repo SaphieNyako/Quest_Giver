@@ -1,6 +1,5 @@
 package com.feywild.quest_giver.network.quest;
 
-import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.events.RenderEvents;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +18,6 @@ public class SyncRenders {
 
     public SyncRenders(String renders) {
         this.s = renders;
-        QuestGiverMod.getInstance().logger.info(s);
     }
 
     public static void encode(SyncRenders packet, FriendlyByteBuf buf) {

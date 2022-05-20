@@ -3,10 +3,10 @@
   "icon": "minecraft:diamond",
   "start": {
     "title": {
-      "text": "quest enderian."
+      "text": "quest cartographer."
     },
     "description": {
-      "text": "quest enderian."
+      "text": "quest cartographer for quest structure."
     }
   }
 }

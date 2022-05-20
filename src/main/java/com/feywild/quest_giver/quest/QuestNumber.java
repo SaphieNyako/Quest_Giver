@@ -25,7 +25,14 @@ public enum QuestNumber {
     QUEST_0012("quest_0012"),
     QUEST_0013("quest_0013"),
     QUEST_0014("quest_0014"),
-    QUEST_0015("quest_0015");
+    QUEST_0015("quest_0015"),
+    QUEST_0016("quest_0016"),
+    QUEST_0017("quest_0017"),
+    QUEST_0018("quest_0018"),
+    QUEST_0019("quest_0019"),
+    QUEST_0020("quest_0020"),
+    QUEST_0021("quest_0021"),
+    QUEST_0022("quest_0022");
 
     public final String id;
 
@@ -52,6 +59,13 @@ public enum QuestNumber {
             case "quest_0013": return QUEST_0013;
             case "quest_0014": return QUEST_0014;
             case "quest_0015": return QUEST_0015;
+            case "quest_0016": return QUEST_0016;
+            case "quest_0017": return QUEST_0017;
+            case "quest_0018": return QUEST_0018;
+            case "quest_0019": return QUEST_0019;
+            case "quest_0020": return QUEST_0020;
+            case "quest_0021": return QUEST_0021;
+            case "quest_0022": return QUEST_0022;
             default: throw new IllegalArgumentException("Invalid quest number: " + id);
         }
 

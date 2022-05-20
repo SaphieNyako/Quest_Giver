@@ -4,19 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest enderian"
+      "text": "quest netherian"
     },
     "description": {
-      "text": "quest enderian"
+      "text": "quest netherian"
     }
 
   },
   "complete": {
     "title": {
-      "text": "quest enderian completion text"
+      "text": "quest netherian completion text"
     },
     "description": {
-      "text": "quest enderian completion text"
+      "text": "quest netherian completion text"
     }
   },
   "tasks": [

@@ -9,6 +9,7 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.samebutdifferent.morevillagers.init.ModProfessions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
@@ -126,10 +127,47 @@ public class QuestVillager extends Villager {
                 this.entityData.set(QUEST_NUMBER, 13);
                 this.setVillagerXp(1);
             }
+
+            //GUILDMASTE
             if (villagerprofession == GuildMasterProfession.GUILDMASTER.get()) {
                 this.entityData.set(QUEST_NUMBER, 14);
                 this.setVillagerXp(1);
             }
+
+            //MORE VILLAGER PROFESSIONS
+            if (villagerprofession == ModProfessions.ENDERIAN.get()) {
+                this.entityData.set(QUEST_NUMBER, 15);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.ENGINEER.get()) {
+                this.entityData.set(QUEST_NUMBER, 16);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.FLORIST.get()) {
+                this.entityData.set(QUEST_NUMBER, 17);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.HUNTER.get()) {
+                this.entityData.set(QUEST_NUMBER, 18);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.MINER.get()) {
+                this.entityData.set(QUEST_NUMBER, 19);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.NETHERIAN.get()) {
+                this.entityData.set(QUEST_NUMBER, 20);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.OCEANOGRAPHER.get()) {
+                this.entityData.set(QUEST_NUMBER, 21);
+                this.setVillagerXp(1);
+            }
+            if (villagerprofession == ModProfessions.WOODWORKER.get()) {
+                this.entityData.set(QUEST_NUMBER, 22);
+                this.setVillagerXp(1);
+            }
+
         }
     }
 

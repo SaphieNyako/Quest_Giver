@@ -3,6 +3,7 @@ package com.feywild.quest_giver.screen;
 
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.quest.QuestNumber;
+import com.samebutdifferent.morevillagers.init.ModProfessions;
 import io.github.noeppi_noeppi.libx.screen.Panel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
@@ -60,7 +61,7 @@ public class CharacterWidget extends Panel {
        return switch (number.id){
             case "quest_0001" -> VillagerProfession.ARMORER;
             case "quest_0002" -> VillagerProfession.BUTCHER;
-            case "quest_0003", "quest_0015" -> VillagerProfession.CARTOGRAPHER;
+            case "quest_0003", "quest_0023" -> VillagerProfession.CARTOGRAPHER;
            case "quest_0004" -> VillagerProfession.CLERIC;
             case "quest_0005" -> VillagerProfession.FARMER;
             case "quest_0006" -> VillagerProfession.FISHERMAN;
@@ -72,6 +73,15 @@ public class CharacterWidget extends Panel {
             case "quest_0012" -> VillagerProfession.TOOLSMITH;
             case "quest_0013" -> VillagerProfession.WEAPONSMITH;
             case "quest_0014" -> GuildMasterProfession.GUILDMASTER.get();
+           case "quest_0015" -> ModProfessions.ENDERIAN.get();
+           case "quest_0016" -> ModProfessions.ENGINEER.get();
+           case "quest_0017" -> ModProfessions.FLORIST.get();
+           case "quest_0018" -> ModProfessions.HUNTER.get();
+           case "quest_0029" -> ModProfessions.MINER.get();
+           case "quest_0020" -> ModProfessions.NETHERIAN.get();
+           case "quest_0021" -> ModProfessions.OCEANOGRAPHER.get();
+           case "quest_0022" -> ModProfessions.WOODWORKER.get();
+
            default -> VillagerProfession.NONE;
         };
     }

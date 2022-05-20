@@ -4,19 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest enderian"
+      "text": "quest oceanographer"
     },
     "description": {
-      "text": "quest enderian"
+      "text": "quest oceanographer"
     }
 
   },
   "complete": {
     "title": {
-      "text": "quest enderian completion text"
+      "text": "quest oceanographer completion text"
     },
     "description": {
-      "text": "quest enderian completion text"
+      "text": "quest oceanographer completion text"
     }
   },
   "tasks": [

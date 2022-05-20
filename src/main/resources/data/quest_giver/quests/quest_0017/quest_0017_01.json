@@ -4,19 +4,19 @@
   "icon": "minecraft:potato",
   "start": {
     "title": {
-      "text": "quest enderian"
+      "text": "quest florist"
     },
     "description": {
-      "text": "quest enderian"
+      "text": "quest florist"
     }
 
   },
   "complete": {
     "title": {
-      "text": "quest enderian completion text"
+      "text": "quest florist completion text"
     },
     "description": {
-      "text": "quest enderian completion text"
+      "text": "quest florist completion text"
     }
   },
   "tasks": [

@@ -177,7 +177,7 @@ public class EventListener {
                 QuestData.get((ServerPlayer) player).checkComplete(EndTask.INSTANCE, questvillager);
 
                 if (questvillager.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER && ClientEvents.getStructurePos() != null){
-                    questvillager.setQuestNumber(15);
+                    questvillager.setQuestNumber(23);
                     /*
                     if (stack.isEmpty()) {
                         interactQuest((ServerPlayer) player, hand, questvillager, questvillager.getQuestNumber());
@@ -193,7 +193,7 @@ public class EventListener {
                 VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(player.blockPosition())), GuildMasterProfession.GUILDMASTER.get(), 1);
                 entity.setVillagerData(villagerData);
                 entity.setVillagerXp(1);
-                entity.setPos(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+                entity.setPos(spawnPos.getX(), spawnPos.getY()+1, spawnPos.getZ());
                 entity.setQuestNumber(14);
                 player.level.addFreshEntity(entity);
 

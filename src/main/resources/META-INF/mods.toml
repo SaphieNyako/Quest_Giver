@@ -32,3 +32,10 @@ Quest Giver.
     versionRange="[1.18.1-3.2.17,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.quest_giver]]
+    modId="morevillagers"
+    mandatory=true
+    versionRange="[1.18.2-3.2.0,)"
+    ordering="NONE"
+    ide="BOTH"

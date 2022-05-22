@@ -39,3 +39,10 @@ Quest Giver.
     versionRange="[1.18.2-3.2.0,)"
     ordering="NONE"
     ide="BOTH"
+
+[[dependencies.quest_giver]]
+    modId="guardvillagers"
+    mandatory=true
+    versionRange="[1.4.1,)"
+    ordering="NONE"
+    ide="BOTH"

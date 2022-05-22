@@ -7,7 +7,7 @@
       "text": "quest guard"
     },
     "description": {
-      "text": "Please kill 10 pillagers"
+      "text": "find the pillager outpost that has been terrorizing our village, objective: kill 10 pillagers"
     }
 
   },
@@ -16,10 +16,14 @@
       "text": "quest guard completion text"
     },
     "description": {
-      "text": "You killed the pillagers"
+      "text": "You found the structure"
     }
   },
   "tasks": [
+    {
+      "structure": "minecraft:pillager_outpost",
+      "id": "quest_giver:structure"
+    },
     {
       "entity": "minecraft:pillager",
       "id": "quest_giver:kill",

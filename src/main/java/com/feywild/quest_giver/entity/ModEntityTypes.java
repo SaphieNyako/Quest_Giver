@@ -12,4 +12,7 @@ public class ModEntityTypes {
     public static final EntityType<QuestVillager> questVillager = EntityType.Builder.of(QuestVillager::new, MobCategory.CREATURE)
             .build(QuestGiverMod.getInstance().modid + "_quest_villager");
 
+    public static final EntityType<QuestGuardVillager> questGuardVillager = EntityType.Builder.of(QuestGuardVillager::new, MobCategory.CREATURE)
+            .build(QuestGiverMod.getInstance().modid + "_quest_guard_villager");
+
 }

@@ -9,6 +9,8 @@ import net.minecraft.world.item.Item;
 @RegisterClass
 public class ModItems {
 
+    //TODO Add other professions
+
     public static final Item tradingContractArmorer = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1));
 
 }

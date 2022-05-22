@@ -183,7 +183,6 @@ public class QuestVillager extends Villager {
                 return QuestNumber.values()[0];
             }
         else return null;
-
     }
 
     public void setQuestNumber(Integer questNumber){
@@ -230,12 +229,11 @@ public class QuestVillager extends Villager {
                     QuestData quests = QuestData.get((ServerPlayer) player);
                     this.interactQuest((ServerPlayer) player, hand);
                 }
+                //TODO if stack is TradingContract of Profession doesnt give profession trades if quest is done.
             }
         }
 
         return InteractionResult.sidedSuccess(this.level.isClientSide);
-
-        //TODO doesnt give profession trades if quest is done.
     }
 
 

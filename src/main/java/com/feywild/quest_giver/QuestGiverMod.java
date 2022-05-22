@@ -1,9 +1,6 @@
 package com.feywild.quest_giver;
 
-import com.feywild.quest_giver.entity.GuildMasterProfession;
-import com.feywild.quest_giver.entity.ModEntityTypes;
-import com.feywild.quest_giver.entity.ModPoiTypes;
-import com.feywild.quest_giver.entity.QuestVillager;
+import com.feywild.quest_giver.entity.*;
 import com.feywild.quest_giver.network.QuestGiverNetwork;
 import com.feywild.quest_giver.quest.QuestManager;
 import com.feywild.quest_giver.quest.player.CapabilityQuests;
@@ -37,6 +34,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import tallestegg.guardvillagers.client.renderer.GuardRenderer;
 
 import javax.annotation.Nonnull;
 
@@ -103,7 +101,10 @@ public final class QuestGiverMod extends ModXRegistration {
     {
         event.enqueueWork(() -> {
             SpawnPlacements.register(ModEntityTypes.questVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestVillager::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.questGuardVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestGuardVillager::canSpawn);
+
             ModPoiTypes.register();
+
         });
     }
 
@@ -111,6 +112,7 @@ public final class QuestGiverMod extends ModXRegistration {
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(ModEntityTypes.questVillager, VillagerRenderer::new);
+        EntityRenderers.register(ModEntityTypes.questGuardVillager, GuardRenderer::new);
         MinecraftForge.EVENT_BUS.register(RenderEvents.class);
         MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
@@ -122,10 +124,13 @@ public final class QuestGiverMod extends ModXRegistration {
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.questVillager, QuestVillager.createAttributes().build());
+        event.put(ModEntityTypes.questGuardVillager, QuestGuardVillager.createAttributes().build());
     }
 
     @SubscribeEvent
     public void onServerStartEvent(ServerAboutToStartEvent event){
+        //TODO Add Guards
+
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
                 new ResourceLocation("quest_giver:village/desert/houses/guild_house"), 10);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
@@ -149,15 +154,26 @@ public final class QuestGiverMod extends ModXRegistration {
                 new ResourceLocation("quest_giver:village/taiga/houses/stall"), 10);
 
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
-                new ResourceLocation("quest_giver:village/desert/villagers/quest_villager_desert"), 10);
+                new ResourceLocation("quest_giver:village/desert/villagers/quest_villager_desert"), 15);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/villagers"),
-                new ResourceLocation("quest_giver:village/plains/villagers/quest_villager"), 10);
+                new ResourceLocation("quest_giver:village/plains/villagers/quest_villager"), 15);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/villagers"),
-                new ResourceLocation("quest_giver:village/savanna/villagers/quest_villager_savanna"), 10);
+                new ResourceLocation("quest_giver:village/savanna/villagers/quest_villager_savanna"), 15);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/villagers"),
-                new ResourceLocation("quest_giver:village/snowy/villagers/quest_villager_snow"), 10);
+                new ResourceLocation("quest_giver:village/snowy/villagers/quest_villager_snow"), 15);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/villagers"),
-                new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager_taiga"), 10);
+                new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager_taiga"), 15);
+
+        QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
+                new ResourceLocation("quest_giver:village/desert/villagers/quest_guard_villager_desert"), 10);
+        QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/villagers"),
+                new ResourceLocation("quest_giver:village/plains/villagers/quest_guard_villager"), 10);
+        QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/villagers"),
+                new ResourceLocation("quest_giver:village/savanna/villagers/quest_guard_villager_savanna"), 10);
+        QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/villagers"),
+                new ResourceLocation("quest_giver:village/snowy/villagers/quest_guard_villager_snow"), 10);
+        QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/villagers"),
+                new ResourceLocation("quest_giver:village/taiga/villagers/quest_guard_villager_taiga"), 10);
 
     }
 }

@@ -2,6 +2,7 @@ package com.feywild.quest_giver.screen;
 
 
 import com.feywild.quest_giver.entity.GuildMasterProfession;
+import com.feywild.quest_giver.entity.ModEntityTypes;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.samebutdifferent.morevillagers.init.ModProfessions;
 import io.github.noeppi_noeppi.libx.screen.Panel;
@@ -16,7 +17,10 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.Level;
+import tallestegg.guardvillagers.entities.Guard;
+
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 
 public class CharacterWidget extends Panel {
@@ -29,6 +33,7 @@ public class CharacterWidget extends Panel {
     private float xMouse;
     private float yMouse;
     private final Villager villager;
+    private final Guard guard;
 
 
     public CharacterWidget(Screen screen, int x, int y, Level level, QuestNumber number, BlockPos pos) {
@@ -36,15 +41,21 @@ public class CharacterWidget extends Panel {
         this.level = level;
         this.number = number;
         this.villager = setVillager(number, pos);
+        this.guard = setGuard(number, pos);
 
+    }
+
+    private Guard setGuard(QuestNumber number, BlockPos pos) {
+        return new Guard(ModEntityTypes.questGuardVillager, this.level);
     }
 
     private Villager setVillager(QuestNumber number, BlockPos pos) {
 
-        Villager villager = new Villager(EntityType.VILLAGER, this.level);
-        VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiome(pos)), getProfession(number),1 );
-        villager.setVillagerData(villagerData);
-        return villager;
+            Villager villager = new Villager(EntityType.VILLAGER, this.level);
+            VillagerData villagerData = new VillagerData(VillagerType.byBiome(level.getBiome(pos)), getProfession(number), 1);
+            villager.setVillagerData(villagerData);
+            return villager;
+
 
     }
 
@@ -53,8 +64,11 @@ public class CharacterWidget extends Panel {
 
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
-
-        InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 0 - this.xMouse, (float)100 - this.yMouse, villager);
+        if(Objects.equals(number.id, "quest_0023") || Objects.equals(number.id, "quest_0024")) {
+            InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 0 - this.xMouse, (float)100 - this.yMouse, guard);
+        } else {
+            InventoryScreen.renderEntityInInventory(this.x, this.y, 65,  (float) 0 - this.xMouse, (float)100 - this.yMouse, villager);
+        }
     }
 
     private VillagerProfession getProfession(QuestNumber number) {

@@ -150,14 +150,10 @@ public class EventListener {
             if(event.getTarget() instanceof QuestVillager questvillager) {
                 //End Quest Check
                 QuestData.get((ServerPlayer) player).checkComplete(EndTask.INSTANCE, questvillager);
-
+                /*
                 if (questvillager.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER && ClientEvents.getStructurePos() != null){
                     questvillager.setQuestNumber(23);
-                    /*
-                    if (stack.isEmpty()) {
-                        interactQuest((ServerPlayer) player, hand, questvillager, questvillager.getQuestNumber());
-                    } */
-                }
+                } */
             }
             if (event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get() && !(event.getTarget() instanceof QuestVillager)) {
 
@@ -171,11 +167,6 @@ public class EventListener {
                 entity.setPos(spawnPos.getX(), spawnPos.getY()+1, spawnPos.getZ());
                 entity.setQuestNumber(14);
                 player.level.addFreshEntity(entity);
-
-                /*
-                if (stack.isEmpty()) {
-                    interactQuest((ServerPlayer) player, hand, entity, QuestNumber.QUEST_0014);
-                } */
             }
         }
         //TODO add gift item to entity questTask trigger

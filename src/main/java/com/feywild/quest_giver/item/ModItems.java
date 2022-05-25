@@ -23,7 +23,7 @@ public class ModItems {
     public static final Item tradingContractLibrarian = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "librarian");
     public static final Item tradingContractMason = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "mason");
     public static final Item tradingContractShepherd = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "shepherd");
-    public static final Item tradingContractCToolsmith = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "toolsmith");
+    public static final Item tradingContractToolsmith = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "toolsmith");
     public static final Item tradingContractWeaponsmith = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "weaponsmith");
 
     //Guildmaster has no trades

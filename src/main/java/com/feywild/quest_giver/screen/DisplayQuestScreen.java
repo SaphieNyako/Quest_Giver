@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class DisplayQuestScreen extends Screen {
@@ -103,19 +104,41 @@ public class DisplayQuestScreen extends Screen {
         if (this.hasConfirmationButtons) {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
 
-            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent("accept"), button -> {
+            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent(getRandomAcceptMessage()), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber, RenderEnum.QUESTION));
                 RenderEvents.renders.put(questNumber.id, RenderEnum.QUESTION);
                 this.onClose();
             }));
 
-            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, new TextComponent("decline"), button -> {
+            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, new TextComponent(getRandomDeclineMessage()), button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber, RenderEnum.EXCLAMATION));
                 RenderEvents.renders.put(questNumber.id, RenderEnum.EXCLAMATION);
                 this.onClose();
             }));
         }
         ClientEvents.setShowGui(false);
+    }
+
+    private String getRandomDeclineMessage() {
+        Random random = new Random();
+        return switch (random.nextInt(5)) {
+            case 1 -> "I'll do it!";
+            case 2 -> "Sure";
+            case 3 -> "Okay!";
+            case 4 -> "Alright!";
+            default -> "I accept!";
+        };
+    }
+
+    private String getRandomAcceptMessage() {
+        Random random = new Random();
+        return switch (random.nextInt(5)) {
+            case 1 -> "Maybe later.";
+            case 2 -> "I'm Busy";
+            case 3 -> "No, Sorry.";
+            case 4 -> "Not right now";
+            default -> "I decline!";
+        };
     }
 
     @Override

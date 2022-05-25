@@ -46,3 +46,10 @@ Quest Giver.
     versionRange="[1.4.1,)"
     ordering="NONE"
     ide="BOTH"
+
+[[dependencies.quest_giver]]
+    modId="bk"
+    mandatory=true
+    versionRange="[1.0.0.4,)"
+    ordering="NONE"
+    ide="BOTH"

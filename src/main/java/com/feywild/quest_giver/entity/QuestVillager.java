@@ -167,6 +167,10 @@ public class QuestVillager extends Villager {
                 this.entityData.set(QUEST_NUMBER, 22);
                 this.setVillagerXp(1);
             }
+            if (villagerprofession == com.lupicus.bk.entity.ModProfessions.BEEKEEPER) {
+                this.entityData.set(QUEST_NUMBER, 25);
+                this.setVillagerXp(1);
+            }
 
         }
     }

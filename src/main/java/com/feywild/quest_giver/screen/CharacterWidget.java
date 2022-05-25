@@ -75,7 +75,7 @@ public class CharacterWidget extends Panel {
        return switch (number.id){
             case "quest_0001" -> VillagerProfession.ARMORER;
             case "quest_0002" -> VillagerProfession.BUTCHER;
-            case "quest_0003", "quest_0023" -> VillagerProfession.CARTOGRAPHER;
+            case "quest_0003" -> VillagerProfession.CARTOGRAPHER;
            case "quest_0004" -> VillagerProfession.CLERIC;
             case "quest_0005" -> VillagerProfession.FARMER;
             case "quest_0006" -> VillagerProfession.FISHERMAN;
@@ -95,6 +95,7 @@ public class CharacterWidget extends Panel {
            case "quest_0020" -> ModProfessions.NETHERIAN.get();
            case "quest_0021" -> ModProfessions.OCEANOGRAPHER.get();
            case "quest_0022" -> ModProfessions.WOODWORKER.get();
+           case "quest_0025" -> com.lupicus.bk.entity.ModProfessions.BEEKEEPER;
 
            default -> VillagerProfession.NONE;
         };

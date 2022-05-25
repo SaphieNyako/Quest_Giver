@@ -41,7 +41,7 @@ import java.util.UUID;
 public class QuestGuardVillager extends Guard {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestGuardVillager.class, EntityDataSerializers.INT);
-    private UUID questTaker;
+
 
     public QuestGuardVillager(EntityType<? extends Guard> type, Level world) {
         super(type, world);
@@ -91,6 +91,8 @@ public class QuestGuardVillager extends Guard {
         if (player instanceof ServerPlayer) {
             if(ClientEvents.getStructurePos() != null){
                 this.setQuestNumber(24);
+            } else {
+                this.setQuestNumber(23);
             }
 
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {

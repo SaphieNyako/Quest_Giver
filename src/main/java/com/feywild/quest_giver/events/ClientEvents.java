@@ -37,7 +37,7 @@ public class ClientEvents {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
 
         if (event.player.tickCount % 120 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player && structurePos == null) {
-            setStructurePos( player.getLevel().findNearestMapFeature(ModTags.ConfiguredStructureFeatures.QUEST_STRUCTURE_TAG, player.blockPosition(), 1500, true));
+            setStructurePos( player.getLevel().findNearestMapFeature(ModTags.ConfiguredStructureFeatures.QUEST_STRUCTURE_TAG, player.blockPosition(), 50, true));
            //keytag structure, pps, distance, below ground
         }
     }

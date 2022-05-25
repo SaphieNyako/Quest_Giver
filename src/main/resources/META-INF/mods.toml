@@ -37,19 +37,19 @@ Quest Giver.
     modId="morevillagers"
     mandatory=true
     versionRange="[1.18.2-3.2.0,)"
-    ordering="NONE"
+    ordering="BEFORE"
     ide="BOTH"
 
 [[dependencies.quest_giver]]
     modId="guardvillagers"
     mandatory=true
     versionRange="[1.4.1,)"
-    ordering="NONE"
+    ordering="BEFORE"
     ide="BOTH"
 
 [[dependencies.quest_giver]]
     modId="bk"
     mandatory=true
     versionRange="[1.0.0.4,)"
-    ordering="NONE"
+    ordering="BEFORE"
     ide="BOTH"

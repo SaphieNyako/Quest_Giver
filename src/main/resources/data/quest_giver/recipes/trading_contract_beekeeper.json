@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:glow_ink_sac"
+    },
+    {
+      "item": "quest_giver:trading_contract_beekeeper"
+    }
+  ],
+  "result": {
+    "item": "quest_giver:trading_contract_beekeeper"
+  }
+}

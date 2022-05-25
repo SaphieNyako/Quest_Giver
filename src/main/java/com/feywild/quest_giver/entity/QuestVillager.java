@@ -2,6 +2,7 @@ package com.feywild.quest_giver.entity;
 
 import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
@@ -233,7 +234,11 @@ public class QuestVillager extends Villager {
                     QuestData quests = QuestData.get((ServerPlayer) player);
                     this.interactQuest((ServerPlayer) player, hand);
                 }
-                //TODO if stack is TradingContract of Profession doesnt give profession trades if quest is done.
+                if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(), this.getVillagerData().getProfession().getName())
+                && contract.playerSignature().equals(player.getName().getString())) {
+                    //TODO check for name on contract
+                   super.mobInteract(player, hand);
+                }
             }
         }
 

@@ -99,9 +99,8 @@ public class EventListener {
 
             if(stack.getItem() instanceof  TradingContract contract && contract.assignedToPlayer == player.getUUID()) {
                 contract.signedByPlayer(player);
-            } else {
+            } else if(stack.getItem() instanceof  TradingContract contract && !(contract.assignedToPlayer == player.getUUID())) {
                 player.sendMessage(new TextComponent("You can't sign this contract"), player.getUUID());
-                event.setCanceled(true);
             }
         }
 

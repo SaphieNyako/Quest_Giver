@@ -30,7 +30,6 @@ public class TradingContract extends ItemBase {
 
     }
 
-
     public void assignedToPlayer(Player player) {
         this.assignedToPlayer = player.getUUID();
     }

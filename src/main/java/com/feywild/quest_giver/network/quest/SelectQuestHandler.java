@@ -18,7 +18,7 @@ public class SelectQuestHandler {
                 QuestDisplay display = QuestData.get(player).getQuestLine(msg.questNumber).getActiveQuestDisplay(msg.quest); //CHANGED
                 if (display != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player),
-                            new OpenQuestDisplaySerializer.Message(display, false, msg.questNumber, msg.pos));
+                            new OpenQuestDisplaySerializer.Message(display, false, msg.title, msg.questNumber, msg.pos));
                 }
             }
         });

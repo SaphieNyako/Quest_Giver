@@ -31,6 +31,8 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import tallestegg.guardvillagers.entities.Guard;
+import yesman.epicfight.world.capabilities.EpicFightCapabilities;
+import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -100,7 +102,12 @@ public class QuestGuardVillager extends Guard {
             } else {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayer) player, hand);
+                    PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
+                    if(!playerPatch.isBattleMode()) {
+                        this.interactQuest((ServerPlayer) player, hand);
+                    } else {
+                        ((ServerPlayer) player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                    }
                 }
             }
         }
@@ -117,7 +124,7 @@ public class QuestGuardVillager extends Guard {
 
                 if (completionDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
 
                 } else {
@@ -125,7 +132,7 @@ public class QuestGuardVillager extends Guard {
 
                     if (active.size() == 1) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber(), this.blockPosition()));
+                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                         player.swing(hand, true);
 
                     } else if (!active.isEmpty()) {
@@ -142,7 +149,7 @@ public class QuestGuardVillager extends Guard {
                 QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
                 if (initDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
                 } else {
                     if (!this.level.isClientSide()) {

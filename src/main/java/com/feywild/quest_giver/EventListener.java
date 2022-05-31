@@ -196,7 +196,7 @@ public class EventListener {
 
                 if (completionDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, entity.getQuestNumber(), entity.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                     player.swing(hand, true);
 
                 } else {
@@ -204,7 +204,7 @@ public class EventListener {
 
                     if (active.size() == 1) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, entity.getQuestNumber(), entity.blockPosition()));
+                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                         player.swing(hand, true);
 
                     } else if (!active.isEmpty()) {
@@ -222,7 +222,7 @@ public class EventListener {
                 QuestDisplay initDisplay = quests.initialize(entity.getQuestNumber());
                 if (initDisplay != null && entity.getQuestTaker() == null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, entity.getQuestNumber(), entity.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                     player.swing(hand, true);
                 } else {
                     entity.setUnhappyCounter(40);

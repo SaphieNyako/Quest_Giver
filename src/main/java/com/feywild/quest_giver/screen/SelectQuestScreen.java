@@ -33,7 +33,7 @@ public class SelectQuestScreen extends Screen {
     protected void init() {
         super.init();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addRenderableWidget(new QuestWidget(this.width / 2 - (160 / 2), 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), questNumber, pos));
+            this.addRenderableWidget(new QuestWidget(this.width / 2 - (160 / 2), 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), this.title, questNumber, pos));
         }
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
 

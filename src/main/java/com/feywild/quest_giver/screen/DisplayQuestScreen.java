@@ -30,7 +30,6 @@ public class DisplayQuestScreen extends Screen {
 
     private final QuestDisplay display;
     private final boolean hasConfirmationButtons;
-    private Component title;
     private List<FormattedCharSequence> description;
     protected List<List<FormattedCharSequence>> textBlocks;
     private List<FormattedCharSequence> currentTextBlock;
@@ -60,8 +59,8 @@ public class DisplayQuestScreen extends Screen {
     int lineCount = 0;
     int secondAnimationCount = 0;
 
-    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, QuestNumber questNumber, BlockPos pos) {
-        super(display.title);
+    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons,Component name, QuestNumber questNumber, BlockPos pos) {
+        super(name);
         this.display = display;
         this.hasConfirmationButtons = hasConfirmationButtons;
         this.questNumber = questNumber;
@@ -74,7 +73,7 @@ public class DisplayQuestScreen extends Screen {
         this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y));
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
 
-        this.title = QuestGiverTextProcessor.INSTANCE.processLine(this.display.title);
+       // this.title = QuestGiverTextProcessor.INSTANCE.processLine(this.display.title);
 
         this.description = QuestGiverTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(
                 line -> ComponentRenderUtils.wrapComponents(line,
@@ -119,7 +118,7 @@ public class DisplayQuestScreen extends Screen {
         ClientEvents.setShowGui(false);
     }
 
-    private String getRandomDeclineMessage() {
+    private String getRandomAcceptMessage() {
         Random random = new Random();
         return switch (random.nextInt(5)) {
             case 1 -> "I'll do it!";
@@ -130,7 +129,7 @@ public class DisplayQuestScreen extends Screen {
         };
     }
 
-    private String getRandomAcceptMessage() {
+    private String getRandomDeclineMessage() {
         Random random = new Random();
         return switch (random.nextInt(5)) {
             case 1 -> "Maybe later.";

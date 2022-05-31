@@ -12,6 +12,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,15 +28,16 @@ public class QuestWidget extends Button {
     public static final int HEIGHT = 40;
     private QuestNumber questNumber;
     private BlockPos pos;
+    private Component title;
 
     public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(QuestGiverMod.getInstance().modid, "textures/gui/quest_background_05.png");
 
     private final SelectableQuest quest;
     private final ItemStack iconStack;
 
-    public QuestWidget(int x, int y, SelectableQuest quest, QuestNumber questNumber, BlockPos pos) {
+    public QuestWidget(int x, int y, SelectableQuest quest, Component title, QuestNumber questNumber, BlockPos pos) {
         super(x, y, WIDTH, HEIGHT, QuestGiverTextProcessor.INSTANCE.processLine(quest.display.title),b -> {});
-
+        this.title = title;
         this.quest = quest;
         this.iconStack = new ItemStack(quest.icon);
         this.questNumber = questNumber;
@@ -45,7 +47,7 @@ public class QuestWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, questNumber, pos));
+        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, title, questNumber, pos));
     }
 
     @Override

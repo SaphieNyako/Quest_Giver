@@ -2,6 +2,7 @@ package com.feywild.quest_giver.entity;
 
 import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.entity.goals.QuestVillagerInteractGoal;
 import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
@@ -38,6 +39,8 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
+import yesman.epicfight.world.capabilities.EpicFightCapabilities;
+import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -48,11 +51,18 @@ import java.util.UUID;
 public class QuestVillager extends Villager {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestVillager.class, EntityDataSerializers.INT);
+    private boolean interacting;
     private UUID questTaker;
 
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
         super(villager, level);
         this.noCulling = true;
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new QuestVillagerInteractGoal(this, interacting));
     }
 
     public static boolean canSpawn(EntityType<? extends QuestVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
@@ -231,17 +241,21 @@ public class QuestVillager extends Villager {
             } else {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
-                    QuestData quests = QuestData.get((ServerPlayer) player);
-                    this.interactQuest((ServerPlayer) player, hand);
+                    PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
+                    if(!playerPatch.isBattleMode()) {
+                        this.interactQuest((ServerPlayer) player, hand);
+                        this.interacting = true;
+                    } else {
+                        ((ServerPlayer) player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                    }
                 }
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(), this.getVillagerData().getProfession().getName())
                 && contract.playerSignature().equals(player.getName().getString())) {
-                    //TODO check for name on contract
                    super.mobInteract(player, hand);
                 }
             }
         }
-
+        this.interacting = false;
         return InteractionResult.sidedSuccess(this.level.isClientSide);
     }
 
@@ -259,7 +273,7 @@ public class QuestVillager extends Villager {
 
                 if (completionDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
 
                 } else {
@@ -267,7 +281,7 @@ public class QuestVillager extends Villager {
 
                     if (active.size() == 1) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getQuestNumber(), this.blockPosition()));
+                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                         player.swing(hand, true);
 
                     } else if (!active.isEmpty()) {
@@ -285,7 +299,7 @@ public class QuestVillager extends Villager {
                 QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
                 if (initDisplay != null && getQuestTaker() == null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
                 } else {
                     this.setUnhappyCounter(40);

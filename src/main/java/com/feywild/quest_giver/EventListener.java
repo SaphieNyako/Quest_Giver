@@ -16,10 +16,13 @@ import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
@@ -28,6 +31,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -139,33 +143,46 @@ public class EventListener {
         }
     }
 
+
     @SubscribeEvent
     public static void entityInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getPlayer();
         InteractionHand hand = event.getPlayer().getUsedItemHand();
+        Entity target = event.getTarget();
         ItemStack stack = player.getItemInHand(hand);
+        if (player instanceof ServerPlayer) {
 
-        if(player instanceof ServerPlayer) {
-            if(event.getTarget() instanceof QuestVillager questvillager) {
-                //End Quest Check
-                QuestData.get((ServerPlayer) player).checkComplete(EndTask.INSTANCE, questvillager);
-                /*
-                if (questvillager.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER && ClientEvents.getStructurePos() != null){
-                    questvillager.setQuestNumber(23);
-                } */
-            }
-            if (event.getTarget() instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get() && !(event.getTarget() instanceof QuestVillager)) {
+            if (target instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)) {
 
                 BlockPos spawnPos = villager.blockPosition();
+                Component name = villager.hasCustomName() ? villager.getCustomName() : villager.getDisplayName();
                 villager.remove(Entity.RemovalReason.DISCARDED);
 
                 QuestVillager entity = new QuestVillager(ModEntityTypes.questVillager, player.level);
                 VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(player.blockPosition())), GuildMasterProfession.GUILDMASTER.get(), 1);
                 entity.setVillagerData(villagerData);
+                entity.setCustomName(name);
                 entity.setVillagerXp(1);
-                entity.setPos(spawnPos.getX(), spawnPos.getY()+1, spawnPos.getZ());
+                entity.setPos(spawnPos.getX(), spawnPos.getY() + 1, spawnPos.getZ());
                 entity.setQuestNumber(14);
                 player.level.addFreshEntity(entity);
+            }
+
+            if (target instanceof Villager villager && villager.getVillagerData().getProfession() != GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)  ) {
+                if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(),  villager.getVillagerData().getProfession().getName())
+                        && contract.playerSignature().equals(player.getName().getString())){
+                        //get Discount
+                        for(MerchantOffer merchantoffer : villager.getOffers()) {
+                            merchantoffer.addToSpecialPriceDiff(-Mth.floor((float)40 * merchantoffer.getPriceMultiplier()));
+                        }
+
+                    villager.mobInteract(player,hand);
+
+                } else {
+                    //do  nothing?
+                    villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
+                    event.setCanceled(true);
+                }
             }
         }
         //TODO add gift item to entity questTask trigger

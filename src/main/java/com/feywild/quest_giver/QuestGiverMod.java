@@ -132,26 +132,26 @@ public final class QuestGiverMod extends ModXRegistration {
         //TODO Add Guards
 
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
-                new ResourceLocation("quest_giver:village/desert/houses/guild_house"), 10);
+                new ResourceLocation("quest_giver:village/desert/houses/guild_house"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("quest_giver:village/plains/houses/guild_house"), 10);
+                new ResourceLocation("quest_giver:village/plains/houses/guild_house"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("quest_giver:village/savanna/houses/guild_house"), 10);
+                new ResourceLocation("quest_giver:village/savanna/houses/guild_house"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("quest_giver:village/snowy/houses/guild_house"), 10);
+                new ResourceLocation("quest_giver:village/snowy/houses/guild_house"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("quest_giver:village/taiga/houses/guild_house"), 10);
+                new ResourceLocation("quest_giver:village/taiga/houses/guild_house"), 5);
 
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
                 new ResourceLocation("quest_giver:village/desert/houses/stall"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
                 new ResourceLocation("quest_giver:village/plains/houses/stall"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("quest_giver:village/savanna/houses/stall"), 10);
+                new ResourceLocation("quest_giver:village/savanna/houses/stall"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("quest_giver:village/snowy/houses/stall"), 10);
+                new ResourceLocation("quest_giver:village/snowy/houses/stall"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("quest_giver:village/taiga/houses/stall"), 10);
+                new ResourceLocation("quest_giver:village/taiga/houses/stall"), 5);
 
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
                 new ResourceLocation("quest_giver:village/desert/villagers/quest_villager_desert"), 15);
@@ -165,15 +165,15 @@ public final class QuestGiverMod extends ModXRegistration {
                 new ResourceLocation("quest_giver:village/taiga/villagers/quest_villager_taiga"), 15);
 
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/villagers"),
-                new ResourceLocation("quest_giver:village/desert/villagers/quest_guard_villager_desert"), 10);
+                new ResourceLocation("quest_giver:village/desert/villagers/quest_guard_villager_desert"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/villagers"),
-                new ResourceLocation("quest_giver:village/plains/villagers/quest_guard_villager"), 10);
+                new ResourceLocation("quest_giver:village/plains/villagers/quest_guard_villager"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/villagers"),
-                new ResourceLocation("quest_giver:village/savanna/villagers/quest_guard_villager_savanna"), 10);
+                new ResourceLocation("quest_giver:village/savanna/villagers/quest_guard_villager_savanna"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/villagers"),
-                new ResourceLocation("quest_giver:village/snowy/villagers/quest_guard_villager_snow"), 10);
+                new ResourceLocation("quest_giver:village/snowy/villagers/quest_guard_villager_snow"), 5);
         QuestGiverJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/villagers"),
-                new ResourceLocation("quest_giver:village/taiga/villagers/quest_guard_villager_taiga"), 10);
+                new ResourceLocation("quest_giver:village/taiga/villagers/quest_guard_villager_taiga"), 5);
 
     }
 }

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:glow_ink_sac"
+      "tag": "quest_giver:inks"
     },
     {
       "item": "quest_giver:trading_contract_fisherman"

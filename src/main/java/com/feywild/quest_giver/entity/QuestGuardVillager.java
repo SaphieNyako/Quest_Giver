@@ -11,6 +11,7 @@ import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -117,6 +118,7 @@ public class QuestGuardVillager extends Guard {
     private void interactQuest(ServerPlayer player, InteractionHand hand) {
 
         QuestData quests = QuestData.get(player);
+        Component name = this.hasCustomName() ? getCustomName() : getDisplayName();
 
         if(this.getQuestNumber()!=null) { //returns null if the villager has no profession
             if (quests.canComplete(this.getQuestNumber())) {
@@ -124,7 +126,7 @@ public class QuestGuardVillager extends Guard {
 
                 if (completionDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, name, this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
 
                 } else {
@@ -132,12 +134,12 @@ public class QuestGuardVillager extends Guard {
 
                     if (active.size() == 1) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
+                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, name, this.getQuestNumber(), this.blockPosition()));
                         player.swing(hand, true);
 
                     } else if (!active.isEmpty()) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.getQuestNumber(), active, this.blockPosition()));
+                                () -> player), new OpenQuestSelectionSerializer.Message(name, this.getQuestNumber(), active, this.blockPosition()));
                         player.swing(hand, true);
                     } else {
                         if (!this.level.isClientSide()) {
@@ -149,7 +151,7 @@ public class QuestGuardVillager extends Guard {
                 QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
                 if (initDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, this.getDisplayName(), this.getQuestNumber(), this.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, name, this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
                 } else {
                     if (!this.level.isClientSide()) {

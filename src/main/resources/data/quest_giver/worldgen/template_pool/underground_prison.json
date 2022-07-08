@@ -1,0 +1,15 @@
+{
+  "name": "quest_giver:underground_prison/side_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "quest_giver:underground_prison",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "quest_giver:underground_prison"
+      }
+    }
+  ]
+}

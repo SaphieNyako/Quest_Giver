@@ -7,7 +7,7 @@
       "text": "quest guard"
     },
     "description": {
-      "text": "find the pillager outpost that has been terrorizing our village, objective: kill 10 pillagers"
+      "text": "find the missing villagers. They have been taken to a underground dungeon!"
     }
 
   },
@@ -16,18 +16,13 @@
       "text": "quest guard completion text"
     },
     "description": {
-      "text": "You found the structure"
+      "text": "You found the dungeon"
     }
   },
   "tasks": [
     {
-      "structure": "minecraft:pillager_outpost",
+      "structure": "quest_giver:underground_prison",
       "id": "quest_giver:structure"
-    },
-    {
-      "entity": "minecraft:pillager",
-      "id": "quest_giver:kill",
-      "times": 10
     }
   ],
   "rewards": [

@@ -12,6 +12,8 @@ import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.events.RenderEvents;
 import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.util.QuestGiverJigsawHelper;
+import com.feywild.quest_giver.worldgen.feature.structures.ModStructures;
+import com.feywild.quest_giver.worldgen.feature.structures.load.ModStructurePieces;
 import com.samebutdifferent.morevillagers.init.ModConfig;
 import com.samebutdifferent.morevillagers.util.JigsawHelper;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -48,10 +50,10 @@ public final class QuestGiverMod extends ModXRegistration {
         instance = this;
         network = new QuestGiverNetwork(this);
 
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        bus.addListener(CapabilityQuests::register);
-        bus.addListener(this::entityAttributes);
+        eventBus.addListener(CapabilityQuests::register);
+        eventBus.addListener(this::entityAttributes);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 
@@ -59,8 +61,9 @@ public final class QuestGiverMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
         MinecraftForge.EVENT_BUS.register(EventListener.class);
-        GuildMasterProfession.PROFESSION.register(bus);
-        ModPoiTypes.POI_TYPES.register(bus);
+        GuildMasterProfession.PROFESSION.register(eventBus);
+        ModPoiTypes.POI_TYPES.register(eventBus);
+        ModStructures.register(eventBus);
 
 
         // Quest task & reward types. Not in setup as they are required for datagen.
@@ -100,6 +103,8 @@ public final class QuestGiverMod extends ModXRegistration {
     protected void setup(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
+            ModStructurePieces.setup();
+
             SpawnPlacements.register(ModEntityTypes.questVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestVillager::canSpawn);
             SpawnPlacements.register(ModEntityTypes.questGuardVillager, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuestGuardVillager::canSpawn);
 

@@ -19,6 +19,7 @@ public class ModItems {
     public static final Item tradingContractCleric = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "cleric");
     public static final Item tradingContractFarmer = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "farmer");
     public static final Item tradingContractFisherman = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "fisherman");
+    public static final Item tradingContractFletcher = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "fletcher");
     public static final Item tradingContractLeatherworker = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "leatherworker");
     public static final Item tradingContractLibrarian = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "librarian");
     public static final Item tradingContractMason = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "mason");

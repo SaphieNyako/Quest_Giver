@@ -52,6 +52,7 @@ import java.util.UUID;
 public class QuestVillager extends Villager {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestVillager.class, EntityDataSerializers.INT);
+    private boolean setQuestNumber = false;
     private UUID questTaker;
 
     public QuestVillager(EntityType<? extends Villager> villager, Level level) {
@@ -80,61 +81,61 @@ public class QuestVillager extends Villager {
     public void tick() {
         super.tick();
         VillagerProfession villagerprofession = this.getVillagerData().getProfession();
-        if(villagerprofession != VillagerProfession.NONE) {
+        if(villagerprofession != VillagerProfession.NONE && !setQuestNumber) {
             if (villagerprofession == VillagerProfession.ARMORER) {
-                this.entityData.set(QUEST_NUMBER, 1);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(26,31, 1));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.BUTCHER) {
-                this.entityData.set(QUEST_NUMBER, 2);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(32, 37, 2));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CARTOGRAPHER) {
-               this.entityData.set(QUEST_NUMBER, 3);
+               this.entityData.set(QUEST_NUMBER, getRandomNumber(38,43, 3));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CLERIC) {
-                this.entityData.set(QUEST_NUMBER, 4);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(44,50, 4));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FARMER) {
-                this.entityData.set(QUEST_NUMBER, 5);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(51,55, 5));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FISHERMAN) {
-                this.entityData.set(QUEST_NUMBER, 6);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(56,60, 6));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FLETCHER) {
-                this.entityData.set(QUEST_NUMBER, 7);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(61,65, 7));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.LEATHERWORKER) {
-                this.entityData.set(QUEST_NUMBER, 8);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(66,69, 8));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.LIBRARIAN) {
-                this.entityData.set(QUEST_NUMBER, 9);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(70,74, 9));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.MASON) {
-                this.entityData.set(QUEST_NUMBER, 10);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(75,78, 10));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.SHEPHERD) {
-                this.entityData.set(QUEST_NUMBER, 11);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(79, 81, 11));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.TOOLSMITH) {
-                this.entityData.set(QUEST_NUMBER, 12);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(82,85, 12));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.WEAPONSMITH) {
-                this.entityData.set(QUEST_NUMBER, 13);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(86,89, 13));
                 this.setVillagerXp(1);
             }
 
-            //GUILDMASTE
+            //GUILDMASTER
             if (villagerprofession == GuildMasterProfession.GUILDMASTER.get()) {
                 this.entityData.set(QUEST_NUMBER, 14);
                 this.setVillagerXp(1);
@@ -142,19 +143,19 @@ public class QuestVillager extends Villager {
 
             //MORE VILLAGER PROFESSIONS
             if (villagerprofession == ModProfessions.ENDERIAN.get()) {
-                this.entityData.set(QUEST_NUMBER, 15);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(91,94, 15));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.ENGINEER.get()) {
-                this.entityData.set(QUEST_NUMBER, 16);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(95,98, 16));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.FLORIST.get()) {
-                this.entityData.set(QUEST_NUMBER, 17);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(99,102, 17));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.HUNTER.get()) {
-                this.entityData.set(QUEST_NUMBER, 18);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(103,104, 18));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.MINER.get()) {
@@ -170,7 +171,7 @@ public class QuestVillager extends Villager {
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.WOODWORKER.get()) {
-                this.entityData.set(QUEST_NUMBER, 22);
+                this.entityData.set(QUEST_NUMBER, getRandomNumber(105, 107, 22));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == com.lupicus.bk.entity.ModProfessions.BEEKEEPER) {
@@ -178,6 +179,19 @@ public class QuestVillager extends Villager {
                 this.setVillagerXp(1);
             }
 
+        }
+    }
+
+    public int getRandomNumber(int min, int max, int start){
+        setQuestNumber = true;
+        Random random = new Random();
+        int sum = max - min;
+        int randomNumber = max - random.nextInt(sum) ;
+        if (random.nextInt(sum + 1) <= 1) {
+            return randomNumber;
+        }
+        else {
+            return start;
         }
     }
 
@@ -214,6 +228,7 @@ public class QuestVillager extends Villager {
         } else {
           //  serializeNBT().remove("QuestTaker");
         }
+        compound.putBoolean("SetQuestNumber", this.setQuestNumber);
     }
 
     @Override
@@ -225,6 +240,7 @@ public class QuestVillager extends Villager {
         if(compound.contains("QuestTaker")){
             this.questTaker = serializeNBT().hasUUID("QuestTaker") ? compound.getUUID("QuestTaker") : null;
         }
+        this.setQuestNumber = compound.getBoolean("SetQuestNumber");
     }
 
     @Nonnull

@@ -24,7 +24,7 @@ public class TradingContract extends ItemBase {
 
     public TradingContract(ModX mod, Properties properties, String profession) {
         super(mod, properties);
-        System.out.println(profession);
+       // System.out.println(profession);
 
         this.profession = profession;
 

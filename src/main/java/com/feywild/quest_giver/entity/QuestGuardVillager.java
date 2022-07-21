@@ -44,7 +44,7 @@ import java.util.UUID;
 public class QuestGuardVillager extends Guard {
 
     public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestGuardVillager.class, EntityDataSerializers.INT);
-
+    private boolean setQuestNumber = false;
 
     public QuestGuardVillager(EntityType<? extends Guard> type, Level world) {
         super(type, world);
@@ -77,6 +77,7 @@ public class QuestGuardVillager extends Guard {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("QuestNumber", this.entityData.get(QUEST_NUMBER));
+        compound.putBoolean("SetQuestNumber", this.setQuestNumber);
     }
 
     @Override
@@ -86,6 +87,7 @@ public class QuestGuardVillager extends Guard {
         if(compound.contains("QuestNumber")) {
             this.entityData.set(QUEST_NUMBER, compound.getInt("QuestNumber"));
         }
+        this.setQuestNumber = compound.getBoolean("SetQuestNumber");
     }
 
     @Nonnull
@@ -93,9 +95,9 @@ public class QuestGuardVillager extends Guard {
     public InteractionResult mobInteract(@Nonnull Player player , @Nonnull InteractionHand hand) {
         if (player instanceof ServerPlayer) {
             if(ClientEvents.getStructurePos() != null){
-                this.setQuestNumber(24);
+                this.setQuestNumber(getRandomNumber(110, 112, 24));
             } else {
-                this.setQuestNumber(23);
+                this.setQuestNumber(getRandomNumber(108, 109, 23));
             }
 
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
@@ -176,5 +178,18 @@ public class QuestGuardVillager extends Guard {
             }
         }
         return false;
+    }
+
+    public int getRandomNumber(int min, int max, int start){
+        setQuestNumber = true;
+        Random random = new Random();
+        int sum = max - min;
+        int randomNumber = max - random.nextInt(sum) ;
+        if (random.nextInt(sum + 1) <= 1) {
+            return randomNumber;
+        }
+        else {
+            return start;
+        }
     }
 }

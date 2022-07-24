@@ -1,10 +1,10 @@
 {
-  "type": "quest_giver:underground_prison",
+  "type": "quest_giver:pillager_base",
   "config": {
-    "start_pool": "quest_giver:underground_prison",
+    "start_pool": "quest_giver:pillager_base",
     "size": 1
   },
-  "biomes": "#quest_giver:has_structure/underground_prison_biomes",
+  "biomes": "#quest_giver:has_structure/pillager_base_biomes",
   "adapt_noise": true,
   "spawn_overrides": {
     "monster": {

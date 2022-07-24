@@ -9,6 +9,7 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -93,11 +94,27 @@ public class QuestGuardVillager extends Guard {
     @Nonnull
     @Override
     public InteractionResult mobInteract(@Nonnull Player player , @Nonnull InteractionHand hand) {
+        boolean foundPillagerHideout = QuestGiverPlayerData.get(player).getBoolean("found_pillager_hideout");
+        boolean foundGiantHideout = QuestGiverPlayerData.get(player).getBoolean("found_giant_hideout");
+        boolean foundCaveDwelling = QuestGiverPlayerData.get(player).getBoolean("found_cave_dwelling");
+        boolean foundPillagerBase = QuestGiverPlayerData.get(player).getBoolean("found_pillager_base");
+
         if (player instanceof ServerPlayer) {
-            if(ClientEvents.getStructurePos() != null){
-                this.setQuestNumber(getRandomNumber(110, 112, 24));
-            } else {
-                this.setQuestNumber(getRandomNumber(108, 109, 23));
+            if(foundPillagerHideout){
+                this.setQuestNumber(24);
+            }
+            else if (foundPillagerBase){
+                this.setQuestNumber(109);
+            }
+            else if (foundCaveDwelling){
+                this.setQuestNumber(110);
+            }
+            else if (foundGiantHideout){
+                this.setQuestNumber(111);
+            }
+
+            else {
+                this.setQuestNumber(getRandomNumber(108, 108, 23));
             }
 
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {

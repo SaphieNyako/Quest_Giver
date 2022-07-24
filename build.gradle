@@ -28,7 +28,7 @@ dependencies {
     implementation fg.deobf("curse.maven:epicfigt-405076:3805345")
     implementation fg.deobf("curse.maven:atlas-lib-463826:3852236")
     implementation fg.deobf("curse.maven:follow-me-463841:3804364")
-    implementation fg.deobf("curse.maven:pack-tweaks-638098:3852244")
+    implementation fg.deobf("curse.maven:afptweaks-638098:3891210")
 
 
 }

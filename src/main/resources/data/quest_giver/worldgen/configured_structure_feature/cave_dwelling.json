@@ -1,0 +1,16 @@
+{
+  "type": "quest_giver:cave_dwelling",
+  "config": {
+    "start_pool": "quest_giver:cave_dwelling",
+    "size": 1
+  },
+  "biomes": "#quest_giver:has_structure/cave_dwelling_biomes",
+  "adapt_noise": true,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+      ]
+    }
+  }
+}

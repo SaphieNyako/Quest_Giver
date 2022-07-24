@@ -13,11 +13,10 @@ public class ModTags {
     public static final TagKey<Item> INK = ItemTags.create(QuestGiverMod.getInstance().resource("inks"));
 
     public static class ConfiguredStructureFeatures {
-        public static final TagKey<ConfiguredStructureFeature<?, ?>> QUEST_STRUCTURE_TAG = tag();
-
-        private static TagKey<ConfiguredStructureFeature<?, ?>> tag() {
-            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "quest_structures"));
-        }
+        public static final TagKey<ConfiguredStructureFeature<?, ?>> PILLAGER_HIDEOUT_TAG = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "pillager_hideout"));
+        public static final TagKey<ConfiguredStructureFeature<? ,?>> PILLAGER_BASE_TAG = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "pillager_base"));
+        public static final TagKey<ConfiguredStructureFeature<? ,?>> CAVE_DWELLING_TAG = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "cave_dwelling"));
+        public static final TagKey<ConfiguredStructureFeature<? ,?>> GIANT_DWELLING_TAG = TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(QuestGiverMod.getInstance().modid, "giant_hideout"));
     }
 
 }

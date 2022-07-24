@@ -21,7 +21,7 @@
   },
   "tasks": [
     {
-      "structure": "quest_giver:underground_prison",
+      "structure": "quest_giver:cave_dwelling",
       "id": "quest_giver:structure"
     }
   ],

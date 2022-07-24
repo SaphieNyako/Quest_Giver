@@ -1,0 +1,15 @@
+{
+  "name": "quest_giver:pillager_base/side_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "quest_giver:pillager_base",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "quest_giver:pillager_base"
+      }
+    }
+  ]
+}

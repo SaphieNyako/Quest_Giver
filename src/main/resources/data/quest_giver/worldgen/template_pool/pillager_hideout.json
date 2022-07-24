@@ -1,14 +1,14 @@
 {
-  "name": "quest_giver:underground_prison/side_pool",
+  "name": "quest_giver:pillager_hideout/side_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "quest_giver:underground_prison",
+        "location": "quest_giver:pillager_hideout",
         "processors": "minecraft:empty",
         "projection": "rigid",
-        "element_type": "quest_giver:underground_prison"
+        "element_type": "quest_giver:pillager_hideout"
       }
     }
   ]

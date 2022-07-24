@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class UndergroundPrisonStructure extends StructureFeature<JigsawConfiguration> {
-    public UndergroundPrisonStructure() {
-        super(JigsawConfiguration.CODEC, new PlacementFactory("underground_prison"));
+public class PillagerBaseStructure extends StructureFeature<JigsawConfiguration> {
+    public PillagerBaseStructure() {
+        super(JigsawConfiguration.CODEC, new PlacementFactory("pillager_base"));
     }
 
     public static boolean isFeatureChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -73,23 +73,16 @@ public class UndergroundPrisonStructure extends StructureFeature<JigsawConfigura
                             .orElseThrow(() -> new NoSuchElementException("Template not found: " + this.structureId)), 10
             );
 
-            //Make position underground.
+            //Make position above ground.
             BlockPos position = context.chunkPos().getMiddleBlockPosition(0); //normal pos.
-            int worldSurface = context.chunkGenerator().getFirstFreeHeight(position.getX(), position.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
-            int minY = context.chunkGenerator().getMinY();
-            position = new BlockPos(position.getX(),
-                    ((worldSurface - minY) / 2) + minY,
-                    position.getZ());
 
             return JigsawPlacement.addPieces(
                     StructureUtils.withConfig(context, config),
                     PoolElementStructurePiece::new,
                     position,
                     false,
-                    false
+                    true
             );
         }
     }
-
-
 }

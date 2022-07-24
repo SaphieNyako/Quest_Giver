@@ -1,0 +1,15 @@
+{
+  "name": "quest_giver:giant_hideout/side_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "quest_giver:giant_hideout",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "quest_giver:giant_hideout"
+      }
+    }
+  ]
+}

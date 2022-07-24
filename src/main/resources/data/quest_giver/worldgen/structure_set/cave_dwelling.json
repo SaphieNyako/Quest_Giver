@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "quest_giver:cave_dwelling",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 20830202,
+    "spacing": 15,
+    "separation": 10,
+    "type": "minecraft:random_spread"
+  }
+}

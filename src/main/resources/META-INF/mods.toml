@@ -55,8 +55,8 @@ Quest Giver.
     ide="BOTH"
 
 [[dependencies.quest_giver]]
-    modId="pack_tweaks"
+    modId="afptweaks"
     mandatory=true
-    versionRange="[0.1.0,)"
+    versionRange="[1.1.0,)"
     ordering="BEFORE"
     ide="BOTH"

@@ -147,6 +147,7 @@ public class QuestGuardVillager extends Guard {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, name, this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
+                    playRandomVillagerSound();
 
                 } else {
                     List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).getQuests();
@@ -155,11 +156,13 @@ public class QuestGuardVillager extends Guard {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                                 () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, name, this.getQuestNumber(), this.blockPosition()));
                         player.swing(hand, true);
+                        playRandomVillagerSound();
 
                     } else if (!active.isEmpty()) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                                 () -> player), new OpenQuestSelectionSerializer.Message(name, this.getQuestNumber(), active, this.blockPosition()));
                         player.swing(hand, true);
+                        playRandomVillagerSound();
                     } else {
                         if (!this.level.isClientSide()) {
                             this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
@@ -172,6 +175,7 @@ public class QuestGuardVillager extends Guard {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, name, this.getQuestNumber(), this.blockPosition()));
                     player.swing(hand, true);
+                    playRandomVillagerSound();
                 } else {
                     if (!this.level.isClientSide()) {
                         this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
@@ -207,6 +211,16 @@ public class QuestGuardVillager extends Guard {
         }
         else {
             return start;
+        }
+    }
+
+    protected void playRandomVillagerSound(){
+        switch (random.nextInt(6)){
+            case 2 -> this.playSound(SoundEvents.VILLAGER_TRADE, this.getSoundVolume(), this.getVoicePitch());
+            case 3 -> this.playSound(SoundEvents.VINDICATOR_CELEBRATE, this.getSoundVolume(), this.getVoicePitch());
+            case 4 -> this.playSound(SoundEvents.VILLAGER_YES, this.getSoundVolume(), this.getVoicePitch());
+            case 5 -> this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
+            default -> this.playSound(SoundEvents.VILLAGER_AMBIENT, this.getSoundVolume(), this.getVoicePitch());
         }
     }
 }

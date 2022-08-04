@@ -44,6 +44,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class EventListener {
 
@@ -166,6 +167,8 @@ public class EventListener {
                 entity.setPos(spawnPos.getX(), spawnPos.getY() + 1, spawnPos.getZ());
                 entity.setQuestNumber(14);
                 player.level.addFreshEntity(entity);
+
+                interactQuest((ServerPlayer) player,hand, entity, entity.getQuestNumber());
             }
 
             if (target instanceof Villager villager && villager.getVillagerData().getProfession() != GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)  ) {
@@ -215,6 +218,7 @@ public class EventListener {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                     player.swing(hand, true);
+                    playRandomVillagerSound(entity);
 
                 } else {
                     List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(entity.getQuestNumber())).getQuests();
@@ -223,11 +227,13 @@ public class EventListener {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                                 () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                         player.swing(hand, true);
+                        playRandomVillagerSound(entity);
 
                     } else if (!active.isEmpty()) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                                 () -> player), new OpenQuestSelectionSerializer.Message(entity.getDisplayName(), entity.getQuestNumber(), active, entity.blockPosition()));
                         player.swing(hand, true);
+                        playRandomVillagerSound(entity);
                     } else {
                         entity.setUnhappyCounter(40);
                         if (!entity.level.isClientSide()) {
@@ -241,6 +247,7 @@ public class EventListener {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                             () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
                     player.swing(hand, true);
+                    playRandomVillagerSound(entity);
                 } else {
                     entity.setUnhappyCounter(40);
                     if (!entity.level.isClientSide()) {
@@ -298,5 +305,16 @@ public class EventListener {
             }
         }
      }*/
+
+    protected static void playRandomVillagerSound(QuestVillager entity){
+        Random random = new Random();
+        switch (random.nextInt(6)){
+            case 2 -> entity.playSound(SoundEvents.VILLAGER_TRADE, 1, 1);
+            case 3 -> entity.playSound(SoundEvents.VINDICATOR_CELEBRATE, 1, 1);
+            case 4 -> entity.playSound(SoundEvents.VILLAGER_YES, 1, 1);
+            case 5 -> entity.playSound(SoundEvents.VILLAGER_NO, 1, 1);
+            default -> entity.playSound(SoundEvents.VILLAGER_AMBIENT, 1, 1);
+        }
+    }
 
 }

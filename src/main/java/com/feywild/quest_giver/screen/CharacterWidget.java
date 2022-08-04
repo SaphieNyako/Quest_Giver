@@ -1,6 +1,7 @@
 package com.feywild.quest_giver.screen;
 
 
+import com.feywild.quest_giver.config.QuestConfig;
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.ModEntityTypes;
 import com.feywild.quest_giver.quest.QuestNumber;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.Level;
 import tallestegg.guardvillagers.entities.Guard;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -72,33 +74,88 @@ public class CharacterWidget extends Panel {
     }
 
     private VillagerProfession getProfession(QuestNumber number) {
-       return switch (number.id){
-            case "quest_0001" -> VillagerProfession.ARMORER;
-            case "quest_0002" -> VillagerProfession.BUTCHER;
-            case "quest_0003" -> VillagerProfession.CARTOGRAPHER;
-           case "quest_0004" -> VillagerProfession.CLERIC;
-            case "quest_0005" -> VillagerProfession.FARMER;
-            case "quest_0006" -> VillagerProfession.FISHERMAN;
-            case "quest_0007" -> VillagerProfession.FLETCHER;
-            case "quest_0008" -> VillagerProfession.LEATHERWORKER;
-            case "quest_0009" -> VillagerProfession.LIBRARIAN;
-            case "quest_0010" -> VillagerProfession.MASON;
-            case "quest_0011" -> VillagerProfession.SHEPHERD;
-            case "quest_0012" -> VillagerProfession.TOOLSMITH;
-            case "quest_0013" -> VillagerProfession.WEAPONSMITH;
-            case "quest_0014" -> GuildMasterProfession.GUILDMASTER.get();
-           case "quest_0015" -> ModProfessions.ENDERIAN.get();
-           case "quest_0016" -> ModProfessions.ENGINEER.get();
-           case "quest_0017" -> ModProfessions.FLORIST.get();
-           case "quest_0018" -> ModProfessions.HUNTER.get();
-           case "quest_0029" -> ModProfessions.MINER.get();
-           case "quest_0020" -> ModProfessions.NETHERIAN.get();
-           case "quest_0021" -> ModProfessions.OCEANOGRAPHER.get();
-           case "quest_0022" -> ModProfessions.WOODWORKER.get();
-           case "quest_0025" -> com.lupicus.bk.entity.ModProfessions.BEEKEEPER;
 
-           default -> VillagerProfession.NONE;
-        };
+        VillagerProfession profession = VillagerProfession.NONE;
+
+        try {
+            String questNumber = number.id.replace("quest_", "");
+            Integer numberId = Integer.parseInt(questNumber);
+
+            if (QuestConfig.quests.armorer_quests.contains(numberId)) {
+                profession = VillagerProfession.ARMORER;
+            }
+            if (QuestConfig.quests.butcher_quests.contains(numberId)) {
+                profession = VillagerProfession.BUTCHER;
+            }
+            if (QuestConfig.quests.cartographer_quests.contains(numberId)) {
+                profession = VillagerProfession.CARTOGRAPHER;
+            }
+            if (QuestConfig.quests.cleric_quests.contains(numberId)) {
+                profession = VillagerProfession.CLERIC;
+            }
+            if (QuestConfig.quests.farmer_quests.contains(numberId)) {
+                profession = VillagerProfession.FARMER;
+            }
+            if (QuestConfig.quests.fisherman_quests.contains(numberId)) {
+                profession = VillagerProfession.FISHERMAN;
+            }
+            if (QuestConfig.quests.fletcher_quests.contains(numberId)) {
+                profession = VillagerProfession.FLETCHER;
+            }
+            if (QuestConfig.quests.leatherworker_quests.contains(numberId)) {
+                profession = VillagerProfession.LEATHERWORKER;
+            }
+            if (QuestConfig.quests.librarian_quests.contains(numberId)) {
+                profession = VillagerProfession.LIBRARIAN;
+            }
+            if (QuestConfig.quests.mason_quests.contains(numberId)) {
+                profession = VillagerProfession.MASON;
+            }
+            if (QuestConfig.quests.shepherd_quests.contains(numberId)) {
+                profession = VillagerProfession.SHEPHERD;
+            }
+            if (QuestConfig.quests.toolsmith_quests.contains(numberId)) {
+                profession = VillagerProfession.TOOLSMITH;
+            }
+            if (QuestConfig.quests.weaponsmith_quests.contains(numberId)) {
+                profession = VillagerProfession.WEAPONSMITH;
+            }
+            if (QuestConfig.quests.guildmaster_quests.contains(numberId)) {
+                profession = GuildMasterProfession.GUILDMASTER.get();
+            }
+            if (QuestConfig.quests.enderian_quests.contains(numberId)) {
+                profession = ModProfessions.ENDERIAN.get();
+            }
+            if (QuestConfig.quests.engineer_quests.contains(numberId)) {
+                profession = ModProfessions.ENGINEER.get();
+            }
+            if (QuestConfig.quests.florist_quests.contains(numberId)) {
+                profession = ModProfessions.ENDERIAN.get();
+            }
+            if (QuestConfig.quests.hunter_quests.contains(numberId)) {
+                profession = ModProfessions.HUNTER.get();
+            }
+            if (QuestConfig.quests.miner_quests.contains(numberId)) {
+                profession = ModProfessions.MINER.get();
+            }
+            if (QuestConfig.quests.netherian_quests.contains(numberId)) {
+                profession = ModProfessions.NETHERIAN.get();
+            }
+            if (QuestConfig.quests.oceanographer_quests.contains(numberId)) {
+                profession = ModProfessions.OCEANOGRAPHER.get();
+            }
+            if (QuestConfig.quests.woodworker_quests.contains(numberId)) {
+                profession = ModProfessions.WOODWORKER.get();
+            }
+            if (QuestConfig.quests.beekeeper_quests.contains(numberId)) {
+                profession = com.lupicus.bk.entity.ModProfessions.BEEKEEPER;
+            }
+        }
+        catch (Exception e){
+            return profession;
+        }
+
+        return profession;
     }
 
 }

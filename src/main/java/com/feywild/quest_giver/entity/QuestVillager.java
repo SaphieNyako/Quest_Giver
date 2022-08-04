@@ -2,6 +2,7 @@ package com.feywild.quest_giver.entity;
 
 import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.config.QuestConfig;
 import com.feywild.quest_giver.entity.goals.QuestVillagerInteractGoal;
 import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
@@ -12,6 +13,7 @@ import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.samebutdifferent.morevillagers.init.ModProfessions;
+import mods.thecomputerizer.reputation.api.ReputationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +21,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -82,116 +85,104 @@ public class QuestVillager extends Villager {
         super.tick();
         VillagerProfession villagerprofession = this.getVillagerData().getProfession();
         if(villagerprofession != VillagerProfession.NONE && !setQuestNumber) {
+            Random random = new Random();
             if (villagerprofession == VillagerProfession.ARMORER) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(26,31, 1));
+                setQuestNumber(QuestConfig.quests.armorer_quests.get(random.nextInt(QuestConfig.quests.armorer_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.BUTCHER) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(32, 37, 2));
+                setQuestNumber(QuestConfig.quests.butcher_quests.get(random.nextInt(QuestConfig.quests.butcher_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CARTOGRAPHER) {
-               this.entityData.set(QUEST_NUMBER, getRandomNumber(38,43, 3));
+               setQuestNumber(QuestConfig.quests.cartographer_quests.get(random.nextInt(QuestConfig.quests.cartographer_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.CLERIC) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(44,50, 4));
+                setQuestNumber(QuestConfig.quests.cleric_quests.get(random.nextInt(QuestConfig.quests.cleric_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FARMER) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(51,55, 5));
+                setQuestNumber(QuestConfig.quests.farmer_quests.get(random.nextInt(QuestConfig.quests.farmer_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FISHERMAN) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(56,60, 6));
+                setQuestNumber(QuestConfig.quests.fisherman_quests.get(random.nextInt(QuestConfig.quests.fisherman_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.FLETCHER) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(61,65, 7));
+                setQuestNumber(QuestConfig.quests.fletcher_quests.get(random.nextInt(QuestConfig.quests.fletcher_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.LEATHERWORKER) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(66,69, 8));
+                setQuestNumber(QuestConfig.quests.leatherworker_quests.get(random.nextInt(QuestConfig.quests.leatherworker_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.LIBRARIAN) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(70,74, 9));
+                setQuestNumber(QuestConfig.quests.librarian_quests.get(random.nextInt(QuestConfig.quests.librarian_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.MASON) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(75,78, 10));
+                setQuestNumber(QuestConfig.quests.mason_quests.get(random.nextInt(QuestConfig.quests.mason_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.SHEPHERD) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(79, 81, 11));
+                setQuestNumber(QuestConfig.quests.shepherd_quests.get(random.nextInt(QuestConfig.quests.shepherd_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.TOOLSMITH) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(82,85, 12));
+                setQuestNumber(QuestConfig.quests.toolsmith_quests.get(random.nextInt(QuestConfig.quests.toolsmith_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == VillagerProfession.WEAPONSMITH) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(86,89, 13));
+                setQuestNumber(QuestConfig.quests.weaponsmith_quests.get(random.nextInt(QuestConfig.quests.weaponsmith_quests.size())));
                 this.setVillagerXp(1);
             }
 
             //GUILDMASTER
             if (villagerprofession == GuildMasterProfession.GUILDMASTER.get()) {
-                this.entityData.set(QUEST_NUMBER, 14);
+                setQuestNumber(QuestConfig.quests.guildmaster_quests.get(random.nextInt(QuestConfig.quests.guildmaster_quests.size())));
                 this.setVillagerXp(1);
             }
 
             //MORE VILLAGER PROFESSIONS
             if (villagerprofession == ModProfessions.ENDERIAN.get()) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(91,94, 15));
+                setQuestNumber(QuestConfig.quests.enderian_quests.get(random.nextInt(QuestConfig.quests.enderian_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.ENGINEER.get()) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(95,98, 16));
+                setQuestNumber(QuestConfig.quests.engineer_quests.get(random.nextInt(QuestConfig.quests.engineer_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.FLORIST.get()) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(99,102, 17));
+                setQuestNumber(QuestConfig.quests.florist_quests.get(random.nextInt(QuestConfig.quests.florist_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.HUNTER.get()) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(103,104, 18));
+                setQuestNumber(QuestConfig.quests.hunter_quests.get(random.nextInt(QuestConfig.quests.hunter_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.MINER.get()) {
-                this.entityData.set(QUEST_NUMBER, 19);
+                setQuestNumber(QuestConfig.quests.miner_quests.get(random.nextInt(QuestConfig.quests.miner_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.NETHERIAN.get()) {
-                this.entityData.set(QUEST_NUMBER, 20);
+                setQuestNumber(QuestConfig.quests.netherian_quests.get(random.nextInt(QuestConfig.quests.netherian_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.OCEANOGRAPHER.get()) {
-                this.entityData.set(QUEST_NUMBER, 21);
+                setQuestNumber(QuestConfig.quests.oceanographer_quests.get(random.nextInt(QuestConfig.quests.oceanographer_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == ModProfessions.WOODWORKER.get()) {
-                this.entityData.set(QUEST_NUMBER, getRandomNumber(105, 107, 22));
+                setQuestNumber(QuestConfig.quests.woodworker_quests.get(random.nextInt(QuestConfig.quests.woodworker_quests.size())));
                 this.setVillagerXp(1);
             }
             if (villagerprofession == com.lupicus.bk.entity.ModProfessions.BEEKEEPER) {
-                this.entityData.set(QUEST_NUMBER, 25);
+                setQuestNumber(25);
                 this.setVillagerXp(1);
             }
 
-        }
-    }
-
-    public int getRandomNumber(int min, int max, int start){
-        setQuestNumber = true;
-        Random random = new Random();
-        int sum = max - min;
-        int randomNumber = max - random.nextInt(sum) ;
-        if (random.nextInt(sum + 1) <= 1) {
-            return randomNumber;
-        }
-        else {
-            return start;
         }
     }
 
@@ -211,6 +202,7 @@ public class QuestVillager extends Villager {
 
     public void setQuestNumber(Integer questNumber){
         this.entityData.set(QUEST_NUMBER, questNumber);
+        this.setQuestNumber = true;
     }
 
     @Override
@@ -251,13 +243,13 @@ public class QuestVillager extends Villager {
                 player.swing(hand, true);
             } else {
                 ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty()) {
+                if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
                     PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
                     if(!playerPatch.isBattleMode()) {
                         this.interactQuest((ServerPlayer) player, hand);
                         this.setTradingPlayer(player);
                     } else {
-                        ((ServerPlayer) player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                        (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
                     }
                 }
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(), this.getVillagerData().getProfession().getName())

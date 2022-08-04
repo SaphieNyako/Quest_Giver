@@ -1,6 +1,7 @@
 package com.feywild.quest_giver.entity;
 
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.config.QuestConfig;
 import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
@@ -10,6 +11,7 @@ import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
+import mods.thecomputerizer.reputation.api.ReputationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,6 +19,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -100,33 +103,22 @@ public class QuestGuardVillager extends Guard {
         boolean foundPillagerBase = QuestGiverPlayerData.get(player).getBoolean("found_pillager_base");
 
         if (player instanceof ServerPlayer) {
-            if(foundPillagerHideout){
-                this.setQuestNumber(24);
-            }
-            else if (foundPillagerBase){
-                this.setQuestNumber(109);
-            }
-            else if (foundCaveDwelling){
-                this.setQuestNumber(110);
-            }
-            else if (foundGiantHideout){
-                this.setQuestNumber(111);
-            }
-
-            else {
-                this.setQuestNumber(getRandomNumber(108, 108, 23));
+            if(!setQuestNumber){
+                Random random = new Random();
+                this.entityData.set(QUEST_NUMBER, QuestConfig.quests.guard_quests.get(random.nextInt(QuestConfig.quests.guard_quests.size())));
+                this.setQuestNumber = true;
             }
 
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else {
                 ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty()) {
+                if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
                     PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
                     if(!playerPatch.isBattleMode()) {
                         this.interactQuest((ServerPlayer) player, hand);
                     } else {
-                        ((ServerPlayer) player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                        (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
                     }
                 }
             }

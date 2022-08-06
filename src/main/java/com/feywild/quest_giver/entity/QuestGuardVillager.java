@@ -97,7 +97,8 @@ public class QuestGuardVillager extends Guard {
     @Nonnull
     @Override
     public InteractionResult mobInteract(@Nonnull Player player , @Nonnull InteractionHand hand) {
-        boolean foundPillagerHideout = QuestGiverPlayerData.get(player).getBoolean("found_pillager_hideout");
+    	if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
+    	boolean foundPillagerHideout = QuestGiverPlayerData.get(player).getBoolean("found_pillager_hideout");
         boolean foundGiantHideout = QuestGiverPlayerData.get(player).getBoolean("found_giant_hideout");
         boolean foundCaveDwelling = QuestGiverPlayerData.get(player).getBoolean("found_cave_dwelling");
         boolean foundPillagerBase = QuestGiverPlayerData.get(player).getBoolean("found_pillager_base");

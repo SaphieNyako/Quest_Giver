@@ -238,6 +238,7 @@ public class QuestVillager extends Villager {
     @Nonnull
     @Override
     public InteractionResult  mobInteract(@Nonnull Player player ,@Nonnull InteractionHand hand) {
+    	if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
         if (player instanceof ServerPlayer) {
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);

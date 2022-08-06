@@ -148,6 +148,7 @@ public class EventListener {
     @SubscribeEvent
     public static void entityInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getPlayer();
+        if (player.isSecondaryUseActive()) return;
         InteractionHand hand = event.getPlayer().getUsedItemHand();
         Entity target = event.getTarget();
         ItemStack stack = player.getItemInHand(hand);

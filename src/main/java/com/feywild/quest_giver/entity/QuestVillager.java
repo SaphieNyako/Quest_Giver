@@ -1,9 +1,7 @@
 package com.feywild.quest_giver.entity;
 
-import com.feywild.quest_giver.EventListener;
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.config.QuestConfig;
-import com.feywild.quest_giver.entity.goals.QuestVillagerInteractGoal;
 import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
@@ -25,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -37,6 +36,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.network.PacketDistributor;
@@ -238,12 +238,13 @@ public class QuestVillager extends Villager {
     @Nonnull
     @Override
     public InteractionResult  mobInteract(@Nonnull Player player ,@Nonnull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
     	if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
-        if (player instanceof ServerPlayer) {
+
+    	if (player instanceof ServerPlayer) {
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else {
-                ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
                     PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
                     if(!playerPatch.isBattleMode()) {
@@ -253,9 +254,18 @@ public class QuestVillager extends Villager {
                         (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
                     }
                 }
+
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(), this.getVillagerData().getProfession().getName())
-                && contract.playerSignature().equals(player.getName().getString())) {
-                   super.mobInteract(player, hand);
+                        && contract.playerSignature().equals(player.getName().getString())) {
+
+                    for(MerchantOffer merchantoffer : this.getOffers()) {
+                        merchantoffer.addToSpecialPriceDiff(-Mth.floor((float)40 * merchantoffer.getPriceMultiplier()));
+                    }
+
+                    super.mobInteract(player, hand);
+                } else {
+                    //do  nothing?
+                    this.playSound(SoundEvents.VILLAGER_NO, 1.0F, this.getVoicePitch());
                 }
             }
         }

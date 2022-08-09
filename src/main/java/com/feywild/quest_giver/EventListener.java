@@ -23,7 +23,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -156,22 +159,26 @@ public class EventListener {
 
             if (target instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)) {
 
-                BlockPos spawnPos = villager.blockPosition();
                 Component name = villager.hasCustomName() ? villager.getCustomName() : villager.getDisplayName();
-                villager.remove(Entity.RemovalReason.DISCARDED);
 
                 QuestVillager entity = new QuestVillager(ModEntityTypes.questVillager, player.level);
                 VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(player.blockPosition())), GuildMasterProfession.GUILDMASTER.get(), 1);
                 entity.setVillagerData(villagerData);
                 entity.setCustomName(name);
                 entity.setVillagerXp(1);
-                entity.setPos(spawnPos.getX(), spawnPos.getY() + 1, spawnPos.getZ());
+                entity.copyPosition(villager);
                 entity.setQuestNumber(14);
-                player.level.addFreshEntity(entity);
+
+                player.getLevel().addFreshEntity(entity);
+                entity.setTradingPlayer(player);
+                villager.remove(Entity.RemovalReason.DISCARDED);
 
                 interactQuest((ServerPlayer) player,hand, entity, entity.getQuestNumber());
             }
 
+            //TODO this is not required?
+
+            /*
             if (target instanceof Villager villager && villager.getVillagerData().getProfession() != GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)  ) {
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(),  villager.getVillagerData().getProfession().getName())
                         && contract.playerSignature().equals(player.getName().getString())){
@@ -187,7 +194,7 @@ public class EventListener {
                     villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
                     event.setCanceled(true);
                 }
-            }
+            } */
         }
         //TODO add gift item to entity questTask trigger
 

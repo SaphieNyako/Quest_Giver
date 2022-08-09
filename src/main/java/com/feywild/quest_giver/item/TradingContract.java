@@ -18,6 +18,8 @@ import java.util.UUID;
 
 public class TradingContract extends ItemBase {
 
+    //TODO make a check  Cannot invoke "String.equals(Object)" because the return value of "com.feywild.quest_giver.item.TradingContract.playerSignature()" is null
+
     public UUID assignedToPlayer;
     protected String name;
     private String profession;

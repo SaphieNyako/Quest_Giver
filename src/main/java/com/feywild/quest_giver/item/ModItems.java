@@ -35,6 +35,7 @@ public class ModItems {
     public static final Item tradingContractNetherian = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "netherian");
     public static final Item tradingContractOceanographer = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "oceanographer");
     public static final Item tradingContractWoodworker = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "woodworker");
+    public static final Item tradingContractMiner = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "miner");
     //Guards have no trades
     public static final Item tradingContractBeekeeper = new TradingContract(QuestGiverMod.getInstance(), new Item.Properties().stacksTo(1), "beekeeper");
 

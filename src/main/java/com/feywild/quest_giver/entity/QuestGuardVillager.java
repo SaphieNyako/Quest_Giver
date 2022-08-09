@@ -2,7 +2,6 @@ package com.feywild.quest_giver.entity;
 
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.config.QuestConfig;
-import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
@@ -10,8 +9,8 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
-import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import mods.thecomputerizer.reputation.api.ReputationHandler;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,14 +26,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import tallestegg.guardvillagers.entities.Guard;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
@@ -43,7 +40,6 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
 
 public class QuestGuardVillager extends Guard {
 
@@ -58,6 +54,7 @@ public class QuestGuardVillager extends Guard {
     public static boolean canSpawn(EntityType<? extends QuestGuardVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock()) ;
     }
+
 
     public QuestNumber getQuestNumber(){
             try {
@@ -98,10 +95,6 @@ public class QuestGuardVillager extends Guard {
     @Override
     public InteractionResult mobInteract(@Nonnull Player player , @Nonnull InteractionHand hand) {
     	if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
-    	boolean foundPillagerHideout = QuestGiverPlayerData.get(player).getBoolean("found_pillager_hideout");
-        boolean foundGiantHideout = QuestGiverPlayerData.get(player).getBoolean("found_giant_hideout");
-        boolean foundCaveDwelling = QuestGiverPlayerData.get(player).getBoolean("found_cave_dwelling");
-        boolean foundPillagerBase = QuestGiverPlayerData.get(player).getBoolean("found_pillager_base");
 
         if (player instanceof ServerPlayer) {
             if(!setQuestNumber){
@@ -118,6 +111,7 @@ public class QuestGuardVillager extends Guard {
                     PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
                     if(!playerPatch.isBattleMode()) {
                         this.interactQuest((ServerPlayer) player, hand);
+                        this.lookAt(EntityAnchorArgument.Anchor.EYES, player.position());
                     } else {
                         (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
                     }

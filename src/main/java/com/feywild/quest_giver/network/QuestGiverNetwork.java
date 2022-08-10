@@ -38,9 +38,14 @@ public class QuestGiverNetwork extends NetworkX {
         this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         BETTER_NETWORK.registerMessage(disc++,SyncRenders.class, SyncRenders::encode, SyncRenders::new, SyncRenders::handle);
+        BETTER_NETWORK.registerMessage(disc++,SyncPlayerGuiStatus.class, SyncPlayerGuiStatus::encode, SyncPlayerGuiStatus::new, SyncPlayerGuiStatus::handle);
     }
 
     public void sendTo(Object message,ServerPlayer player) {
         BETTER_NETWORK.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    public void sendToServer(Object message) {
+        BETTER_NETWORK.sendToServer(message);
     }
 }

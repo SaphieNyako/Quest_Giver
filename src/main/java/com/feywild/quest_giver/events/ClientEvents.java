@@ -1,7 +1,10 @@
 package com.feywild.quest_giver.events;
 
+import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.network.quest.SyncPlayerGuiStatus;
 import com.feywild.quest_giver.tag.ModTags;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,6 +57,8 @@ public class ClientEvents {
 
     public static void setShowGui(boolean showGui) {
       ClientEvents.showGui = showGui;
+      if(Minecraft.getInstance().player!=null)
+          QuestGiverMod.getNetwork().sendToServer(new SyncPlayerGuiStatus(Minecraft.getInstance().player.getUUID(),showGui));
     }
 
     public static boolean getShowGui(){

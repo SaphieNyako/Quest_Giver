@@ -245,7 +245,8 @@ public class QuestVillager extends Villager {
             if (this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else {
-                if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
+
+                if  (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
                     PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
                     if(!playerPatch.isBattleMode()) {
                         this.interactQuest((ServerPlayer) player, hand);
@@ -262,7 +263,9 @@ public class QuestVillager extends Villager {
                         merchantoffer.addToSpecialPriceDiff(-Mth.floor((float)40 * merchantoffer.getPriceMultiplier()));
                     }
 
-                    super.mobInteract(player, hand);
+                    this.startTrading(player);
+                  //  super.mobInteract(player, hand);
+
                 } else {
                     //do  nothing?
                     this.playSound(SoundEvents.VILLAGER_NO, 1.0F, this.getVoicePitch());

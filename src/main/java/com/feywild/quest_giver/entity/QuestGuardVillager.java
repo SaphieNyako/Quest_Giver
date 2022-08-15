@@ -10,6 +10,7 @@ import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import mods.thecomputerizer.reputation.api.ReputationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,6 +18,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -206,15 +208,16 @@ public class QuestGuardVillager extends Guard {
                 player.swing(hand, true);
             } else {
                 ItemStack stack = player.getItemInHand(hand);
-                //if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
-                if (stack.isEmpty()) {
-                    PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
-                    if(!playerPatch.isBattleMode()) {
-                        this.interactQuest((ServerPlayer) player, hand);
-                        this.isInteracting = true;
-                        this.recentInteractingPlayer = player;
-                    } else {
-                        (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
+                    if (stack.isEmpty()) {
+                        PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
+                        if (!playerPatch.isBattleMode()) {
+                            this.interactQuest((ServerPlayer) player, hand);
+                            this.isInteracting = true;
+                            this.recentInteractingPlayer = player;
+                        } else {
+                            (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                        }
                     }
                 }
             }

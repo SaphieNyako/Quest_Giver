@@ -23,7 +23,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:reputation-579116:3734861")
     implementation fg.deobf("curse.maven:morevillagers-484954:3696031")
-    implementation fg.deobf("curse.maven:guardvillagers-360203:3694899")
+    implementation fg.deobf("curse.maven:guardvillagers-360203:3823106")
     implementation fg.deobf("curse.maven:bk-390495:3672495")
     implementation fg.deobf("curse.maven:epicfigt-405076:3805345")
     implementation fg.deobf("curse.maven:atlas-lib-463826:3852236")

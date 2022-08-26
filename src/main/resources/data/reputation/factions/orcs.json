@@ -1,0 +1,26 @@
+{
+     "name": "orcs",
+     "default_reputation": 0,
+     "lower_reputation_bound": -50,
+     "upper_reputation_bound": 50,
+     "currency": "minecraft:lapis_lazuli",
+     "weighted_murder": 0,
+     "weighted_looting": 0,
+     "weighted_fleeing": 0,
+     "members": [
+          "orcz:orcsavage_2sword",
+          "orcz:orcshield",
+          "orcz:orcsavage_2swordiron",
+          "orcz:orcshieldiron",
+          "orcz:savageorc",
+          "orcz:orcsavagemace",
+          "orcz:savageorciron",
+          "orcz:orcsavagemaceiron",
+          "orcz:weirdboinecro",
+          "orcz:orcirongroupleader",
+          "orcz:orcsavagegroupleader"
+     ],
+     "enemies": [
+          "reputation:village"
+     ]
+}

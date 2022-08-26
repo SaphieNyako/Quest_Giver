@@ -1,0 +1,38 @@
+{
+     "name": "illager",
+     "default_reputation": 0,
+     "lower_reputation_bound": -50,
+     "upper_reputation_bound": 50,
+     "currency": "minecraft:gold_ingot",
+     "weighted_murder": 0,
+     "weighted_looting": 0,
+     "weighted_fleeing": 0,
+     "members": [
+          "minecraft:pillager",
+          "minecraft:vindicator",
+	  "minecraft:evoker",
+	  "minecraft:ravager",
+	  "illageandspillage:igniter",
+	  "illageandspillage:magispeller",
+  	  "difficultraids:warrior_illager",
+	  "difficultraids:dart_illager",
+	  "difficultraids:electro_illager",
+	  "difficultraids:necromancer_illager",
+	  "difficultraids:shaman_illager",
+	  "difficultraids:tank_illager",
+	  "difficultraids:assassin_illager",
+	  "difficultraids:frost_illager",
+	  "difficultraids:nuaos_elite",
+	  "difficultraids:xydrax_elite",
+	  "difficultraids:modur_elite",
+	  "difficultraids:voldon_elite",
+	  "biomemakeover:cowboy",
+	  "hunterillager:hunterillager",
+	  "savage_and_ravage:griefer",
+	  "savage_and_ravage:iceologer",
+	  "savage_and_ravage:executioner"
+     ],
+     "enemies": [
+          "reputation:village"
+     ]
+}

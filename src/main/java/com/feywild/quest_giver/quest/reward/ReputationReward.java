@@ -29,7 +29,7 @@ public class ReputationReward implements RewardType<GainReputationAction> {
 
     @Override
     public void grantReward(ServerPlayer player, GainReputationAction element) {
-        Collection<Faction> factions = ReputationHandler.getFactions();
+        Collection<Faction> factions = ReputationHandler.getEntityFactions(player);
 
         for (Faction faction : factions) {
             if (faction.getName().equals(element.getFaction())) {

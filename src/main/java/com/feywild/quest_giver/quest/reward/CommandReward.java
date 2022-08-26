@@ -3,7 +3,6 @@ package com.feywild.quest_giver.quest.reward;
 
 import com.google.gson.JsonObject;
 
-import com.google.gson.JsonSerializer;
 import net.minecraft.server.level.ServerPlayer;
 
 
@@ -22,11 +21,10 @@ public class CommandReward implements RewardType<String>{
 
     @Override
     public void grantReward(ServerPlayer player, String element) {
-        if(player.server.isSingleplayer()) {
-            player.server.getCommands().performCommand(player.createCommandSourceStack(), element);
-        } else {
+            //If the problem is @p
+            //String s = element.replace("@p", player.getName().toString());
             player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element);
-        }
+
     }
 
     @Override

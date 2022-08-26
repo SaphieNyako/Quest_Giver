@@ -34,6 +34,10 @@
         "item": "minecraft:diamond_chestplate"
       },
       "id": "quest_giver:item"
+    },
+    {
+      "command": "/give @s minecraft:cooked_mutton 9",
+      "id": "quest_giver:command"
     }
   ]
 }

@@ -1,19 +1,24 @@
 {
-  "name": "villager",
-  "default_reputation": 50,
-  "lower_reputation_bound": -50,
-  "upper_reputation_bound": 50,
-  "weighted_murder": 5,
-  "weighted_looting": 2,
-  "members": [
-    "minecraft:villager",
-    "minecraft:iron_golem",
-    "minecraft:wandering_trader"
-  ],
-  "enemies": [
-    "reputation:illager",
-    "reputation:skeleton",
-    "reputation:nether",
-    "reputation:piglin"
-  ]
+    "name": "villager",
+    "default_reputation": 0,
+    "lower_reputation_bound": -10,
+    "upper_reputation_bound": 30,
+    "currency": "minecraft:emerald",
+    "weighted_murder": 10,
+    "weighted_looting": 2,
+    "weighted_fleeing": 3,
+    "members": [
+        "minecraft:villager",
+        "guardvillagers:guard",
+        "minecraft:iron_golem",
+        "minecraft:wandering_trader",
+	"quest_giver:quest_villager",
+	"quest_giver:quest_guard_villager"
+    ],
+    "enemies": [
+        "reputation:illager",
+        "reputation:skeleton",
+        "reputation:nether",
+        "reputation:piglin"
+    ]
 }

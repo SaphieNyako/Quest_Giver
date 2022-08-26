@@ -1,0 +1,18 @@
+{
+  "passive_fleeing": [
+    "minecraft:villager",
+    "quest_giver:quest_villager"
+  ],
+  "hostile": [
+	  "guardvillagers:guard",
+	  "minecraft:iron_golem",
+	  "quest_giver:quest_guard_villager"
+	],
+  "passive_neutral": [],
+  "passive_good": [],
+  "hostile_fleeing": [],
+  "trading": [
+    "minecraft:villager",
+    "quest_giver:quest_villager"
+	]
+}

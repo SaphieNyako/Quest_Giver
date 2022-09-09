@@ -55,13 +55,6 @@ Quest Giver.
     ide="BOTH"
 
 [[dependencies.quest_giver]]
-    modId="afptweaks"
-    mandatory=true
-    versionRange="[1.1.0,)"
-    ordering="BEFORE"
-    ide="BOTH"
-
-[[dependencies.quest_giver]]
     modId="reputation"
     mandatory=true
     versionRange="[0.4.0,)"

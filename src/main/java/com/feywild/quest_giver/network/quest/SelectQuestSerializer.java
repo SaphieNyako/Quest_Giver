@@ -16,19 +16,23 @@ public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerial
 
     @Override
     public void encode(Message msg, FriendlyByteBuf buffer) {
+
         buffer.writeComponent(msg.title);
         buffer.writeResourceLocation(msg.quest);
         buffer.writeEnum(msg.questNumber);
         buffer.writeBlockPos(msg.pos);
+        buffer.writeInt(msg.id);
     }
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
+
         Component title = buffer.readComponent();
         ResourceLocation quest = buffer.readResourceLocation();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
         BlockPos pos = buffer.readBlockPos();
-        return new Message(quest, title, questNumber, pos);
+        int id = buffer.readInt();
+        return new Message(quest, title, questNumber, pos, id);
     }
 
     public static class Message {
@@ -36,12 +40,14 @@ public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerial
         public final ResourceLocation quest;
         public final QuestNumber questNumber;
         public final BlockPos pos;
+        public final int id;
 
-        public Message(ResourceLocation quest, Component title, QuestNumber questNumber, BlockPos pos) {
+        public Message(ResourceLocation quest, Component title, QuestNumber questNumber, BlockPos pos, int id) {
             this.quest = quest;
             this.title = title;
             this.questNumber = questNumber;
             this.pos = pos;
+            this.id = id;
         }
     }
 }

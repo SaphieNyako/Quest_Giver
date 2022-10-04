@@ -21,10 +21,7 @@ public class CommandReward implements RewardType<String>{
 
     @Override
     public void grantReward(ServerPlayer player, String element) {
-            //If the problem is @p
-            //String s = element.replace("@p", player.getName().toString());
-            player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element);
-
+            player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element.replace("@p", player.getName().getString()));
     }
 
     @Override

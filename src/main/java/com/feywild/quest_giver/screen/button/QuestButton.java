@@ -1,4 +1,4 @@
-package com.feywild.quest_giver.screen;
+package com.feywild.quest_giver.screen.button;
 
 import com.feywild.quest_giver.QuestGiverMod;
 import com.mojang.blaze3d.systems.RenderSystem;

@@ -6,6 +6,10 @@ import com.feywild.quest_giver.network.quest.ConfirmQuestSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.events.ClientEvents;
+import com.feywild.quest_giver.screen.button.QuestButton;
+import com.feywild.quest_giver.screen.button.QuestButtonSmall;
+import com.feywild.quest_giver.screen.widget.BackgroundWidget;
+import com.feywild.quest_giver.screen.widget.CharacterWidget;
 import com.feywild.quest_giver.util.QuestGiverTextProcessor;
 import com.feywild.quest_giver.util.RenderEnum;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 
 
 import javax.annotation.Nonnull;
@@ -58,22 +62,23 @@ public class DisplayQuestScreen extends Screen {
     int animationCount = 0;
     int lineCount = 0;
     int secondAnimationCount = 0;
+    int id;
 
-    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons,Component name, QuestNumber questNumber, BlockPos pos) {
+    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, Component name, QuestNumber questNumber, BlockPos pos, int id) {
         super(name);
         this.display = display;
         this.hasConfirmationButtons = hasConfirmationButtons;
+        //TODO remove Questnumber
         this.questNumber = questNumber;
         this.pos = pos;
+        this.id = id;
     }
 
     @Override
     protected void init() {
 
         this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y));
-        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
-
-       // this.title = QuestGiverTextProcessor.INSTANCE.processLine(this.display.title);
+        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, (LivingEntity) minecraft.level.getEntity(id)));
 
         this.description = QuestGiverTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(
                 line -> ComponentRenderUtils.wrapComponents(line,

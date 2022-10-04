@@ -1,4 +1,4 @@
-package com.feywild.quest_giver.screen;
+package com.feywild.quest_giver.screen.widget;
 
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.entity.ModEntityTypes;

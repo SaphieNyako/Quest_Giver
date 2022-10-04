@@ -3,7 +3,6 @@ package com.feywild.quest_giver;
 import com.feywild.quest_giver.entity.GuildMasterProfession;
 import com.feywild.quest_giver.entity.ModEntityTypes;
 import com.feywild.quest_giver.entity.QuestVillager;
-import com.feywild.quest_giver.events.ClientEvents;
 import com.feywild.quest_giver.item.TradingContract;
 import com.feywild.quest_giver.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
@@ -15,26 +14,18 @@ import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.RenderEnum;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -224,7 +215,7 @@ public class EventListener {
 
                 if (completionDisplay != null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition(), entity.getId()));
                     player.swing(hand, true);
                     playRandomVillagerSound(entity);
 
@@ -233,13 +224,13 @@ public class EventListener {
 
                     if (active.size() == 1) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
+                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition(), entity.getId()));
                         player.swing(hand, true);
                         playRandomVillagerSound(entity);
 
                     } else if (!active.isEmpty()) {
                         QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestSelectionSerializer.Message(entity.getDisplayName(), entity.getQuestNumber(), active, entity.blockPosition()));
+                                () -> player), new OpenQuestSelectionSerializer.Message(entity.getDisplayName(), entity.getQuestNumber(), active, entity.blockPosition(), entity.getId()));
                         player.swing(hand, true);
                         playRandomVillagerSound(entity);
                     } else {
@@ -253,7 +244,7 @@ public class EventListener {
                 QuestDisplay initDisplay = quests.initialize(entity.getQuestNumber());
                 if (initDisplay != null && entity.getQuestTaker() == null) {
                     QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition()));
+                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, entity.getDisplayName(), entity.getQuestNumber(), entity.blockPosition(), entity.getId()));
                     player.swing(hand, true);
                     playRandomVillagerSound(entity);
                 } else {

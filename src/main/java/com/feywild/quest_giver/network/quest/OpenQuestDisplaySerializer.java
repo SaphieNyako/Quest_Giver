@@ -17,23 +17,24 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
 
     @Override
     public void encode(Message msg, FriendlyByteBuf buffer) {
+        buffer.writeInt(msg.id);
         buffer.writeComponent(msg.title);
         msg.display.toNetwork(buffer);
         buffer.writeBlockPos(msg.pos);
         buffer.writeBoolean(msg.confirmationButtons);
         buffer.writeEnum(msg.questNumber);
-
     }
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
+        int id = buffer.readInt();
         Component title = buffer.readComponent();
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);
         BlockPos pos = buffer.readBlockPos();
         boolean confirmationButtons = buffer.readBoolean();
-        QuestNumber questNumber = buffer.readEnum(QuestNumber.class);;
+        QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
 
-        return new Message(display, confirmationButtons, title, questNumber, pos);
+        return new Message(display, confirmationButtons, title, questNumber, pos, id);
     }
 
     public static class Message {
@@ -43,14 +44,16 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
         public final boolean confirmationButtons;
         public final QuestNumber questNumber;
         public final BlockPos pos;
+        public final int id;
 
 
-        public Message(QuestDisplay display, boolean confirmationButtons, Component title, QuestNumber questNumber, BlockPos pos) {
+        public Message(QuestDisplay display, boolean confirmationButtons, Component title, QuestNumber questNumber, BlockPos pos, int id) {
             this.display = display;
             this.confirmationButtons = confirmationButtons;
             this.title = title;
             this.questNumber = questNumber;
             this.pos = pos;
+            this.id = id;
         }
     }
 }

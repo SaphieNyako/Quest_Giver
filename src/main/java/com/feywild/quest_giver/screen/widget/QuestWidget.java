@@ -1,4 +1,4 @@
-package com.feywild.quest_giver.screen;
+package com.feywild.quest_giver.screen.widget;
 
 import com.feywild.quest_giver.QuestGiverMod;
 import com.feywild.quest_giver.network.quest.SelectQuestSerializer;
@@ -26,6 +26,7 @@ public class QuestWidget extends Button {
 
     public static final int WIDTH = 160;
     public static final int HEIGHT = 40;
+    public int id;
     private QuestNumber questNumber;
     private BlockPos pos;
     private Component title;
@@ -35,19 +36,20 @@ public class QuestWidget extends Button {
     private final SelectableQuest quest;
     private final ItemStack iconStack;
 
-    public QuestWidget(int x, int y, SelectableQuest quest, Component title, QuestNumber questNumber, BlockPos pos) {
+    public QuestWidget(int x, int y, SelectableQuest quest, Component title, QuestNumber questNumber, BlockPos pos, int id) {
         super(x, y, WIDTH, HEIGHT, QuestGiverTextProcessor.INSTANCE.processLine(quest.display.title),b -> {});
         this.title = title;
         this.quest = quest;
         this.iconStack = new ItemStack(quest.icon);
         this.questNumber = questNumber;
         this.pos = pos;
+        this.id = id;
     }
 
     @Override
     public void onPress() {
         super.onPress();
-        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, title, questNumber, pos));
+        QuestGiverMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id, title, questNumber, pos, id));
     }
 
     @Override

@@ -3,11 +3,14 @@ package com.feywild.quest_giver.screen;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.events.ClientEvents;
+import com.feywild.quest_giver.screen.widget.CharacterWidget;
+import com.feywild.quest_giver.screen.widget.QuestWidget;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -20,22 +23,24 @@ public class SelectQuestScreen extends Screen {
     private final List<SelectableQuest> quests;
     private QuestNumber questNumber;
     private BlockPos pos;
+    int id;
 
-    public SelectQuestScreen(Component name,  List<SelectableQuest> quests, QuestNumber questNumber, BlockPos pos) {
+    public SelectQuestScreen(Component name,  List<SelectableQuest> quests, QuestNumber questNumber, BlockPos pos, int id) {
         super(name);
 
         this.quests = ImmutableList.copyOf(quests);
         this.questNumber = questNumber;
         this.pos = pos;
+        this.id = id;
     }
 
     @Override
     protected void init() {
         super.init();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addRenderableWidget(new QuestWidget(this.width / 2 - (160 / 2), 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), this.title, questNumber, pos));
+            this.addRenderableWidget(new QuestWidget(this.width / 2 - (160 / 2), 40 + ((QuestWidget.HEIGHT + 4) * i), this.quests.get(i), this.title, questNumber, pos, id));
         }
-        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  minecraft.level, questNumber, pos));
+        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y,  (LivingEntity) minecraft.level.getEntity(id)));
 
         ClientEvents.setShowGui(false);
     }

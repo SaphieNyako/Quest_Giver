@@ -19,6 +19,7 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
 
     @Override
     public void encode(Message msg, FriendlyByteBuf buffer) {
+
         buffer.writeComponent(msg.title);
         buffer.writeEnum(msg.questNumber);
         buffer.writeBlockPos(msg.pos);
@@ -26,10 +27,12 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
         for (SelectableQuest quest : msg.quests) {
             quest.toNetwork(buffer);
         }
+        buffer.writeInt(msg.id);
     }
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
+
         Component title = buffer.readComponent();
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
         BlockPos pos = buffer.readBlockPos();
@@ -38,7 +41,8 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
         for (int i = 0; i < questSize; i++) {
             quests.add(SelectableQuest.fromNetwork(buffer));
         }
-        return new Message(title, questNumber, quests.build(), pos);
+        int id = buffer.readInt();
+        return new Message(title, questNumber, quests.build(), pos, id);
     }
 
     public static class Message {
@@ -47,12 +51,14 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
         public final QuestNumber questNumber;
         public final List<SelectableQuest> quests;
         public final BlockPos pos;
+        public final int id;
 
-        public Message(Component title, QuestNumber questNumber, List<SelectableQuest> quests, BlockPos pos) {
+        public Message(Component title, QuestNumber questNumber, List<SelectableQuest> quests, BlockPos pos, int id) {
             this.title = title;
             this.questNumber = questNumber;
             this.quests = ImmutableList.copyOf(quests);
             this.pos = pos;
+            this.id = id;
         }
     }
 }

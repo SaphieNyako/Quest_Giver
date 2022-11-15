@@ -1,0 +1,9 @@
+{
+     "name": "savage_and_ravage:executioner",
+     "idle": [],
+     "idle_faction": [
+	"skele", "nausea", "money", "hungry", "eye", "dots", "blueapple",
+ 	"bone", "bread", "creeper", "armorstand"
+	],
+     "engage": []
+}

@@ -257,8 +257,7 @@ public class QuestVillager extends Villager {
                 }
 
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(), this.getVillagerData().getProfession().getName())
-                        && contract.playerSignature().equals(player.getName().getString())) {
-
+                        && contract.isSignedByPlayer(player)) { //&& contract.playerSignature().equals(player.getName().getString()
                     for(MerchantOffer merchantoffer : this.getOffers()) {
                         merchantoffer.addToSpecialPriceDiff(-Mth.floor((float)40 * merchantoffer.getPriceMultiplier()));
                     }

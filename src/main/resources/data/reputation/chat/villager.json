@@ -1,0 +1,13 @@
+{
+     "name": "minecraft:villager",
+     "idle": [
+	"skele", "seed", "money", "love", "hungry", "eye", "dots", "blueapple", 
+        "bread", "creeper", "paper", "egg", "brick"
+],
+     "idle_faction": [
+	"skele", "seed", "money", "love", "hungry", "eye", "dots", "blueapple", 
+        "bread", "creeper", "paper", "egg", "brick"
+	],
+     "engage": [
+	]
+}

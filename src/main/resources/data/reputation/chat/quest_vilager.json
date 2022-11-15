@@ -1,0 +1,10 @@
+{
+     "name": "quest_giver:quest_villager",
+     "idle": [],
+     "idle_faction": [
+	"skele", "seed", "money", "love", "hungry", "eye", "dots", "blueapple", 
+        "bread", "creeper", "paper", "egg", "brick"
+	],
+     "engage": [
+	]
+}

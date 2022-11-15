@@ -6,7 +6,7 @@
      "currency": "minecraft:gold_ingot",
      "weighted_murder": 0,
      "weighted_looting": 0,
-     "weighted_fleeing": 0,
+     "weighted_fleeing": 1,
      "members": [
           "minecraft:pillager",
           "minecraft:vindicator",

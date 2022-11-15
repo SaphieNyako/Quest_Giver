@@ -1,0 +1,11 @@
+{
+     "name": "difficultraids:assassin_illager",
+     "idle": [
+	"skele", "nausea", "money", "hungry", "eye", "dots", "blueapple",
+ 	"bone", "bread", "creeper", "armorstand"
+],
+     "idle_faction": [
+	],
+     "engage": [
+	]
+}

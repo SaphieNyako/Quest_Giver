@@ -1,0 +1,11 @@
+{
+     "name": "minecraft:pig",
+     "idle": [],
+     "idle_faction": [
+	"skele", "seed", "purpleeye", "nausea", "money", "love", "hungry", "eye", "dots", "blueapple",
+ 	"bone", "bread", "creeper"
+	],
+     "engage": [
+	 "player"
+	]
+}

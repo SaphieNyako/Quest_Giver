@@ -1,0 +1,9 @@
+{
+     "name": "illageandspillage:magispeller",
+     "idle": [],
+     "idle_faction": [
+	"skele", "nausea", "money", "hungry", "eye", "dots", "blueapple",
+ 	"bone", "bread", "creeper", "armorstand"
+	],
+     "engage": []
+}

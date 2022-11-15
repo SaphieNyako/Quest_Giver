@@ -1,0 +1,11 @@
+{
+     "name": "quest_giver:quest_guard_villager",
+     "idle": [],
+     "idle_faction": [
+	"skele", "seed", "purpleeye", "nausea", "money", "love", "hungry", "eye", "dots", "blueapple",
+ 	"bone", "bread", "creeper"
+	],
+     "engage": [
+	"player", "hostile", "broken"
+	]
+}

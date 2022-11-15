@@ -1,0 +1,11 @@
+{
+     "name": "orcz:orcirongroupleader",
+     "idle": [],
+     "idle_faction": [
+	"seed", "nausea", "hungry", "eye", 
+ 	"bone", "creeper", "armorstand", "feather", "fish", "flint", "orc", "random"
+	],
+     "engage": [
+	"player", "hostile", "bow"
+	]
+}

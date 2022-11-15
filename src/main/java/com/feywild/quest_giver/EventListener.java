@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -94,15 +96,7 @@ public class EventListener {
 
         if (player instanceof ServerPlayer) {
             QuestData.get((ServerPlayer) player).checkComplete(CraftTask.INSTANCE, stack);
-
-
-            if(stack.getItem() instanceof  TradingContract contract && contract.assignedToPlayer == player.getUUID()) {
-                contract.signedByPlayer(player);
-            } else if(stack.getItem() instanceof  TradingContract contract && !(contract.assignedToPlayer == player.getUUID())) {
-                player.sendMessage(new TextComponent("You can't sign this contract"), player.getUUID());
-            }
         }
-
     }
 
     @SubscribeEvent
@@ -122,11 +116,14 @@ public class EventListener {
             //Quest Check for ItemStackTask
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
 
+            /*
             for (ItemStack item : player.getInventory().items) {
                 if (item.getItem() instanceof TradingContract contract && contract.assignedToPlayer == null) {
                     contract.assignedToPlayer(player);
                 }
             }
+
+             */
 
             //Quest Check for Biomes
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
@@ -147,7 +144,7 @@ public class EventListener {
         Entity target = event.getTarget();
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer) {
-
+            //Quest
             if (target instanceof Villager villager && villager.getVillagerData().getProfession() == GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)) {
 
                 Component name = villager.hasCustomName() ? villager.getCustomName() : villager.getDisplayName();
@@ -167,25 +164,23 @@ public class EventListener {
                 interactQuest((ServerPlayer) player,hand, entity, entity.getQuestNumber());
             }
 
-            //TODO this is not required?
-
-            /*
+            //Trading
             if (target instanceof Villager villager && villager.getVillagerData().getProfession() != GuildMasterProfession.GUILDMASTER.get() && !(target instanceof QuestVillager)  ) {
                 if (stack.getItem() instanceof TradingContract contract && Objects.equals(contract.getProfession(),  villager.getVillagerData().getProfession().getName())
-                        && contract.playerSignature().equals(player.getName().getString())){
+                        && contract.isSignedByPlayer(player)){
                         //get Discount
                         for(MerchantOffer merchantoffer : villager.getOffers()) {
                             merchantoffer.addToSpecialPriceDiff(-Mth.floor((float)40 * merchantoffer.getPriceMultiplier()));
                         }
 
-                    villager.mobInteract(player,hand);
+                    villager.startTrading(player);
 
                 } else {
                     //do  nothing?
                     villager.playSound(SoundEvents.VILLAGER_NO, 1.0F, villager.getVoicePitch());
                     event.setCanceled(true);
                 }
-            } */
+            }
         }
         //TODO add gift item to entity questTask trigger
 
@@ -275,35 +270,6 @@ public class EventListener {
         }
         return current;
     }
-
-
-    //give quest number to villager.
-     /*  @SubscribeEvent
-        public void playerTick(TickEvent.PlayerTickEvent event) {
-            if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
-            QuestData quests = QuestData.get(player);
-            if(quests.getQuestNumbers().size() == 0) {
-
-                if (findTarget(player.level, player) != null) {
-                    Villager target = findTarget(player.level, player);
-                    target.getTags().add(QuestNumber.QUEST_0001.id);
-
-                    quests.setQuestNumbers(); //This should be done when quest 1 is done.
-                }
-
-            } else {
-
-                if (findTarget(player.level, player) != null && !(findTarget(player.level, player).getTags().contains("quest_0001"))){
-
-                    Random random = new Random();
-                    Villager target = findTarget(player.level, player);
-                    QuestNumber number = quests.getQuestNumbers().get(random.nextInt(quests.getQuestNumbers().size()));
-                    //this needs be random...
-                    target.getTags().add(QuestNumber.QUEST_0002.id);
-                }
-            }
-        }
-     }*/
 
     protected static void playRandomVillagerSound(QuestVillager entity){
         Random random = new Random();

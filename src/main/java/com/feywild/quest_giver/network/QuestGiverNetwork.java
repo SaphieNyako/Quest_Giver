@@ -37,6 +37,7 @@ public class QuestGiverNetwork extends NetworkX {
         this.register(new OpenQuestDisplaySerializer(), () -> OpenQuestDisplayHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
+        this.register(new PlaySoundSerializer(), ()-> PlaySoundHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         BETTER_NETWORK.registerMessage(disc++,SyncRenders.class, SyncRenders::encode, SyncRenders::new, SyncRenders::handle);
         BETTER_NETWORK.registerMessage(disc++,SyncPlayerGuiStatus.class, SyncPlayerGuiStatus::encode, SyncPlayerGuiStatus::new, SyncPlayerGuiStatus::handle);
     }

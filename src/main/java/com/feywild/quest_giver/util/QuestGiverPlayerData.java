@@ -21,5 +21,4 @@ public class QuestGiverPlayerData {
             target.getPersistentData().put(KEY, source.getPersistentData().getCompound(KEY).copy());
         }
     }
-
 }

@@ -47,7 +47,7 @@
   "item.quest_giver.trading_contract_oceanographer": "Trading Contract Oceanographer Guild",
   "item.quest_giver.trading_contract_woodworker": "Trading Contract Woodworker Guild",
   "item.quest_giver.trading_contract_beekeeper": "Trading Contract Beekeeper Guild",
-  "message.quest_giver.quest_completion": "You have completed your tasks! Return to the Quest Giver.",
+  "message.quest_giver.quest_completion": "Quest Completed!",
   "message.quest_giver.itemmessage": "Hold \"%s\" for more information"
 
 }

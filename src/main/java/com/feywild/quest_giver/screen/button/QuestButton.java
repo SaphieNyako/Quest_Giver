@@ -1,6 +1,7 @@
 package com.feywild.quest_giver.screen.button;
 
 import com.feywild.quest_giver.QuestGiverMod;
+import com.feywild.quest_giver.sound.ModSoundEvents;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -37,9 +38,9 @@ public class QuestButton extends Button {
     public void onPress() {
         Minecraft minecraft = Minecraft.getInstance();
         if(accept) {
-            minecraft.level.playLocalSound(this.pos, SoundEvents.VILLAGER_YES, SoundSource.PLAYERS, 1.0F, 1.0F, false);
+            minecraft.level.playLocalSound(this.pos, ModSoundEvents.villagerAccept, SoundSource.PLAYERS, 1.0F, 1.0F, false);
         } else {
-            minecraft.level.playLocalSound(this.pos, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0F, 1.0F, false);
+            minecraft.level.playLocalSound(this.pos, ModSoundEvents.villagerDecline, SoundSource.PLAYERS, 1.0F, 1.0F, false);
         }
         super.onPress();
     }

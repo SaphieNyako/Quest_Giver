@@ -14,6 +14,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    flatDir {
+        dirs "mods"
+    }
 }
 
 dependencies {
@@ -24,11 +27,9 @@ dependencies {
     implementation fg.deobf("curse.maven:reputation-579116:4028368")
     implementation fg.deobf("curse.maven:morevillagers-484954:3696031")
     implementation fg.deobf("curse.maven:guardvillagers-360203:3823106")
-    implementation fg.deobf("curse.maven:bk-390495:3672495")
+   // implementation fg.deobf("curse.maven:bk-390495:3672495")
     implementation fg.deobf("curse.maven:epicfigt-405076:3805345")
     implementation fg.deobf("curse.maven:atlas-lib-463826:3852236")
     implementation fg.deobf("curse.maven:follow-me-463841:3804364")
     implementation fg.deobf("curse.maven:afptweaks-638098:3891210")
-
-
 }

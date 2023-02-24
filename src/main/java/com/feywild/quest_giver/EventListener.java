@@ -13,6 +13,7 @@ import com.feywild.quest_giver.quest.player.QuestData;
 import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.*;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
+import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -47,6 +48,27 @@ public class EventListener {
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinWorldEvent event) {
         if(!event.getWorld().isClientSide && event.getEntity() instanceof ServerPlayer player) syncPlayerRenders(player);
+    }
+
+
+
+    @SubscribeEvent
+    public void playerClone(PlayerEvent.Clone event) {
+        /*
+        event.getOriginal().reviveCaps();
+        event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
+            event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
+                newData.read(oldData.write());
+            });
+        });
+        event.getOriginal().invalidateCaps();
+
+        */
+
+        event.getOriginal().reviveCaps();
+        QuestGiverPlayerData.copy(event.getOriginal(), event.getPlayer());
+
+        event.getOriginal().invalidateCaps();
     }
 
     @SuppressWarnings("removal")

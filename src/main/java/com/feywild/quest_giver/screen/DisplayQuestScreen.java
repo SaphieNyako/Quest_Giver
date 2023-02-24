@@ -185,7 +185,7 @@ public class DisplayQuestScreen extends Screen {
                     }
                 }
 
-                if (this.animationCount != 2) {
+                if (this.animationCount != 0) {
                     this.animationCount++;
                 } else {
                     if (secondAnimationCount < 60) {

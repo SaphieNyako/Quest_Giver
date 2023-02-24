@@ -1,0 +1,29 @@
+{
+  "villager_accept": {
+    "sounds": [
+      {
+        "name": "quest_giver:villager_accept",
+        "stream": true
+      }
+    ],
+    "subtitle": "accept quest sound"
+  },
+  "villager_decline": {
+    "sounds": [
+      {
+        "name": "quest_giver:villager_decline",
+        "stream": true
+      }
+    ],
+    "subtitle": "decline quest sound"
+  },
+  "villager_dialogue": {
+    "sounds": [
+      {
+        "name": "quest_giver:villager_dialogue",
+        "stream": true
+      }
+    ],
+    "subtitle": "dialogue quest sound"
+  }
+}

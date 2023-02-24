@@ -178,10 +178,11 @@ public class QuestVillager extends Villager {
                 setQuestNumber(QuestConfig.quests.woodworker_quests.get(random.nextInt(QuestConfig.quests.woodworker_quests.size())));
                 this.setVillagerXp(1);
             }
+            /*
             if (villagerprofession == com.lupicus.bk.entity.ModProfessions.BEEKEEPER) {
                 setQuestNumber(25);
                 this.setVillagerXp(1);
-            }
+            } */
 
         }
     }

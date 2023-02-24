@@ -10,4 +10,5 @@ public class ModSoundEvents {
 
     public static final SoundEvent villagerDecline = new SoundEvent(new ResourceLocation(QuestGiverMod.getInstance().modid, "villager_decline"));
     public static final SoundEvent villagerAccept = new SoundEvent(new ResourceLocation(QuestGiverMod.getInstance().modid, "villager_accept"));
+    public static final SoundEvent villagerDialogue = new SoundEvent(new ResourceLocation(QuestGiverMod.getInstance().modid, "villager_dialogue"));
 }

@@ -65,7 +65,9 @@ public class TradingContract extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TextComponent("Shift-Right click on a Lectern to sign this contract, after it's signed you can trade with villagers."));
+        if(level != null) {
+            TooltipHelper.addTooltip(tooltip, level, new TextComponent("Shift-Right click on a Lectern to sign this contract, after it's signed you can trade with villagers."));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 

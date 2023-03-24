@@ -9,6 +9,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class TooltipItem extends ItemBase {
@@ -20,8 +21,10 @@ public class TooltipItem extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, this.itemTooltip);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if(level != null) {
+            TooltipHelper.addTooltip(tooltip, level, this.itemTooltip);
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

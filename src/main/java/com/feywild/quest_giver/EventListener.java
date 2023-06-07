@@ -16,7 +16,6 @@ import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -47,7 +46,8 @@ public class EventListener {
 
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinWorldEvent event) {
-        if(!event.getWorld().isClientSide && event.getEntity() instanceof ServerPlayer player) syncPlayerRenders(player);
+        if (!event.getWorld().isClientSide && event.getEntity() instanceof ServerPlayer player && !player.isRemoved())
+            syncPlayerRenders(player);
     }
 
 
@@ -71,7 +71,6 @@ public class EventListener {
         event.getOriginal().invalidateCaps();
     }
 
-    @SuppressWarnings("removal")
     public static void syncPlayerRenders(ServerPlayer player) {
         QuestData data = QuestData.get(player);
         List<String> markedNumbers = new ArrayList<>();

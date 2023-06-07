@@ -21,7 +21,7 @@
   },
   "tasks": [
     {
-      "entity": "minecraft:pillager",
+      "entity": "#minecraft:raiders",
       "id": "quest_giver:kill",
       "times": 10
     }

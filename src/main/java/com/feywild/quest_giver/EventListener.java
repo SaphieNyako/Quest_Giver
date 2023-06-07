@@ -16,7 +16,6 @@ import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.feywild.quest_giver.util.QuestGiverPlayerData;
 import com.feywild.quest_giver.util.RenderEnum;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -47,7 +46,8 @@ public class EventListener {
 
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinWorldEvent event) {
-        if(!event.getWorld().isClientSide && event.getEntity() instanceof ServerPlayer player) syncPlayerRenders(player);
+        if (!event.getWorld().isClientSide && event.getEntity() instanceof ServerPlayer player && !player.isRemoved())
+            syncPlayerRenders(player);
     }
 
 
@@ -71,7 +71,6 @@ public class EventListener {
         event.getOriginal().invalidateCaps();
     }
 
-    @SuppressWarnings("removal")
     public static void syncPlayerRenders(ServerPlayer player) {
         QuestData data = QuestData.get(player);
         List<String> markedNumbers = new ArrayList<>();
@@ -125,7 +124,7 @@ public class EventListener {
     public static void playerKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
+            quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving().getType());
         }
     }
 
@@ -135,7 +134,7 @@ public class EventListener {
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            //Quest Check for ItemStackTask
+            // Quest Check for ItemStackTask
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
 
             /*
@@ -147,13 +146,17 @@ public class EventListener {
 
              */
 
-            //Quest Check for Biomes
-            player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
-            //QuestCheck for Structure
-             if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
-                 player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
-             }
-
+            // Quest Check for Biomes
+            quests.checkComplete(
+                    BiomeTask.INSTANCE,
+                    player.getLevel().getBiome(player.blockPosition()).value());
+            // QuestCheck for Structure
+            if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
+                player.getLevel()
+                        .structureFeatureManager()
+                        .getAllStructuresAt(player.blockPosition())
+                        .forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure.feature));
+            }
         }
     }
 

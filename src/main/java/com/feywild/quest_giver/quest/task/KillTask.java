@@ -1,11 +1,10 @@
 package com.feywild.quest_giver.quest.task;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
+public class KillTask extends TaggableTaskType<EntityType<?>, EntityType<?>> {
 
     public static final KillTask INSTANCE = new KillTask();
 
@@ -14,12 +13,13 @@ public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
     }
 
     @Override
-    public Class<Entity> testType() {
-        return Entity.class;
+    public Class<EntityType<?>> testType() {
+        //noinspection unchecked
+        return (Class<EntityType<?>>) (Class<?>) EntityType.class;
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayer player, EntityType<?> element, Entity match) {
-        return match.getType() == element;
+    public boolean checkCompleted(ServerPlayer player, Taggable<EntityType<?>> element, EntityType<?> match) {
+        return element.test(match);
     }
 }

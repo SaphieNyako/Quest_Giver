@@ -125,7 +125,7 @@ public class EventListener {
     public static void playerKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
+            quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving().getType());
         }
     }
 
@@ -135,7 +135,7 @@ public class EventListener {
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            //Quest Check for ItemStackTask
+            // Quest Check for ItemStackTask
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
 
             /*
@@ -147,13 +147,17 @@ public class EventListener {
 
              */
 
-            //Quest Check for Biomes
-            player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
-            //QuestCheck for Structure
-             if(player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())){
-                 player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
-             }
-
+            // Quest Check for Biomes
+            quests.checkComplete(
+                    BiomeTask.INSTANCE,
+                    player.getLevel().getBiome(player.blockPosition()).value());
+            // QuestCheck for Structure
+            if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
+                player.getLevel()
+                        .structureFeatureManager()
+                        .getAllStructuresAt(player.blockPosition())
+                        .forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure.feature));
+            }
         }
     }
 

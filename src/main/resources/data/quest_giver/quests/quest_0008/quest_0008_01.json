@@ -21,7 +21,7 @@
   },
   "tasks": [
     {
-      "entity": "minecraft:cow",
+      "entity": "#minecraft:cow",
       "id": "quest_giver:kill",
       "times": 10
     },

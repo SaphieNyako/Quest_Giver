@@ -19,6 +19,7 @@ import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
@@ -108,13 +109,15 @@ public class DisplayQuestScreen extends Screen {
         if (this.hasConfirmationButtons) {
             //int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
 
-            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, new TextComponent(getRandomAcceptMessage()), button -> {
+            TranslatableComponent msg1 = getRandomAcceptMessage();
+            this.addRenderableWidget(new QuestButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, true, this.pos, msg1, button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true, questNumber, RenderEnum.QUESTION));
                 RenderEvents.renders.put(questNumber.id, RenderEnum.QUESTION);
                 this.onClose();
             }));
 
-            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, new TextComponent(getRandomDeclineMessage()), button -> {
+            TranslatableComponent msg2 = getRandomDeclineMessage();
+            this.addRenderableWidget(new QuestButton(DECLINE_POSITION_X, DECLINE_POSITION_Y, false, this.pos, msg2, button -> {
                 QuestGiverMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false, questNumber, RenderEnum.EXCLAMATION));
                 RenderEvents.renders.put(questNumber.id, RenderEnum.EXCLAMATION);
                 this.onClose();
@@ -123,25 +126,25 @@ public class DisplayQuestScreen extends Screen {
         ClientEvents.setShowGui(false);
     }
 
-    private String getRandomAcceptMessage() {
+    private TranslatableComponent getRandomAcceptMessage() {
         Random random = new Random();
         return switch (random.nextInt(5)) {
-            case 1 -> "I'll do it!";
-            case 2 -> "Sure";
-            case 3 -> "Okay!";
-            case 4 -> "Alright!";
-            default -> "I accept!";
+            case 1 -> new TranslatableComponent("text.quest_giver.accept1");
+            case 2 -> new TranslatableComponent("text.quest_giver.accept2");
+            case 3 -> new TranslatableComponent("text.quest_giver.accept3");
+            case 4 -> new TranslatableComponent("text.quest_giver.accept4");
+            default -> new TranslatableComponent("text.quest_giver.accept5");
         };
     }
 
-    private String getRandomDeclineMessage() {
+    private TranslatableComponent getRandomDeclineMessage() {
         Random random = new Random();
         return switch (random.nextInt(5)) {
-            case 1 -> "Maybe later.";
-            case 2 -> "I'm Busy";
-            case 3 -> "No, Sorry.";
-            case 4 -> "Not right now";
-            default -> "I decline!";
+            case 1 -> new TranslatableComponent("text.quest_giver.decline1");
+            case 2 -> new TranslatableComponent("text.quest_giver.decline2");
+            case 3 -> new TranslatableComponent("text.quest_giver.decline3");
+            case 4 -> new TranslatableComponent("text.quest_giver.decline4");
+            default -> new TranslatableComponent("text.quest_giver.decline5");
         };
     }
 

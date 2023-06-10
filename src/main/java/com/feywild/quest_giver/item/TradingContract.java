@@ -8,7 +8,7 @@ import io.github.noeppi_noeppi.libx.base.ItemBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -47,13 +47,13 @@ public class TradingContract extends ItemBase {
                     if (!context.getLevel().isClientSide) {
                         if (!isSignedByPlayer(player)) {
                             QuestGiverPlayerData.get(player).putBoolean(this.profession, true);
-                            player.sendMessage(new TextComponent("You signed this contract"), player.getUUID());
+                            player.sendMessage(new TranslatableComponent("message.quest_giver.trading_contract_sign"), player.getUUID());
                             player.swing(hand, true);
                             QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
                                     () -> (ServerPlayer) player), new PlaySoundSerializer.Message(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT.getLocation()));
 
                         } else {
-                            player.sendMessage(new TextComponent("You have already signed this contract"), player.getUUID());
+                            player.sendMessage(new TranslatableComponent("message.quest_giver.trading_contract_signed"), player.getUUID());
                         }
                     }
                   //  player.playSound(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1.0f, 1.0f);
@@ -66,7 +66,7 @@ public class TradingContract extends ItemBase {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if(level != null) {
-            TooltipHelper.addTooltip(tooltip, level, new TextComponent("Shift-Right click on a Lectern to sign this contract, after it's signed you can trade with villagers."));
+            TooltipHelper.addTooltip(tooltip, level, new TranslatableComponent("message.quest_giver.trading_contract"));
         }
         super.appendHoverText(stack, level, tooltip, flag);
     }

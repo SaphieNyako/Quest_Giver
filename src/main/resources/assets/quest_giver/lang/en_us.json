@@ -48,6 +48,15 @@
   "item.quest_giver.trading_contract_woodworker": "Trading Contract Woodworker Guild",
   "item.quest_giver.trading_contract_beekeeper": "Trading Contract Beekeeper Guild",
   "message.quest_giver.quest_completion": "Quest Completed!",
-  "message.quest_giver.itemmessage": "Hold \"%s\" for more information"
-
+  "message.quest_giver.itemmessage": "Hold \"%s\" for more information",
+  "text.quest_giver.accept1": "I'll do it!",
+  "text.quest_giver.accept2": "Sure",
+  "text.quest_giver.accept3": "Okay!",
+  "text.quest_giver.accept4": "Alright!",
+  "text.quest_giver.accept5": "I accept!",
+  "text.quest_giver.decline1": "Maybe later.",
+  "text.quest_giver.decline2": "I'm Busy",
+  "text.quest_giver.decline3": "No, Sorry.",
+  "text.quest_giver.decline4": "Not right now",
+  "text.quest_giver.decline5": "I decline!"
 }

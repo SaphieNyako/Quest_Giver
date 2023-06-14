@@ -14,7 +14,7 @@ import mods.thecomputerizer.reputation.api.ReputationHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -216,7 +216,7 @@ public class QuestGuardVillager extends Guard {
                             this.isInteracting = true;
                             this.recentInteractingPlayer = player;
                         } else {
-                            (player).sendMessage(new TextComponent("Please be careful not to punch the locals! Please Leave Battle Mode before interacting."), player.getUUID());
+                            (player).sendMessage(new TranslatableComponent("message.quest_giver.punch_locals"), player.getUUID());
                         }
                     }
                 }
@@ -285,7 +285,7 @@ public class QuestGuardVillager extends Guard {
         if (!stack.isEmpty()) {
             if (QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
                 if (!player.isCreative()) stack.shrink(1);
-                player.sendMessage(new TextComponent("Thank you, "+ player.getName().getContents() + "!"), player.getUUID());
+                player.sendMessage(new TranslatableComponent("message.quest_giver.accept_gift",player.getName().getContents()), player.getUUID());
                 return true;
             }
         }

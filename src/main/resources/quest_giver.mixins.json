@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.feywild.quest_giver.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "quest_giver.refmap.json",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "MixinJigsawPlacement",
+    "MixinJigsawPlacement$Placer",
+    "SinglePoolElementAccessor"
+  ]
+}

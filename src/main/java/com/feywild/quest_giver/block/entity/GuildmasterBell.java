@@ -22,7 +22,7 @@ public class GuildmasterBell extends BlockEntity {
 
     private boolean initiated = false;
 
-        public GuildmasterBell(BlockEntityType<?> type, BlockPos worldPosition, BlockState blockState) {
+    public GuildmasterBell(BlockEntityType<?> type, BlockPos worldPosition, BlockState blockState) {
         super(type, worldPosition, blockState);
     }
 
@@ -41,20 +41,20 @@ public class GuildmasterBell extends BlockEntity {
     }
 
     public void setGuildmaster(@Nullable UUID guildmaster) {
-            this.guildmaster = guildmaster;
+        this.guildmaster = guildmaster;
     }
 
-    public boolean getInitiated(){
-            return this.initiated;
+    public boolean getInitiated() {
+        return this.initiated;
     }
 
-    public void setInitiated(boolean initiated){
-            this.initiated = initiated;
+    public void setInitiated(boolean initiated) {
+        this.initiated = initiated;
     }
 
     @Override
     public void load(@Nonnull CompoundTag nbt) {
-    super.load(nbt);
+        super.load(nbt);
         this.player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
         this.guildmaster = nbt.hasUUID("guildmasterId") ? nbt.getUUID("guildmasterId") : null;
         this.initiated = nbt.getBoolean("initiated");

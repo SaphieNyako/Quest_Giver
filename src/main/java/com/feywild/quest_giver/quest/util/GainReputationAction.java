@@ -7,12 +7,12 @@ public class GainReputationAction {
     private ResourceLocation faction;
     private Integer reputation;
 
-    public GainReputationAction(ResourceLocation faction, Integer reputation){
+    public GainReputationAction(ResourceLocation faction, Integer reputation) {
         this.faction = faction;
         this.reputation = reputation;
     }
 
-    public GainReputationAction(String faction, Integer reputation){
+    public GainReputationAction(String faction, Integer reputation) {
         this.faction = new ResourceLocation(faction);
         this.reputation = reputation;
     }
@@ -29,7 +29,7 @@ public class GainReputationAction {
         return faction;
     }
 
-    public String getFactionPath(){
+    public String getFactionPath() {
         return faction.getPath();
     }
 
@@ -37,7 +37,7 @@ public class GainReputationAction {
         this.faction = faction;
     }
 
-    public void setFaction(String faction){
+    public void setFaction(String faction) {
         this.faction = new ResourceLocation(faction);
     }
 }

@@ -2,12 +2,8 @@ package com.feywild.quest_giver.mixin;
 
 import com.feywild.quest_giver.util.GuildGenUtils;
 import com.feywild.quest_giver.util.LimitedJigsawPlacement$Placer;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.ModifyReceiver;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
@@ -19,11 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Mixin(JigsawPlacement.Placer.class)

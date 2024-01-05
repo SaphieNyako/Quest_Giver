@@ -49,7 +49,7 @@ public class QuestReward {
         RewardType<Object> reward = (RewardType<java.lang.Object>)
                 RewardTypes.getType(new ResourceLocation(json.get("id").getAsString()));
         Object element = reward.fromJson(json);
-        int times = json.get("times").getAsInt();
+        int times = json.has("times") ? json.get("times").getAsInt() : 1;
         return new QuestReward(reward, element, times);
     }
 }

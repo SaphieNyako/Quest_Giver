@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public class PlaySoundSerializer implements PacketSerializer<PlaySoundSerializer.Message> {
 
-
     @Override
     public Class<Message> messageClass() {
         return PlaySoundSerializer.Message.class;
@@ -15,7 +14,6 @@ public class PlaySoundSerializer implements PacketSerializer<PlaySoundSerializer
     @Override
     public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(msg.playSound);
-
     }
 
     @Override
@@ -27,7 +25,6 @@ public class PlaySoundSerializer implements PacketSerializer<PlaySoundSerializer
     public static class Message {
 
         public final ResourceLocation playSound;
-
 
         public Message(ResourceLocation playSound) {
             this.playSound = playSound;

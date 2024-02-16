@@ -6,7 +6,7 @@ import java.util.List;
 
 public class QuestConfig {
 
-    public static class quests{
+    public static class quests {
 
         @Config("Armorer Quest numbers")
         public static List<Integer> armorer_quests = List.of(1);
@@ -79,6 +79,5 @@ public class QuestConfig {
 
         @Config("Beekeeper Quest numbers")
         public static List<Integer> beekeeper_quests = List.of(25);
-
     }
 }

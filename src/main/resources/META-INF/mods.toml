@@ -3,7 +3,7 @@ loaderVersion="[39,)"
 license="MIT"
 [[mods]]
 modId="quest_giver"
-version="${file.jarVersion}"
+version="\${file.jarVersion}"
 displayName="Quest Giver"
 logoFile="quest_giver.png"
 credits="Feywild Community"

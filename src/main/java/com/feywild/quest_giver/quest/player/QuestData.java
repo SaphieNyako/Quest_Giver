@@ -19,12 +19,11 @@ public class QuestData {
     @Nullable
     private ServerPlayer player;
 
-    @SuppressWarnings("removal")
     public static QuestData get(ServerPlayer player) {
         // Capability should always be there.
         // If not print a warning and get default instance
         return player.getCapability(CapabilityQuests.QUESTS).orElseGet(() -> {
-            QuestGiverMod.getInstance().logger.warn("Quest Data capability not present on player: " + player);
+            QuestGiverMod.LOGGER.warn("Quest Data capability not present on player: " + player);
             return new QuestData();
         });
     }
@@ -59,7 +58,7 @@ public class QuestData {
             return null;
         }
     }
-    
+
     public void acceptQuestNumber(QuestNumber questNumber) {
         if (this.questLines.containsKey(questNumber)) {
             this.questLines.get(questNumber).approve();
@@ -73,7 +72,7 @@ public class QuestData {
     public void reset() {
         this.questLines.clear();
     }
-    
+
     @Nullable
     public QuestLineData getQuestLine(QuestNumber questNumber) {
         return this.questLines.getOrDefault(questNumber, null);

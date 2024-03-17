@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(JigsawPlacement.class)
 public class MixinJigsawPlacement {
     @Inject(
+            remap = false,
             method = {"lambda$addPieces$0", "m_210268_"},
             at = @At(value = "INVOKE", target = "Ljava/util/Deque;addLast(Ljava/lang/Object;)V"))
     private static void preGenerate2(

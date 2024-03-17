@@ -8,6 +8,7 @@ import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import mods.thecomputerizer.reputation.api.ReputationHandler;
@@ -57,7 +58,8 @@ import java.util.Random;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QuestGuardVillager extends Guard {
 
-    public static final EntityDataAccessor<Integer> QUEST_NUMBER = SynchedEntityData.defineId(QuestGuardVillager.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> QUEST_NUMBER =
+            SynchedEntityData.defineId(QuestGuardVillager.class, EntityDataSerializers.INT);
     private boolean setQuestNumber = false;
 
     private boolean isInteracting = false;
@@ -68,20 +70,29 @@ public class QuestGuardVillager extends Guard {
         this.noCulling = true;
     }
 
-    public static boolean canSpawn(EntityType<? extends QuestGuardVillager> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock()) ;
+    public static boolean canSpawn(
+            EntityType<? extends QuestGuardVillager> entity,
+            LevelAccessor level,
+            MobSpawnType reason,
+            BlockPos pos,
+            Random random) {
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags())
+                        .getTag(BlockTags.DIRT)
+                        .contains(level.getBlockState(pos.below()).getBlock())
+                || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags())
+                        .getTag(BlockTags.SAND)
+                        .contains(level.getBlockState(pos.below()).getBlock());
     }
 
-
-    public QuestNumber getQuestNumber(){
-            try {
-                return QuestNumber.values()[this.entityData.get(QUEST_NUMBER)];
-            } catch(ArrayIndexOutOfBoundsException exception) {
-                return QuestNumber.values()[0];
-            }
+    public QuestNumber getQuestNumber() {
+        try {
+            return QuestNumber.values()[this.entityData.get(QUEST_NUMBER)];
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            return QuestNumber.values()[0];
+        }
     }
 
-    public void setQuestNumber(Integer questNumber){
+    public void setQuestNumber(Integer questNumber) {
         this.entityData.set(QUEST_NUMBER, questNumber);
     }
 
@@ -140,16 +151,26 @@ public class QuestGuardVillager extends Guard {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Raider.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Illusioner.class, true));
         if (GuardConfig.AttackAllMobs) {
-            this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Mob.class, 5, true, true, (mob) -> mob instanceof Enemy && !GuardConfig.MobBlackList.contains(((Mob)mob).getEncodeId())));
+            this.targetSelector.addGoal(
+                    3,
+                    new NearestAttackableTargetGoal(
+                            this,
+                            Mob.class,
+                            5,
+                            true,
+                            true,
+                            (mob) -> mob instanceof Enemy
+                                    && !GuardConfig.MobBlackList.contains(((Mob) mob).getEncodeId())));
         }
 
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(
+                3, new NearestAttackableTargetGoal(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, Zombie.class, true));
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal(this, false));
     }
 
     public boolean isAngryAt(Object entity) {
-        if(entity instanceof LivingEntity living) return super.isAngryAt(living);
+        if (entity instanceof LivingEntity living) return super.isAngryAt(living);
         return false;
     }
 
@@ -170,7 +191,7 @@ public class QuestGuardVillager extends Guard {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         super.readAdditionalSaveData(compound);
-        if(compound.contains("QuestNumber")) {
+        if (compound.contains("QuestNumber")) {
             this.entityData.set(QUEST_NUMBER, compound.getInt("QuestNumber"));
         }
         this.setQuestNumber = compound.getBoolean("SetQuestNumber");
@@ -194,13 +215,15 @@ public class QuestGuardVillager extends Guard {
 
     @Nonnull
     @Override
-    public InteractionResult mobInteract(@Nonnull Player player , @Nonnull InteractionHand hand) {
-    	if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
+    public InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+        if (player.isSecondaryUseActive()) return super.mobInteract(player, hand);
 
         if (player instanceof ServerPlayer) {
-            if(!setQuestNumber){
+            if (!setQuestNumber) {
                 Random random = new Random();
-                this.entityData.set(QUEST_NUMBER, QuestConfig.quests.guard_quests.get(random.nextInt(QuestConfig.quests.guard_quests.size())));
+                this.entityData.set(
+                        QUEST_NUMBER,
+                        QuestConfig.quests.guard_quests.get(random.nextInt(QuestConfig.quests.guard_quests.size())));
                 this.setQuestNumber = true;
             }
 
@@ -208,16 +231,23 @@ public class QuestGuardVillager extends Guard {
                 player.swing(hand, true);
             } else {
                 ItemStack stack = player.getItemInHand(hand);
-                if (stack.isEmpty() && ReputationHandler.getReputation(player, ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager"))) >= 0) {
-                    if (stack.isEmpty()) {
-                        PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null).orElse(null);
-                        if (!playerPatch.isBattleMode()) {
-                            this.interactQuest((ServerPlayer) player, hand);
-                            this.isInteracting = true;
-                            this.recentInteractingPlayer = player;
-                        } else {
-                            (player).sendMessage(new TranslatableComponent("message.quest_giver.punch_locals"), player.getUUID());
-                        }
+                if (stack.isEmpty()
+                        && ReputationHandler.getReputation(
+                                        player,
+                                        ReputationHandler.getFaction(ResourceLocation.tryParse("reputation:villager")))
+                                >= 0) {
+                    PlayerPatch<?> playerPatch =
+                            (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY, null)
+                                    .orElse(null);
+                    if (!playerPatch.isBattleMode()) {
+                        this.interactQuest((ServerPlayer) player, hand);
+                        this.isInteracting = true;
+                        this.recentInteractingPlayer = player;
+                    } else {
+                        (player)
+                                .sendMessage(
+                                        new TranslatableComponent("message.quest_giver.punch_locals"),
+                                        player.getUUID());
                     }
                 }
             }
@@ -230,28 +260,56 @@ public class QuestGuardVillager extends Guard {
         QuestData quests = QuestData.get(player);
         Component name = this.hasCustomName() ? getCustomName() : getDisplayName();
 
-        if(this.getQuestNumber()!=null) { //returns null if the villager has no profession
+        if (this.getQuestNumber() != null) { // returns null if the villager has no profession
             if (quests.canComplete(this.getQuestNumber())) {
-                QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).completePendingQuest();
+                QuestDisplay completionDisplay = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber()))
+                        .completePendingQuest();
 
                 if (completionDisplay != null) {
-                    QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false, name, this.getQuestNumber(), this.blockPosition(), this.getId()));
+                    QuestGiverMod.getNetwork()
+                            .channel
+                            .send(
+                                    PacketDistributor.PLAYER.with(() -> player),
+                                    new OpenQuestDisplaySerializer.Message(
+                                            completionDisplay,
+                                            false,
+                                            name,
+                                            this.getQuestNumber(),
+                                            this.blockPosition(),
+                                            this.getId()));
                     player.swing(hand, true);
                     playRandomVillagerSound();
 
                 } else {
-                    List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber())).getQuests();
+                    List<SelectableQuest> active = Objects.requireNonNull(quests.getQuestLine(this.getQuestNumber()))
+                            .getQuests();
 
                     if (active.size() == 1) {
-                        QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false, name, this.getQuestNumber(), this.blockPosition(), this.getId()));
+                        QuestGiverMod.getNetwork()
+                                .channel
+                                .send(
+                                        PacketDistributor.PLAYER.with(() -> player),
+                                        new OpenQuestDisplaySerializer.Message(
+                                                active.get(0).display,
+                                                false,
+                                                name,
+                                                this.getQuestNumber(),
+                                                this.blockPosition(),
+                                                this.getId()));
                         player.swing(hand, true);
                         playRandomVillagerSound();
 
                     } else if (!active.isEmpty()) {
-                        QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                                () -> player), new OpenQuestSelectionSerializer.Message(name, this.getQuestNumber(), active, this.blockPosition(), this.getId()));
+                        QuestGiverMod.getNetwork()
+                                .channel
+                                .send(
+                                        PacketDistributor.PLAYER.with(() -> player),
+                                        new OpenQuestSelectionSerializer.Message(
+                                                name,
+                                                this.getQuestNumber(),
+                                                active,
+                                                this.blockPosition(),
+                                                this.getId()));
                         player.swing(hand, true);
                         playRandomVillagerSound();
                     } else {
@@ -263,8 +321,17 @@ public class QuestGuardVillager extends Guard {
             } else {
                 QuestDisplay initDisplay = quests.initialize(this.getQuestNumber());
                 if (initDisplay != null) {
-                    QuestGiverMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(
-                            () -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true, name, this.getQuestNumber(), this.blockPosition(), this.getId()));
+                    QuestGiverMod.getNetwork()
+                            .channel
+                            .send(
+                                    PacketDistributor.PLAYER.with(() -> player),
+                                    new OpenQuestDisplaySerializer.Message(
+                                            initDisplay,
+                                            true,
+                                            name,
+                                            this.getQuestNumber(),
+                                            this.blockPosition(),
+                                            this.getId()));
                     player.swing(hand, true);
                     playRandomVillagerSound();
                 } else {
@@ -283,30 +350,36 @@ public class QuestGuardVillager extends Guard {
     private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!stack.isEmpty()) {
-            if (QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
+            for (final QuestLineData data :
+                    QuestData.get(player).getAllQuestLines().values()) {
                 if (!player.isCreative()) stack.shrink(1);
-                player.sendMessage(new TranslatableComponent("message.quest_giver.accept_gift",player.getName().getContents()), player.getUUID());
-                return true;
+                if (data.checkComplete(GiftTask.INSTANCE, stack)) {
+                    player.sendMessage(
+                            new TranslatableComponent(
+                                    "message.quest_giver.accept_gift",
+                                    player.getName().getContents()),
+                            player.getUUID());
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public int getRandomNumber(int min, int max, int start){
+    public int getRandomNumber(int min, int max, int start) {
         setQuestNumber = true;
         Random random = new Random();
         int sum = max - min;
-        int randomNumber = max - random.nextInt(sum) ;
+        int randomNumber = max - random.nextInt(sum);
         if (random.nextInt(sum + 1) <= 1) {
             return randomNumber;
-        }
-        else {
+        } else {
             return start;
         }
     }
 
-    protected void playRandomVillagerSound(){
-        switch (random.nextInt(6)){
+    protected void playRandomVillagerSound() {
+        switch (random.nextInt(6)) {
             case 2 -> this.playSound(SoundEvents.VILLAGER_TRADE, this.getSoundVolume(), this.getVoicePitch());
             case 3 -> this.playSound(SoundEvents.VINDICATOR_CELEBRATE, this.getSoundVolume(), this.getVoicePitch());
             case 4 -> this.playSound(SoundEvents.VILLAGER_YES, this.getSoundVolume(), this.getVoicePitch());

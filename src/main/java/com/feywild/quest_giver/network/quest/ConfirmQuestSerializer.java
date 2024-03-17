@@ -25,19 +25,7 @@ public class ConfirmQuestSerializer implements PacketSerializer<ConfirmQuestSeri
         QuestNumber questNumber = buffer.readEnum(QuestNumber.class);
         RenderEnum icon = buffer.readEnum(RenderEnum.class);
         return new Message(accept, questNumber, icon);
-
     }
 
-    public static class Message {
-
-        public final boolean accept;
-        public final QuestNumber questNumber;
-        public final RenderEnum icon;
-
-        public Message(boolean accept, QuestNumber questNumber, RenderEnum icon) {
-            this.accept = accept;
-            this.questNumber = questNumber;
-            this.icon = icon;
-        }
-    }
+    public record Message(boolean accept, QuestNumber questNumber, RenderEnum icon) {}
 }

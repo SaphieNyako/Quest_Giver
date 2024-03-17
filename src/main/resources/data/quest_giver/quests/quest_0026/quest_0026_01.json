@@ -1,0 +1,32 @@
+{
+	"parent": "quest_giver:root",
+	"reputation": 0,
+	"icon": "minecraft:iron_sword",
+	"start": {
+		"title": {
+			"text": "So?"
+		},
+		"description": {
+			"text": "I can teach you the skill - Vampirize for 15 emeralds."
+		}
+	},
+	"complete": {
+		"title": {
+			"text": "Thanks!"
+		},
+		"description": {
+			"text": "Here you go."
+		}
+	},
+	"tasks": [{
+		"item": {
+			"item": "minecraft:emerald"
+		},
+      "id": "quest_giver:gift",
+      "times": 5
+	}],
+	"rewards": [{
+		"command": "give @p epicfight:skillbook{skill:\"epicfight:roll\"}",
+		"id": "quest_giver:command"
+	}]
+}

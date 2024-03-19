@@ -227,7 +227,7 @@ public class QuestGuardVillager extends Guard {
                 this.setQuestNumber = true;
             }
 
-            if (this.tryAcceptGift((ServerPlayer) player, hand)) {
+            if (QuestVillager.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else {
                 ItemStack stack = player.getItemInHand(hand);
@@ -345,25 +345,6 @@ public class QuestGuardVillager extends Guard {
                 this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
             }
         }
-    }
-
-    private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (!stack.isEmpty()) {
-            for (final QuestLineData data :
-                    QuestData.get(player).getAllQuestLines().values()) {
-                if (!player.isCreative()) stack.shrink(1);
-                if (data.checkComplete(GiftTask.INSTANCE, stack)) {
-                    player.sendMessage(
-                            new TranslatableComponent(
-                                    "message.quest_giver.accept_gift",
-                                    player.getName().getContents()),
-                            player.getUUID());
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public int getRandomNumber(int min, int max, int start) {

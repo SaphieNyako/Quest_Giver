@@ -8,6 +8,7 @@ import com.feywild.quest_giver.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.quest_giver.quest.QuestDisplay;
 import com.feywild.quest_giver.quest.QuestNumber;
 import com.feywild.quest_giver.quest.player.QuestData;
+import com.feywild.quest_giver.quest.player.QuestLineData;
 import com.feywild.quest_giver.quest.task.GiftTask;
 import com.feywild.quest_giver.quest.util.SelectableQuest;
 import com.samebutdifferent.morevillagers.init.ModProfessions;
@@ -337,13 +338,20 @@ public class QuestVillager extends Villager {
         }
     }
 
-    private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
+    public static boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!stack.isEmpty()) {
-            if (QuestData.get(player).checkComplete(GiftTask.INSTANCE, stack)) {
+            for (final QuestLineData data :
+                    QuestData.get(player).getAllQuestLines().values()) {
                 if (!player.isCreative()) stack.shrink(1);
-                player.sendMessage(new TranslatableComponent("message.quest_giver.accept_gift",player.getName().getContents()), player.getUUID());
-                return true;
+                if (data.checkComplete(GiftTask.INSTANCE, stack)) {
+                    player.sendMessage(
+                            new TranslatableComponent(
+                                    "message.quest_giver.accept_gift",
+                                    player.getName().getContents()),
+                            player.getUUID());
+                    return true;
+                }
             }
         }
         return false;
